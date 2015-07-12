@@ -11,6 +11,7 @@ use App\Category;
 use App\Operation;
 use Session;
 use DB;
+use Carbon\Carbon;
 
 class OperationsController extends Controller
 {
@@ -22,7 +23,7 @@ class OperationsController extends Controller
     public function index()
     {
         
-        $operations = Operation::orderBy('created_at', 'desc')->get();
+        $operations = Operation::orderBy('created', 'desc')->get();
         
         return view('operations.index')->with('operations', $operations);
     }
@@ -60,7 +61,7 @@ class OperationsController extends Controller
      */
     public function store(Request $req)
     {
-        
+  
         //todo добавить правила валидации
         
         $this->validate($req,[
@@ -80,14 +81,29 @@ class OperationsController extends Controller
             Session::flash('flash_error', 'Не достаточно средств на счете');
             return redirect()->back();
         }
-        
+       
+        if ($req->input('created') > Carbon::now()) {
+            Session::flash('flash_error', 'Время операции больше текущей');
+            return redirect()->back();
+        }
         
         $amount = $type == 'income' ? $amount : -$amount;
         
         //транзакция
         DB::beginTransaction();
         try{
-            Operation::create($req->input());            
+            //Operation::create($req->input()); 
+            
+            $op = new Operation();
+            
+            $op->created = $req->input('created');
+            //$op->user_id = $req->input('user_id');
+            $op->bills_id = $req->input('bills_id');
+            $op->category_id = $req->input('category_id');
+            $op->type = $req->input('type');
+            $op->amount = $req->input('amount');
+            $op->save();
+            
             
             $bill->amount = floatval($bill->amount) + floatval($amount);
             $bill->save();
@@ -95,7 +111,7 @@ class OperationsController extends Controller
             throw new Exception($e->getMessage());
             DB:rollback();
         }
-        
+                
         DB::commit();
         //конец транзакции
         
@@ -144,6 +160,30 @@ class OperationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $op = Operation::findOrFail($id);
+        
+        $bill = Bills::findOrFail($op->bills_id);       
+        
+        $amount  = $op->type == 'income' ? -$op->amount : $op->amount;
+        
+        
+        DB::beginTransaction();
+        
+        try{
+            
+            $bill->amount =$bill->amount + $amount;
+            $bill->save();
+            
+            $op->delete();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+            
+        }
+        
+        DB::commit();    
+        Session::flash('flash_message', 'Операция успешно удалена');
+        
+        return redirect(route('operations.index'));
     }
 }

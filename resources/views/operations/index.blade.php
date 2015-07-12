@@ -5,20 +5,45 @@
 
 @include('partials.alerts.error')
 
+@if(Session::has('flash_message'))
+    <div class='alert alert-success'>
+        <p>{{Session::get('flash_message')}}</p>
+    </div>
+@endif
+
+<script>
+   
+     $(document).ready(function(){
+         
+         $('.remove_operation').click(function(){
+             $(this).next('form').submit();
+         })
+         
+     })  
+
+</script>
 <table class='table'>
     <thead>
         <th>Дата и время</th>
         <th>Счет</th>
         <th>Категория</th>
         <th>Сумма</th>
+        <th></th>
     </thead>
     <tbody>
         @forelse($operations as $op)
         <tr class='{{$op->type=='income' ? 'success' : 'danger'}}'>
-            <td>{{$op->created_at}}</td>
+            <td>{{$op->created}}</td>
             <td>{{$op->bill->name}}</td>
             <td>{{$op->category->name}}</td>
             <td>{{$op->amount}}</td>
+            <td>
+                <button class="remove_operation btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
+                <form method="POST" action="{{route('operations.destroy', $op->id)}}">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="_method" value="DELETE">                  
+                </form>
+            </td>
         </tr>
         @empty
         <tr>

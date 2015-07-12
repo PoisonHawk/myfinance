@@ -14,13 +14,13 @@
 <script>
     $(document).ready(function(){
         
-        $('input[name=date]').datepicker({dateFormat:'dd-mm-yy'})
+        $('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
     })
 </script>
 <form method='POST' action='{{route('operations.store')}}'>
     <div class='form-group'>
         <label class='control-label'>Дата:</label>
-        <input type='text' name='date' class='form-control' value='{{$today}}'>
+        <input type='text' name='created' class='form-control' value='{{$today}}'>
     </div>    
     <!--Счет-->
     <div class='form-group'>

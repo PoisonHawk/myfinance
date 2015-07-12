@@ -8,6 +8,7 @@ class Operation extends Model
 {
     //
     protected $fillable = [
+        'created',
         'user_id',
         'bills_id',
         'category_id',

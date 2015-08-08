@@ -1,14 +1,17 @@
 <style>
-    form{
-        max-width:300px;
+    .panel{
+        max-width:330px;
         margin: 0 auto;
+        padding:25px;
     }
 </style>
 @extends('layouts.main')
 
 @section('content')
+<div class='panel panel-primary'>
+    <div class='panel-body'>
   {!! Form::open(array('url' => '/auth/login', 'class' => 'form-horizontal', 'role'=>'form')) !!}
-  <h1>Please Log in</h1>
+  <!--<h1>Please Log in</h1>-->
   @if (count($errors) > 0)
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -27,10 +30,12 @@
       <input type='password' name='password' class='form-control' placeholder='Password'> 
   </div>
   <div class="form-group">  
-      <input type='submit' value='Login' class='btn btn-primary' placeholder='Password'> 
+      <input type='submit' value='Login' class='btn btn-primary form-control' placeholder='Password'> 
   </div>  
     
 
-  <p>Not a member?  <a href="/auth/register">Register here</a>.</p>
+  <!--<p>Not a member?  <a href="/auth/register">Register here</a>.</p>-->
     {!! Form::close() !!}
+    </div>
+</div>
 @stop

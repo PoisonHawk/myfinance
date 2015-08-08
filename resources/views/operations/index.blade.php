@@ -19,23 +19,23 @@
              $(this).next('form').submit();
          })
          
+         
+         $('#from_date').datepicker({dateFormat:'dd.mm.yy'});
+         $('#to_date').datepicker({dateFormat:'dd.mm.yy'});
+         
+         
      })  
 
 </script>
-{!! Form::open() !!}
-    <div class="form-group">
-        {!! Form::label('from_date', 'Дата с:') !!}
-        {!! Form::text('from_date') !!}
-    </div>
 
-{!! Form::close() !!}
-<form action='{{route('operations.index')}}'>
-    <div class='form-group'>
-        <label>Дата с</label>
-        <input type='date' name='from_date'>
-        <label>по</label>
-        <input type='date' name='to_date'>
-    </div>
+<form action='{{route('operations.index')}}' class="form-inline">  
+        {!! Form::label('from_date', 'Дата с ')!!}
+        {!! Form::text('from_date', $from_date, array('id'=>'from_date', 'class'=>'input-small'))!!}
+        {!! Form::label('to_date', 'по ')!!}       
+        {!! Form::text('to_date', $to_date, array('id'=>'to_date'))!!}
+        {!! Form::label('bill', 'Счет')!!}  
+        {!! Form::select('bill', $bills, $bill) !!}
+        {!! Form::submit('Поиск', array('class' => 'btn btn-default'))!!}        
 </form>
 
 

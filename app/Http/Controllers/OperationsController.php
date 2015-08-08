@@ -12,6 +12,7 @@ use App\Operation;
 use Session;
 use DB;
 use Carbon\Carbon;
+use Auth;
 
 class OperationsController extends Controller
 {
@@ -26,13 +27,47 @@ class OperationsController extends Controller
      * @return Response
      */
     public function index(Request $req)
-    {
+    {          
+              
+        $startOfMonth   = mktime(0,0,0, date('m', time()), 1, date('Y', time()));                 
+        
+        $default_from   = date('d.m.Y', $startOfMonth);
+        $default_to     = date('d.m.Y', time());
+               
+        $from_date      = $req->input('from_date', $default_from);
+        $to_date        = $req->input('to_date', $default_to);
+      
+        $temp = explode('.', $from_date);
+        $from = implode('-', array_reverse($temp));
+        
+        $temp = explode('.', $to_date);
+        $to = implode('-', array_reverse($temp));
+        
+        $operations = Operation::where('created', '>=', $from)
+                ->where('created', '<=', $to)
+                ->where('user_id', '=', Auth::user()->id);
+        
+        $bill = $req->input('bill');   
+        
+        if ($bill !=0) {           
+            $operations = $operations->where('bills_id', '=', $bill);
+        }
+        
+        $operations = $operations->orderBy('created', 'desc')->get();
+         
+        //получаем список счетов        
+        $bills = array('0' => 'Все');
+        
+        foreach(Bills::where('user_id','=', Auth::user()->id)->get() as $b) {
+            $bills[$b->id] = $b->name;
+        }               
                 
-        
-        $operations = Operation::orderBy('created', 'desc')->get();
-        
         $data = array(
             'operations' => $operations,
+            'to_date' => $to_date,
+            'from_date' => $from_date,
+            'bills' => $bills,
+            'bill' => $bill,
             
         );        
         
@@ -49,9 +84,11 @@ class OperationsController extends Controller
         
        $type = $req->input('type'); 
            
-       $bills = Bills::all(); 
+       $bills = Bills::where('user_id','=', Auth::user()->id)->get(); 
        
-       $category = Category::where('type', '=', $type)->get();
+       $category = Category::where('type', '=', $type)
+               ->where('user_id','=', Auth::user()->id)
+               ->get();
         
        $data = [
            'today' => date('d-m-Y H:i:s', time()),
@@ -110,7 +147,7 @@ class OperationsController extends Controller
             $op = new Operation();
             
             $op->created = $req->input('created');
-            //$op->user_id = $req->input('user_id');
+            $op->user_id = Auth::user()->id;
             $op->bills_id = $req->input('bills_id');
             $op->category_id = $req->input('category_id');
             $op->type = $req->input('type');
@@ -130,6 +167,7 @@ class OperationsController extends Controller
         
         
         return redirect(route('operations.index'));
+        
     }
 
     /**

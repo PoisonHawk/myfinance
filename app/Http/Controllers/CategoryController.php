@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -18,7 +19,7 @@ class CategoryController extends Controller
     public function income(){
                 
         
-        $categories = Category::where('type', '=', 'income')->get();
+        $categories = Category::where('type', '=', 'income')->where('user_id','=',Auth::user()->id)->get();
         
         
         $data = [
@@ -32,7 +33,7 @@ class CategoryController extends Controller
     
     public function outcome(){
         
-        $categories = Category::where('type', '=', 'outcome')->get();
+        $categories = Category::where('type', '=', 'outcome')->where('user_id','=',Auth::user()->id)->get();
         
         
         $data = [
@@ -84,6 +85,7 @@ class CategoryController extends Controller
         ]);
         
         $input = $req->input();
+        $input['user_id'] = Auth::user()->id;
         
         Category::create($input);
         

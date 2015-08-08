@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Bills;
 use Session;
+use Auth;
 
 class BillsController extends Controller
 {
@@ -23,7 +24,7 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $bills = Bills::all();
+        $bills = Bills::where('user_id', '=', Auth::user()->id)->get();
         
         return view('bills.index')->with('bills', $bills);
     }
@@ -55,6 +56,7 @@ class BillsController extends Controller
            
                
         $input = $request->all();
+        $input['user_id'] = Auth::user()->id;
         
         Bills::create($input);
         

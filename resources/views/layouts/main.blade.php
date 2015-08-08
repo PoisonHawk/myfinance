@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Myfinance</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -21,12 +21,13 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">Myfinance</a>
     </div>
-    <div class="nav navbar-nav navbar-right">
-        <li><a href="/">Главная</a></li>
+    <div class="nav navbar-nav navbar-right">      
+        <?php if (Auth::user()):?>
         <li><a href="{{route('bills.index')}}">Счета</a></li>
         <li><a href="{{route('operations.index')}}">Операции</a></li>
-        <li><a href="{{route('category.index')}}">Категории</a></li>
-        
+        <li><a href="{{route('category.index')}}">Категории</a></li>        
+        <li><a href='/auth/logout'>Выход</a></li>
+        <?php endif;?>
     </div>
   </div>
 </nav>

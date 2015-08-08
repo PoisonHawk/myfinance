@@ -20,12 +20,18 @@ class OperationsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $req)
     {
+                
         
         $operations = Operation::orderBy('created', 'desc')->get();
         
-        return view('operations.index')->with('operations', $operations);
+        $data = array(
+            'operations' => $operations,
+            
+        );        
+        
+        return view('operations.index', $data);
     }
 
     /**
@@ -77,7 +83,9 @@ class OperationsController extends Controller
         
         //todo проверка на существование
         
-        if ($type == 'outcome' and $bill->amount < $amount) {
+        $amount = str_replace(',','.',$amount);
+        
+        if ($type == 'outcome' and floatval($bill->amount) < floatval($amount)) {
             Session::flash('flash_error', 'Не достаточно средств на счете');
             return redirect()->back();
         }

@@ -22,6 +22,23 @@
      })  
 
 </script>
+{!! Form::open() !!}
+    <div class="form-group">
+        {!! Form::label('from_date', 'Дата с:') !!}
+        {!! Form::text('from_date') !!}
+    </div>
+
+{!! Form::close() !!}
+<form action='{{route('operations.index')}}'>
+    <div class='form-group'>
+        <label>Дата с</label>
+        <input type='date' name='from_date'>
+        <label>по</label>
+        <input type='date' name='to_date'>
+    </div>
+</form>
+
+
 <table class='table'>
     <thead>
         <th>Дата и время</th>

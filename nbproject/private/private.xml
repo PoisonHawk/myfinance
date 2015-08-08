@@ -3,18 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/yevgen/projects/myfinance/app/Http/routes.php</file>
+            <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/BillsController.php</file>
             <file>file:/home/yevgen/projects/myfinance/resources/views/operations/index.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php</file>
+            <file>file:/home/yevgen/projects/myfinance/resources/views/bills/index.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/Auth/AuthController.php</file>
+            <file>file:/home/yevgen/projects/myfinance/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php</file>
+            <file>file:/home/yevgen/projects/myfinance/resources/views/bills/create.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/vendor/laravel/framework/src/Illuminate/Http/Request.php</file>
+            <file>file:/home/yevgen/projects/myfinance/app/Operation.php</file>
+            <file>file:/home/yevgen/projects/myfinance/resources/views/auth/login.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/resources/views/auth/register.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/app/Http/routes.php</file>
             <file>file:/home/yevgen/projects/myfinance/app/Bills.php</file>
             <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/CategoryController.php</file>
             <file>file:/home/yevgen/projects/myfinance/resources/views/layouts/main.blade.php</file>
             <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/OperationsController.php</file>
-            <file>file:/home/yevgen/projects/myfinance/resources/views/bills/create.blade.php</file>
-            <file>file:/home/yevgen/projects/myfinance/app/Operation.php</file>
-            <file>file:/home/yevgen/projects/myfinance/resources/views/category/create.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php</file>
             <file>file:/home/yevgen/projects/myfinance/resources/views/operations/create.blade.php</file>
             <file>file:/home/yevgen/projects/myfinance/resources/views/bills/edit.blade.php</file>
-            <file>file:/home/yevgen/projects/myfinance/resources/views/category/index.blade.php</file>
         </group>
     </open-files>
 </project-private>

@@ -12,6 +12,7 @@
 */
 
 Route::get('/', [
+    'middleware' => 'auth',
     'as' => 'home',
     'uses' => 'IndexController@home',
 ]);
@@ -25,3 +26,9 @@ Route::get('category/outcome', 'CategoryController@outcome');
 Route::resource('category', 'CategoryController');
 
 Route::resource('operations', 'OperationsController');
+
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+]);
+

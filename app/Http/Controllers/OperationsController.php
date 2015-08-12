@@ -152,11 +152,13 @@ class OperationsController extends Controller
             $op->category_id = $req->input('category_id');
             $op->type = $req->input('type');
             $op->amount = $req->input('amount');
+            $op->active = 1;
             $op->save();
             
             
             $bill->amount = floatval($bill->amount) + floatval($amount);
             $bill->save();
+            
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
             DB:rollback();
@@ -189,7 +191,30 @@ class OperationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $op = Operation::findOrFail($id);
+                
+        $bills = Bills::where('user_id','=', Auth::user()->id)->get(); 
+       
+        $cat = Category::select('id', 'name')
+                ->where('type', '=', $op->type)
+                ->where('user_id','=', Auth::user()->id)
+                ->get()
+                ->toArray();
+        
+        $category = array();
+        
+        foreach($cat as $c) {
+            $category[$c['id']] = $c['name'];
+        }
+        
+        $data = [           
+           'bills' => $bills,
+           'category' => $category,
+           'type' => $op->type,
+           'op' => $op, 
+           ];
+        
+        return view('operations.edit', $data);
     }
 
     /**
@@ -198,9 +223,40 @@ class OperationsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $req)
     {
-        //
+       
+        //todo добавить правила валидации
+        
+        $this->validate($req,[
+            'amount' => 'required|numeric',
+        ]);
+        
+        $op = Operation::find($id);
+        
+        $bill_id    = $req->input('bills_id');
+        $amount     = $req->input('amount');
+        $type       = $req->input('type');
+        
+        $bill = Bills::find($bill_id);
+        
+        //todo проверка на существование
+        
+        $amount = str_replace(',','.',$amount);
+        
+        if ($type == 'outcome' and floatval($bill->amount) < floatval($amount)) {
+            Session::flash('flash_error', 'Не достаточно средств на счете');
+            return redirect()->back();
+        }
+       
+        if ($req->input('created') > Carbon::now()) {
+            Session::flash('flash_error', 'Время операции больше текущей');
+            return redirect()->back();
+        }
+                 
+        $op->operationTransact($req->input());
+        
+        return redirect(route('operations.index'));
     }
 
     /**
@@ -236,5 +292,50 @@ class OperationsController extends Controller
         Session::flash('flash_message', 'Операция успешно удалена');
         
         return redirect(route('operations.index'));
+    }
+    
+    public function transfer(Request $req) {
+        
+        return view('operations.transfer');
+    }
+    
+    
+    /**
+     * Отмена операции
+     * @param int $id
+     * @return Response
+     */
+    public function cancel($id) {
+               
+        $ans = ['status' => 'failed', 'error' => '']; 
+                        
+        $op = Operation::findOrFail($id);
+        
+        if (!$op) {
+            return;
+        }
+        
+        if ($op->active == 0) {
+            return;
+        }
+        
+        $amount = $op->type == 'outcome' ? $op->amount : -$op->amount;
+          
+        try {
+            $op->bill->amount = $op->bill->amount + $amount;
+            $op->bill->save();
+            
+            $op->active = 0;
+            $op->save();
+            
+        } catch (Exception $e) {
+            $ans['error'] = $e->getMessage();
+            return response(json_encode($ans));
+        }
+        
+        $ans['status'] = 'ok';
+        
+        return response(json_encode($ans));
+
     }
 }

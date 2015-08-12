@@ -25,6 +25,7 @@ Route::get('category/outcome', 'CategoryController@outcome');
 
 Route::resource('category', 'CategoryController');
 
+Route::get('operations/{id}/cancel' , 'OperationsController@cancel');
 Route::resource('operations', 'OperationsController');
 
 Route::controllers([

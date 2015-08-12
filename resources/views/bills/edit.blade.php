@@ -3,7 +3,7 @@
 @section('content')
  
 <h1>Editing "{{ $bill->name}}"</h1>
-<p class="lead">Edit and save this task below, or <a href="{{ route('bills.index') }}">go back to all tasks.</a></p>
+<p class="lead">Edit and save this bill, or <a href="{{ route('bills.index') }}">go back to all bills.</a></p>
 <hr>
  
 @include('partials.alerts.error')
@@ -22,7 +22,7 @@
     </div>
     <div class='form-group'>
         <label class='control-label'>Начальный остаток:</label>
-        <input class='form-control 'type='text' name='amount' value='{{$bill->amount}}'>
+        <input class='form-control 'type='text' name='amount' value='{{$bill->amount}}' disabled>
     </div>
     <input type="hidden" name="_method" value="PUT">
     <input type='hidden' name='_token' value='{{csrf_token()}}'>

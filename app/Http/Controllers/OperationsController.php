@@ -32,7 +32,7 @@ class OperationsController extends Controller
         $startOfMonth   = mktime(0,0,0, date('m', time()), 1, date('Y', time()));                 
         
         $default_from   = date('d.m.Y', $startOfMonth);
-        $default_to     = date('d.m.Y', time());
+        $default_to     = date('d.m.Y', time()+24*60*60);
                
         $from_date      = $req->input('from_date', $default_from);
         $to_date        = $req->input('to_date', $default_to);
@@ -91,7 +91,7 @@ class OperationsController extends Controller
                ->get();
         
        $data = [
-           'today' => date('d-m-Y H:i:s', time()),
+           'today' => date('Y-m-d H:i', time()),
            'bills' => $bills,
            'category' => $category,
            'type' => $type,

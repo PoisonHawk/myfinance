@@ -23,8 +23,7 @@
         <th>#</th>
         <th>Название</th>
         <th>Сумма</th>
-        <th></th>
-        <th></th>
+        <th></th>        
     </thead>
     <tbody>
         @forelse($bills as $bill)
@@ -32,8 +31,8 @@
             <td></td>
             <td>{{$bill->name}}</td>
             <td>{{$bill->amount}}</td>
-            <td><a href='{{route('bills.edit', $bill->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a></td>
-            <td>
+            <td><a href='{{route('bills.edit', $bill->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>
+            
                 <button class="remove_bill btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
                 <form method="POST" action="{{route('bills.destroy', $bill->id)}}">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">

@@ -31,8 +31,7 @@ class Operation extends Model
     public function operationTransact($data){
                 
         $amount = str_replace(',','.',$data['amount']);
-        
-        
+                
         //транзакция
         DB::beginTransaction();
         try{
@@ -54,7 +53,8 @@ class Operation extends Model
         } catch (Exception $e) {
             
             // todo обработка ошибки
-            throw new Exception($e->getMessage());
+            session::flash('flash_message', 'Невозможно провести операцию');
+            //throw new Exception($e->getMessage());
             DB:rollback();
         }
                         

@@ -33,16 +33,23 @@ class CategoryController extends Controller
     
     public function outcome(){
         
-        $categories = Category::where('type', '=', 'outcome')->where('user_id','=',Auth::user()->id)->get();
+        $categories = Category::select('id', 'name', 'parent_id')->where('type', '=', 'outcome')->where('user_id','=',Auth::user()->id)->get()->toArray();
+
+//        dd($categories);
         
+        $cat = [];
+        foreach ($categories as $c) {
+            $cat[$c['parent_id']][] = $c;
+        }
+        
+//        dd($cat);
         
         $data = [
             'type' => 'outcome',
             'cat_name' => 'Расходы',
             'categories' => $categories,
         ];
-        
-        
+                
         return view('category.index', $data);
     }
     
@@ -54,7 +61,7 @@ class CategoryController extends Controller
     public function index($type='income')
     {               
        $url = url('category/'.$type); 
-        
+                      
        return redirect($url);
     }
 
@@ -66,8 +73,20 @@ class CategoryController extends Controller
     public function create(Request $req)
     {
         $type = $req->input('type');
-                
-        return view('category.create')->with('type', $type);
+                        
+        $cat = Category::select('id', 'name')->where('type', '=', $type)->get()->toArray();
+               
+        $categories = ['0' => 'Корневая'];
+        foreach($cat as $c) {
+            $categories[$c['id']] = $c['name'];
+        }
+        
+        $data = [
+            'categories' => $categories,
+            'type' => $type,
+        ];
+        
+        return view('category.create', $data);
     }
 
     /**

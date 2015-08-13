@@ -2,7 +2,7 @@
 
 @section('content')
 <div ng-controller='operationCtrl' ng-init='operationId={{$op->id}}; active={{$op->active}}'>
-<h2>Новая операция</h2>
+<h2>Операция #{{$op->id}}</h2>
 @include('partials.alerts.error')
 
 @if(Session::has('flash_error'))
@@ -47,6 +47,6 @@
     
 </form>
     <button class='btn btn-warning' ng-show='active' ng-click='cancel()'>Отменить</button>
-    <button class='btn btn-danger'>Удалить</button>
+    <button class='btn btn-danger' ng-hide='active'>Удалить</button>
 </div>
 @stop

@@ -127,46 +127,16 @@ class OperationsController extends Controller
         
         $amount = str_replace(',','.',$amount);
         
-        if ($type == 'outcome' and floatval($bill->amount) < floatval($amount)) {
-            Session::flash('flash_error', 'Не достаточно средств на счете');
-            return redirect()->back();
+        if ($type == 'outcome' and floatval($bill->amount) < floatval($amount)) {            
+            return redirect()->back()->wuth('flash_error', 'Недостаточно средств на счете' );
         }
        
-        if ($req->input('created') > Carbon::now()) {
-            Session::flash('flash_error', 'Время операции больше текущей');
-            return redirect()->back();
+        if ($req->input('created') > Carbon::now()) {            
+            return redirect()->back()->with('flash_error', 'Время операции больше текущей');
         }
         
-        $amount = $type == 'income' ? $amount : -$amount;
-        
-        //транзакция
-        DB::beginTransaction();
-        try{
-            //Operation::create($req->input()); 
-            
-            $op = new Operation();
-            
-            $op->created = $req->input('created');
-            $op->user_id = Auth::user()->id;
-            $op->bills_id = $req->input('bills_id');
-            $op->category_id = $req->input('category_id');
-            $op->type = $req->input('type');
-            $op->amount = $req->input('amount');
-            $op->active = 1;
-            $op->save();
-            
-            
-            $bill->amount = floatval($bill->amount) + floatval($amount);
-            $bill->save();
-            
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-            DB:rollback();
-        }
-                
-        DB::commit();
-        //конец транзакции
-        
+        $op = new Operation();
+        $op->operationTransact($req->input());
         
         return redirect(route('operations.index'));
         
@@ -202,7 +172,7 @@ class OperationsController extends Controller
                 ->toArray();
         
         $category = array();
-        
+
         foreach($cat as $c) {
             $category[$c['id']] = $c['name'];
         }

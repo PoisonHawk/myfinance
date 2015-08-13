@@ -2,6 +2,8 @@
 
 @section ('content')
 
+
+
 <div class="navbar-right">
     <a href="{{url('category/outcome')}}">Расходы</a>
     <a href="{{url('category/income')}}">Доходы</a> 
@@ -12,9 +14,14 @@
 
 <table class='table'>
     <tbody>
+    
+    @include('partials.categories', ['categories' => $categories, 'parent_id' => 0])
+    
+        
+        
     @forelse($categories as $category)
     <tr>
-        <td>{{$category->name}}</td>
+        <td>{{$category['name']}}</td>
     </tr>
     @empty
     <tr>Нет ни одной категории</tr>

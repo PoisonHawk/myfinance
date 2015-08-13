@@ -9,5 +9,5 @@
 
 <a href='{{route('operations.create', 'type=income')}}' class='btn btn-success'>Приход</a>
 <a href='{{route('operations.create', 'type=outcome')}}' class='btn btn-danger'>Расход</a>
-<a href='#' class='btn btn-primary'>Перемещение</a> 
+<a href='{{route('transfers.create')}}' class='btn btn-primary'>Перемещение</a> 
 @stop

@@ -28,6 +28,8 @@ Route::resource('category', 'CategoryController');
 Route::get('operations/{id}/cancel' , 'OperationsController@cancel');
 Route::resource('operations', 'OperationsController');
 
+Route::resource('transfers', 'TransferController');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

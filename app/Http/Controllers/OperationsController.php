@@ -128,7 +128,7 @@ class OperationsController extends Controller
         $amount = str_replace(',','.',$amount);
         
         if ($type == 'outcome' and floatval($bill->amount) < floatval($amount)) {            
-            return redirect()->back()->wuth('flash_error', 'Недостаточно средств на счете' );
+            return redirect()->back()->with('flash_error', 'Недостаточно средств на счете' );
         }
        
         if ($req->input('created') > Carbon::now()) {            
@@ -263,13 +263,7 @@ class OperationsController extends Controller
         
         return redirect(route('operations.index'));
     }
-    
-    public function transfer(Request $req) {
-        
-        return view('operations.transfer');
-    }
-    
-    
+            
     /**
      * Отмена операции
      * @param int $id

@@ -33,11 +33,11 @@
             <td>{{$bill->amount}}</td>
             <td><a href='{{route('bills.edit', $bill->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>
             
-                <button class="remove_bill btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
+<!--                <button class="remove_bill btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
                 <form method="POST" action="{{route('bills.destroy', $bill->id)}}">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <input type="hidden" name="_method" value="DELETE">                  
-                </form>
+                </form>-->
             </td>
         </tr>
         @empty

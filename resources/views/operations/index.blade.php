@@ -11,21 +11,17 @@
     </div>
 @endif
 
-<script>
-   
+<script>   
      $(document).ready(function(){
          
          $('.remove_operation').click(function(){
              $(this).next('form').submit();
          })
-         
-         
+                  
          $('#from_date').datepicker({dateFormat:'dd.mm.yy'});
-         $('#to_date').datepicker({dateFormat:'dd.mm.yy'});
-         
+         $('#to_date').datepicker({dateFormat:'dd.mm.yy'});         
          
      })  
-
 </script>
 
 <form action='{{route('operations.index')}}' class="form-inline">  
@@ -42,6 +38,7 @@
 <table class='table'>
     <thead>
         <th></th>
+        <!--<th></th>-->
         <th>Дата и время</th>
         <th>Счет</th>
         <th>Категория</th>
@@ -50,14 +47,15 @@
     </thead>
     <tbody>
         @forelse($operations as $op)
-        <tr class='{{$op->type=='income' ? 'success' : 'danger'}}'>
-            <td>@if($op->active == 1)<span class="text-success glyphicon glyphicon-ok">@endif</td>
+        <tr>
+            <td><span class="text-{{$op->type=='income' ? 'success' : 'danger'}} glyphicon glyphicon-{{$op->type=='income' ? 'plus' : 'minus'}}"></td>
+            <!--<td>@if($op->active == 1)<span class="text-success glyphicon glyphicon-ok">@endif</td>-->
             <td>{{$op->created}}</td>
             <td>{{$op->bill->name}}</td>
             <td>{{$op->category->name}}</td>
             <td>{{$op->amount}}</td>
             <td>
-                <a href='{{route('operations.edit', $op->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>
+                <!--<a href='{{route('operations.edit', $op->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>-->
                 <button class="remove_operation btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
                 <form method="POST" action="{{route('operations.destroy', $op->id)}}">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">

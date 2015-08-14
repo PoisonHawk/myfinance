@@ -26,9 +26,38 @@ class TransferController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        //
+        
+        $startOfMonth   = mktime(0,0,0, date('m', time()), 1, date('Y', time()));                 
+        
+        $default_from   = date('d.m.Y', $startOfMonth);
+        $default_to     = date('d.m.Y', time()+24*60*60);
+               
+        $from_date      = $req->input('from_date', $default_from);
+        $to_date        = $req->input('to_date', $default_to);
+      
+        $temp = explode('.', $from_date);
+        $from = implode('-', array_reverse($temp));
+        
+        $temp = explode('.', $to_date);
+        $to = implode('-', array_reverse($temp));
+        
+        $transfers = Transfer::where('user_id','=',Auth::user()->id)
+                ->where('created_at', '>=', $from)
+                ->where('created_at', '<=', $to)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        
+       
+        
+        $data =[
+            'transfers' => $transfers,
+            'to_date' => $to_date,
+            'from_date' => $from_date,
+        ];
+        
+        return view('transfers.index', $data);
     }
 
     /**
@@ -138,7 +167,7 @@ class TransferController extends Controller
         
         DB::commit();
         
-        return redirect(route('operations.index'));
+        return redirect(route('transfers.index'));
     }
 
     /**
@@ -183,6 +212,36 @@ class TransferController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        //todo если не существует запись
+        
+        $transfer = Transfer::findOrFail($id);        
+        
+        DB::beginTransaction();
+        
+        try{            
+        
+            //изменить балансы
+            $transfer->billFrom->amount += $transfer->amount;
+            $transfer->billFrom->save();
+
+            $transfer->billTo->amount -= $transfer->amount;
+            $transfer->billTo->save();
+            
+            //удалить связанные операции
+            $transfer->operations()->delete();
+            
+            //удалить запись
+            $transfer->delete();
+        
+        } catch  (Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
+        
+        DB::commit();
+        
+        return redirect(route('transfers.index'))->with('flash_message', 'Операция успешно удалена');
+        
     }
 }

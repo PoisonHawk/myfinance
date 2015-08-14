@@ -28,6 +28,8 @@
         <?php if (Auth::user()):?>
             <li><a href="{{route('bills.index')}}">Счета</a></li>
             <li><a href="{{route('operations.index')}}">Операции</a></li>
+            <li><a href='{{route('transfers.index')}}'>Перемещения</a></li>
+            <li><a href='#'>Отчеты</a></li>
             <li><a href="{{route('category.index')}}">Категории</a></li>        
             <li><a href='/auth/logout'>Выход</a></li>
         <?php endif;?>

@@ -28,7 +28,7 @@ Route::resource('category', 'CategoryController');
 Route::get('operations/{id}/cancel' , 'OperationsController@cancel');
 Route::resource('operations', 'OperationsController');
 
-Route::resource('transfers', 'TransferController');
+Route::resource('transfers', 'TransferController', ['only' => ['create', 'store', 'destroy']]);
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

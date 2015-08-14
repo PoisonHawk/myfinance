@@ -36,8 +36,22 @@
 </nav>
  
 <main>
-    <div class="container">
-        @yield('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                @section('left-sidebar')
+                    <p>Сайдбар</p>
+                @show
+            </div>
+            <div class="col-sm-6">
+                @yield('content')
+            </div>
+            <div class="col-sm-3">
+                @section('right-sidebar')
+                    @include('partials.bills')
+                @show
+            </div>
+        </div>
     </div>
 </main>
  

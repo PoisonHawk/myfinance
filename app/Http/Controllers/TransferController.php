@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Bills;
-use App\Operations;
+use App\Operation;
+use App\Transfer;
 use Auth;
+use DB;
 
 class TransferController extends Controller
 {
@@ -65,8 +68,7 @@ class TransferController extends Controller
         
         $this->validate($req,[
             'amount' => 'required|numeric',
-        ]);
-        
+        ]);        
         
         $bill_from_id   = $req->input('bill_from_id');
         $bill_to_id     = $req->input('bill_to_id');
@@ -91,14 +93,50 @@ class TransferController extends Controller
             return redirect()->back()->with('flash_error', 'Время операции больше текущей');
         }
         
-        //запись в трансферс
-        $transfer = Transfer();
+        $input = $req->input();
+        $input['user_id'] = Auth::user()->id;
         
-        $transfer::create($req->input());
+        DB::beginTransaction();
+        try {
+        //запись в трансферс            
+            $transfer = Transfer::create($input);
+
+            $pk = $transfer->id;
+            
+            $billFrom->amount -= $amount;
+            $billFrom->save();
+            
+            $billTo->amount += $amount;
+            $billTo->save();
+            
+            //запись в operations
+            $op = new Operation();
+            $op->created = $transfer->created_at;
+            $op->user_id = Auth::user()->id;
+            $op->bills_id = $bill_from_id;
+            $op->type = 'transfer_out';
+            $op->amount = $amount;
+            $op->transfer_id = $transfer->id;
+            $op->active = 1;
+            $op->save();
+            
+            $op = new Operation();
+            $op->created = $transfer->created_at;
+            $op->user_id = Auth::user()->id;
+            $op->bills_id = $bill_to_id;
+            $op->type = 'transfer_in';
+            $op->amount = $amount;
+            $op->transfer_id = $transfer->id;
+            $op->active = 1;
+            $op->save();
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception ($e->getMessage());
+            
+        }
         
-        $pk = $transfer->pk();
-        
-        //запись в operations
+        DB::commit();
         
         return redirect(route('operations.index'));
     }

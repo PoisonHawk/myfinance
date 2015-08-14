@@ -12,7 +12,7 @@ class AddTransferIdToOperationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('transfers', function (Blueprint $table) {
+        Schema::table('operations', function (Blueprint $table) {
           $table->integer('transfer_id'); 
        });
     }

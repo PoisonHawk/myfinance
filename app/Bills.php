@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Bills extends Model
 {
@@ -11,4 +12,10 @@ class Bills extends Model
         'name',
         'amount',
     ];
+    
+   public function scopeUserBills($query){
+       
+       return $query->where('user_id','=', Auth::user()->id)->get();
+   }
+    
 }

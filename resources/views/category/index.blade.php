@@ -14,12 +14,16 @@
 
 <table class='table'>
     <tbody>
-
-    @include('partials.categories', ['categories' => $cat, 'parent_id' => 0])
-            
+      <ul>      
+    @foreach($categories->getDescendantsAndSelf() as $descendant)
+        
+            <li>{{$descendant->name}}<li>;
+        
+    @endforeach    
+        <ul>
     @forelse($categories as $category)
     <tr>
-        <td>{{$category['name']}}</td>
+        <td>{{$category->name}}</td>
     </tr>
     @empty
     <tr>Нет ни одной категории</tr>

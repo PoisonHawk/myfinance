@@ -14,11 +14,9 @@
 
 <table class='table'>
     <tbody>
-    
-    @include('partials.categories', ['categories' => $categories, 'parent_id' => 0])
-    
-        
-        
+
+    @include('partials.categories', ['categories' => $cat, 'parent_id' => 0])
+            
     @forelse($categories as $category)
     <tr>
         <td>{{$category['name']}}</td>

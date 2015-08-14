@@ -13,9 +13,11 @@ class Bills extends Model
         'amount',
     ];
     
-   public function scopeUserBills($query){
+   public function scopeUserBills($query){    
        
-       return $query->where('user_id','=', Auth::user()->id)->get();
+       if (Auth::user()) {       
+        return $query->where('user_id','=', Auth::user()->id)->get();       
+       }
    }
     
 }

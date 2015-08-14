@@ -7,6 +7,9 @@
 </style>
 @extends('layouts.main')
 
+@section('left-sidebar')
+@stop
+
 @section('content')
 <div class='panel panel-primary'>
     <div class='panel-body'>
@@ -38,4 +41,7 @@
     {!! Form::close() !!}
     </div>
 </div>
+@stop
+
+@section('right-sidebar')
 @stop

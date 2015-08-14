@@ -148,6 +148,7 @@ return [
          * My Service Providers...
          */
         App\Providers\ComposerServiceProvider::class,
+        Baum\Providers\BaumServiceProvider::class,
 
     ],
 

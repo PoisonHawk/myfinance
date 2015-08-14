@@ -38,16 +38,20 @@ class CategoryController extends Controller
 //        dd($categories);
         
         $cat = [];
+        $cat_id = [];
         foreach ($categories as $c) {
-            $cat[$c['parent_id']][] = $c;
+//            $cat[$c['parent_id']][] = $c;
+            $cat_ID[$c['id']][] = $c;
+            $cat[$c['parent_id']][$c['id']] =  $c;
         }
         
-//        dd($cat);
+        dd($cat_ID);
         
         $data = [
             'type' => 'outcome',
             'cat_name' => 'Расходы',
             'categories' => $categories,
+            'cat' => $cat,
         ];
                 
         return view('category.index', $data);

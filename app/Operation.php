@@ -70,10 +70,14 @@ class Operation extends Model
      */
     public function scopeOutcomeToday($query){
                        
+        if (Auth::user()) {
+        
         return $query->where('type','=','outcome')
                 ->where('user_id','=', Auth::user()->id)
                 ->where('created', '>=', date('Y-m-d'))
                 ->orderBy('created', 'desc')->get();
+        
+        }
     }
     
     

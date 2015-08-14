@@ -63,6 +63,22 @@ class Operation extends Model
         
     }
     
+    /**
+     * Расходы за сегодняшний день
+     * @param type $query
+     * @return type
+     */
+    public function scopeOutcomeToday($query){
+                       
+        if (Auth::user()) {
+        
+        return $query->where('type','=','outcome')
+                ->where('user_id','=', Auth::user()->id)
+                ->where('created', '>=', date('Y-m-d'))
+                ->orderBy('created', 'desc')->get();
+        
+        }
+    }
     
     
 }

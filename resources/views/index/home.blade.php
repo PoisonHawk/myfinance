@@ -1,5 +1,7 @@
 @extends('layouts.main')
  
+
+
 @section('content')
  
 <h1>Myfinance</h1>

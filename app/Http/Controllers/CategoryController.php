@@ -33,21 +33,16 @@ class CategoryController extends Controller
     
     public function outcome(){
         
-        $categories = Category::select('id', 'name', 'parent_id')->where('type', '=', 'outcome')->where('user_id','=',Auth::user()->id)->get()->toArray();
+        $categories = Category::select('id', 'name', 'parent_id')->where('type', '=', 'outcome')->where('user_id','=',Auth::user()->id)->get();
 
-//        dd($categories);
+//        dd($categories->allLeaves());
         
-        $cat = [];
-        foreach ($categories as $c) {
-            $cat[$c['parent_id']][] = $c;
-        }
-        
-//        dd($cat);
+
         
         $data = [
             'type' => 'outcome',
             'cat_name' => 'Расходы',
-            'categories' => $categories,
+            'categories' => $categories,           
         ];
                 
         return view('category.index', $data);
@@ -106,8 +101,16 @@ class CategoryController extends Controller
         $input = $req->input();
         $input['user_id'] = Auth::user()->id;
         
-        Category::create($input);
-        
+        if ($input['parent_id'] == 0) {
+            Category::create($input);
+        } else {
+            
+            $child = Category::create($input);            
+            $root = Category::findOrFail($input['parent_id']);
+            $child->makeChildOf($root);
+            
+        }
+                
         $url = 'category/'.$req->input('type');
         
         return redirect($url);

@@ -1,7 +1,7 @@
 @extends ('layouts.main')
 
 @section('content')
-<h2>Пермещение</h2>
+<h2>Перемещение</h2>
 
 @include('partials.alerts.error')
 

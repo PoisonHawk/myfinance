@@ -25,7 +25,8 @@ class OperationsController extends Controller
      * Display a listing of the resource.
      *
      * @return Response
-     */
+     */      
+    
     public function index(Request $req)
     {          
               
@@ -45,7 +46,11 @@ class OperationsController extends Controller
         
         $operations = Operation::where('created', '>=', $from)
                 ->where('created', '<=', $to)
-                ->where('user_id', '=', Auth::user()->id);
+                ->where('user_id', '=', Auth::user()->id)
+                ->where(function($query){
+                    $query->where('type', '=', 'outcome')
+                        ->orWhere('type', '=', 'income');
+                });
         
         $bill = $req->input('bill');   
         

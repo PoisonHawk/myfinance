@@ -19,16 +19,14 @@
 
 </script>
 <table class='table'>
-    <thead>
-        <th>#</th>
+    <thead>        
         <th>Название</th>
         <th>Сумма</th>
         <th></th>        
     </thead>
     <tbody>
         @forelse($bills as $bill)
-        <tr>
-            <td></td>
+        <tr>            
             <td>{{$bill->name}}</td>
             <td>{{$bill->amount}}</td>
             <td><a href='{{route('bills.edit', $bill->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>

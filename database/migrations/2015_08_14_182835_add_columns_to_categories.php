@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTransferIdToOperationsTable extends Migration
+class AddColumnsToCategories extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,10 @@ class AddTransferIdToOperationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('operations', function (Blueprint $table) {
-          $table->integer('transfer_id'); 
+        Schema::table('categories', function (Blueprint $table) {
+            $table->integer('lft')->nullable()->index();
+            $table->integer('rgt')->nullable()->index();
+            $table->integer('depth')->nullable();
        });
     }
 

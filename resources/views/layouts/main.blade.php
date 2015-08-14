@@ -28,6 +28,8 @@
         <?php if (Auth::user()):?>
             <li><a href="{{route('bills.index')}}">Счета</a></li>
             <li><a href="{{route('operations.index')}}">Операции</a></li>
+            <li><a href='{{route('transfers.index')}}'>Перемещения</a></li>
+            <li><a href='#'>Отчеты</a></li>
             <li><a href="{{route('category.index')}}">Категории</a></li>        
             <li><a href='/auth/logout'>Выход</a></li>
         <?php endif;?>
@@ -36,8 +38,22 @@
 </nav>
  
 <main>
-    <div class="container">
-        @yield('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                @section('left-sidebar')
+                    <p>Сайдбар</p>
+                @show
+            </div>
+            <div class="col-sm-6">
+                @yield('content')
+            </div>
+            <div class="col-sm-3">
+                @section('right-sidebar')
+                    @include('partials.bills')
+                @show
+            </div>
+        </div>
     </div>
 </main>
  

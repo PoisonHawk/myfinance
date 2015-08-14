@@ -144,6 +144,11 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        /*
+         * My Service Providers...
+         */
+        App\Providers\ComposerServiceProvider::class,
+        Baum\Providers\BaumServiceProvider::class,
 
     ],
 

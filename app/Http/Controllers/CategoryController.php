@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
 use Auth;
+use Baum;
 
 class CategoryController extends Controller
 {
@@ -33,11 +34,11 @@ class CategoryController extends Controller
     
     public function outcome(){
         
-        $categories = Category::select('id', 'name', 'parent_id')->where('type', '=', 'outcome')->where('user_id','=',Auth::user()->id)->get();
-
-//        dd($categories->allLeaves());
-        
-
+        $categories = Category::select('id', 'name', 'parent_id')
+                ->where('type', '=', 'outcome')
+                ->where('user_id','=',Auth::user()->id)
+                ->get()
+                ->toHierarchy();
         
         $data = [
             'type' => 'outcome',
@@ -69,17 +70,27 @@ class CategoryController extends Controller
     {
         $type = $req->input('type');
                         
-        $cat = Category::select('id', 'name')->where('type', '=', $type)->get()->toArray();
-               
+        $cat = Category::where('type', '=', $type)
+                ->where('user_id','=',Auth::user()->id)
+                ->get()
+                ->toHierarchy();
+                                     
+        //todo вынести в рекурсию!!!
         $categories = ['0' => 'Корневая'];
         foreach($cat as $c) {
-            $categories[$c['id']] = $c['name'];
+            $categories[$c->id] = $c->name;            
+            if( isset($c->children) ) { 
+                foreach($c->children as $cat_ch) {
+                    $categories[$cat_ch->id] = '--'.$cat_ch->name;
+                }
+            }
         }
         
         $data = [
             'categories' => $categories,
-            'type' => $type,
+            'type' => $type,            
         ];
+        
         
         return view('category.create', $data);
     }

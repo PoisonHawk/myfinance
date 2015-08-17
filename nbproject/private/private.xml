@@ -3,19 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/category/create.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/BaumModel.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/auth/login.blade.php</file>
             <file>file:/C:/OpenServer/domains/finance/myfinance/app/Operation.php</file>
             <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/partials/categories.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Bills.php</file>
             <file>file:/C:/OpenServer/domains/finance/myfinance/config/app.php</file>
             <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/category/index.blade.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Http/Controllers/OperationsController.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/operations/edit.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/bills/create.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Http/routes.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/layouts/main.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/database/migrations/2015_08_14_182835_add_columns_to_categories.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/vendor/baum/baum/src/Baum/Node.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/composer.json</file>
             <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/operations/index.blade.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/public/index.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/index/home.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/transfers/index.blade.php</file>
             <file>file:/C:/OpenServer/domains/finance/myfinance/app/Http/Controllers/CategoryController.php</file>
             <file>file:/C:/OpenServer/domains/finance/myfinance/app/Category.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/vendor/laravel/framework/src/Illuminate/Http/RedirectResponse.php</file>
         </group>
     </open-files>
 </project-private>

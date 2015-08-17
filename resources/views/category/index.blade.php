@@ -1,8 +1,7 @@
 @extends ('layouts.main')
 
 @section ('content')
-
-
+<div ng-controller="categoryCtrl">
 
 <div class="navbar-right">
     <a href="{{url('category/outcome')}}">Расходы</a>
@@ -12,24 +11,18 @@
 
 <h2>Категории {{$cat_name}}</h2>
 
-<table class='table'>
-    <tbody>
-      <ul>      
-    @foreach($categories->getDescendantsAndSelf() as $descendant)
-        
-            <li>{{$descendant->name}}<li>;
-        
-    @endforeach    
-        <ul>
+    <ul class="list-group"> 
     @forelse($categories as $category)
-    <tr>
-        <td>{{$category->name}}</td>
-    </tr>
+        <li class="list-group-item list-group-item-warning" ng-click="showItems()">{{$category->name}}</li>
+        @if( isset( $category->children ) && count($category->children ) >=1 )
+            @include('category.children', ['categories' => $category->children])
+        @endif
     @empty
-    <tr>Нет ни одной категории</tr>
+        <li>Нет ни одной категории</li>
     @endforelse
-    </tbody>
-</table>
+    </ul>
+
 <a href="{{route('category.create', 'type='.$type)}}" class='btn btn-primary'>Добавить</a>
+</div>
 @stop
 

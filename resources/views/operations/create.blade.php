@@ -34,11 +34,8 @@
     <!--Категория-->
     <div class='form-group'>
         <label class='control-label'>Категория:</label>
-        <select name='category_id' class='form-control'>
-            @foreach($category as $cat)
-            <option value="{{$cat->id}}">{{$cat->name}}</option>
-            @endforeach
-        </select>
+        {!! Form::select('category_id', $category, null , ['class'=>'form-control']) !!}
+       
     </div>
     <div class='form-group'>
         <label class='control-label'>Сумма:</label>

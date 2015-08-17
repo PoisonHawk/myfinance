@@ -13,6 +13,7 @@ use Session;
 use DB;
 use Carbon\Carbon;
 use Auth;
+use Baum;
 
 class OperationsController extends Controller
 {
@@ -93,12 +94,24 @@ class OperationsController extends Controller
        
        $category = Category::where('type', '=', $type)
                ->where('user_id','=', Auth::user()->id)
-               ->get();
+               ->get()
+               ->toHierarchy();
+                                     
+        
+        $categories = [];
+        foreach($category as $c) {
+            $categories[$c->id] = $c->name;            
+            if( isset($c->children) ) { 
+                foreach($c->children as $cat_ch) {
+                    $categories[$cat_ch->id] = '--'.$cat_ch->name;
+                }
+            }
+        }
         
        $data = [
            'today' => date('Y-m-d H:i', time()),
            'bills' => $bills,
-           'category' => $category,
+           'category' => $categories,
            'type' => $type,
            
            ];

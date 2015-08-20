@@ -19,45 +19,9 @@ class ReportOutcome extends Controller
     
     public function index(){
         
+        $data = Operation::outcomes();
         
-        $res = DB::table('operations')
-                ->join('categories', 'operations.category_id', '=', 'categories.id')
-                ->select('categories.name', 'categories.parent_id', 'operations.amount')
-                ->where('operations.user_id', '=', Auth::user()->id)
-                ->where('operations.type','=','outcome')
-                ->get();            
-//          dd($res);       
-       
-        
-        $result = [];
-        
-        $total = 0;
-        
-        foreach($res as $r) {
-            
-            if ($r->parent_id == 0 ) {
-                
-                $cat = $r->name;                
-                
-            } else {
-                $cat = Category::find($r->parent_id)->name;
-            }
-            
-            if (!isset($result[$cat])) {
-                $result[$cat] = [
-                    'total' => 0,
-                    'items' => [],
-                ];
-            }
-            
-            $result[$cat]['items'][$r->name] = $r->amount; 
-            $result[$cat]['total'] += $r->amount;
-            $total += $r->amount; 
-        }
-        
-        dd($result);
-        
-        return 'Report';
+        return view('reports.outcomes', $data);
     }
     
 }

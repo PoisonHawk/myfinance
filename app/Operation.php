@@ -63,6 +63,57 @@ class Operation extends Model
         
     }
     
+    public function scopeOutcomes(){
+        $startTimestamp = mktime(0,0,0, date('m', time()), 1 , date('Y', time()));
+        
+        $from = date('Y-m-d', $startTimestamp);
+        
+        $res = DB::table('operations')
+                ->join('categories', 'operations.category_id', '=', 'categories.id')
+                ->select('categories.name', 'categories.parent_id', 'operations.amount')
+                ->where('operations.user_id', '=', Auth::user()->id)
+                ->where('operations.type','=','outcome')
+                ->where('operations.created_at', '>', $from)
+                ->get();            
+//          dd($res);       
+       
+        
+        $result = [];
+        
+        $total = 0;
+        
+        foreach($res as $r) {
+            
+            if ($r->parent_id == 0 ) {
+                
+                $cat = $r->name;                
+                
+            } else {
+                $cat = Category::find($r->parent_id)->name;
+            }
+            
+            if (!isset($result[$cat])) {
+                $result[$cat] = [
+                    'total' => 0,
+                    'items' => [],
+                ];
+            }
+            
+            $result[$cat]['items'][$r->name] = $r->amount; 
+            $result[$cat]['total'] += $r->amount;
+            $total += $r->amount; 
+        }
+        
+//        dd($result);
+        
+        $data = [
+            'result' => $result,
+            'total' => $total,
+        ];
+        
+        return $data;
+    }
+    
     /**
      * Расходы за сегодняшний день
      * @param type $query
@@ -78,6 +129,35 @@ class Operation extends Model
                 ->orderBy('created', 'desc')->get();
         
         }
+    }
+    
+    public function scopeReportBills($query){
+        
+        $startTimestamp = mktime(0,0,0, date('m', time()), 1 , date('Y', time()));
+        
+        $from = date('Y-m-d', $startTimestamp);
+        
+        
+        $sql = <<<SQL
+                select
+                    b.name,
+                    case when o.type='income' then sum(o.amount) end as `in`,
+                    case when o.type='outcome' then sum(o.amount) end as `out`,
+                    b.amount
+                from 
+                    operations o
+                join
+                    bills b
+                on b.id = o.bills_id
+                where o.user_id = ?
+                and o.created_at >= ?
+                group by o.bills_id
+SQL;
+        
+        $res = DB::select($sql, [Auth::user()->id, $from]);
+        
+        return $res;
+        
     }
     
     

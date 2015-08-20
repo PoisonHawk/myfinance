@@ -25,7 +25,7 @@
         <div class='panel-body'>
             <table class='table'>
                 <tbody>
-                    @foreach($user_outomes as $o)
+                    @foreach($user_ouctomes as $o)
                     <tr>
                         <td>{{$o->created_at->format('H:i')}}</td>
                         <td>{{$o->bill->name}}</td>

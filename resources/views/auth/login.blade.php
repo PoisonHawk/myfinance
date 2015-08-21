@@ -5,10 +5,7 @@
         padding:25px;
     }
 </style>
-@extends('layouts.main')
-
-@section('left-sidebar')
-@stop
+@extends('layouts.auth')
 
 @section('content')
 <div class='panel panel-primary'>
@@ -41,7 +38,4 @@
     {!! Form::close() !!}
     </div>
 </div>
-@stop
-
-@section('right-sidebar')
 @stop

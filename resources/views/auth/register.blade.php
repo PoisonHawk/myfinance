@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.auth')
 
 @section('content')
   <h1>Please Register</h1>

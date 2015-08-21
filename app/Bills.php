@@ -14,12 +14,20 @@ class Bills extends Model
         'amount',
     ];
     
-   public function scopeUserBills($query){    
-       
-       if (Auth::user()) {       
-        return $query->where('user_id','=', Auth::user()->id)->get();       
-       }
-   }
+    public function operations(){
+        return $this->hasMany('operations', 'bills_id');
+    }
+    
+    public function user(){
+        return $this->belongsTo('users');
+    }
+    
+    public function scopeUserBills($query){    
+
+        if (Auth::user()) {       
+         return $query->where('user_id','=', Auth::user()->id)->get();       
+        }
+    }
    
    public function scopeReportBills($query){
         
@@ -36,16 +44,14 @@ class Bills extends Model
                     from 
                             operations
                     where operations.bills_id = b.id
-                    and (operations.type = 'income')
-                    and operations.user_id = ?   
+                    and (operations.type = 'income')                    
                     and operations.created_at >= ?) as `in`,
                     (select 
                             sum(amount)
                     from 
                             operations
                     where operations.bills_id = b.id
-                    and operations.type = 'outcome'
-                    and operations.user_id = ?    
+                    and operations.type = 'outcome'                     
                     and operations.created_at >= ?) as `out`,		
                     b.amount
                 from 
@@ -55,12 +61,21 @@ SQL;
         
  
                 
-        $res = DB::select($sql, [$userId, $from, $userId, $from, $userId]);
+        $res = DB::select($sql, [$from,$from, $userId]);
         
 //        dd($res);
         
         return $res;
         
+    }
+    
+    
+    
+    public function scopeOperationHistory($query, $type, $from, $to){
+        
+        return $query->operations()                
+                ->where('type', '=', $type)
+                ->where('created_at', '>=', $from);
     }
     
 }

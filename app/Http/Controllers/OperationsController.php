@@ -90,7 +90,7 @@ class OperationsController extends Controller
         
        $type = $req->input('type'); 
            
-       $bills = Bills::where('user_id','=', Auth::user()->id)->get(); 
+       $bills = Bills::userBills(); 
        
        $category = Category::where('type', '=', $type)
                ->where('user_id','=', Auth::user()->id)
@@ -127,7 +127,7 @@ class OperationsController extends Controller
      */
     public function store(Request $req)
     {
-  
+        
         //todo добавить правила валидации
         
         $this->validate($req,[
@@ -156,8 +156,13 @@ class OperationsController extends Controller
         $op = new Operation();
         $op->operationTransact($req->input());
         
-        return redirect(route('operations.index'));
+        $url = $req->input('redirect');
+        if ($url) {
+            return redirect($url);
+        }
         
+        return redirect(route('operations.index'));
+         
     }
 
     /**

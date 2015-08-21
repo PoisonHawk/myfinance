@@ -91,8 +91,7 @@ class TransferController extends Controller
      * @return Response
      */
     public function store(Request $req)
-    {
-        
+    {       
         //todo добавить правила валидации
         
         $this->validate($req,[
@@ -106,7 +105,9 @@ class TransferController extends Controller
         $billFrom = Bills::find($bill_from_id);
         $billTo = Bills::find($bill_to_id);
                 
-        if ($bill_from_id == $bill_to_id) {
+        
+        
+        if ($bill_from_id == $bill_to_id) {            
             return redirect()->back()->with('flash_error', 'Нельзя сделать перемещение на тот же счет' );
         }
         
@@ -114,11 +115,11 @@ class TransferController extends Controller
         
         $amount = str_replace(',','.',$amount);
         
-        if (floatval($billFrom->amount) < floatval($amount)) {            
+        if (floatval($billFrom->amount) < floatval($amount)) {
             return redirect()->back()->with('flash_error', 'Недостаточно средств на счете' );
         }
        
-        if ($req->input('created') > Carbon::now()) {            
+        if ($req->input('created') > Carbon::now()) { 
             return redirect()->back()->with('flash_error', 'Время операции больше текущей');
         }
         
@@ -160,12 +161,18 @@ class TransferController extends Controller
             $op->save();
 
         } catch (Exception $e) {
+            
             DB::rollBack();
             throw new Exception ($e->getMessage());
             
         }
-        
+       
         DB::commit();
+        
+        $url = $req->input('redirect');
+        if ($url) {
+            return redirect($url);
+        }
         
         return redirect(route('transfers.index'));
     }

@@ -44,14 +44,14 @@ class Bills extends Model
                     from 
                             operations
                     where operations.bills_id = b.id
-                    and (operations.type = 'income')                    
+                    and operations.type in ('income','transfer_in')                    
                     and operations.created_at >= ?) as `in`,
                     (select 
                             sum(amount)
                     from 
                             operations
                     where operations.bills_id = b.id
-                    and operations.type = 'outcome'                     
+                    and operations.type in ('outcome', 'transfer_out')                      
                     and operations.created_at >= ?) as `out`,		
                     b.amount
                 from 
@@ -59,18 +59,13 @@ class Bills extends Model
                 where b.user_id = ?
 SQL;
         
- 
-                
         $res = DB::select($sql, [$from,$from, $userId]);
-        
-//        dd($res);
-        
+
         return $res;
         
     }
     
-    
-    
+     
     public function scopeOperationHistory($query, $type, $from, $to){
         
         return $query->operations()                

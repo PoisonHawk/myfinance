@@ -13,4 +13,8 @@ class Category extends \Baum\Node
         'type',
         //'parent_id',
     ];
+    
+    public function user(){
+        $this->belongsTo('user');
+    }
 }

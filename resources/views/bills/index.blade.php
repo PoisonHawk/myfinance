@@ -18,25 +18,24 @@
      })  
 
 </script>
-<table class='table'>
+<table class='table table-striped table-condensed table-hover'>
     <thead>        
         <th>Название</th>
-        <th>Сумма</th>
-        <th></th>        
+        <th>Сумма</th>               
     </thead>
     <tbody>
         @forelse($bills as $bill)
-        <tr>            
+        <tr onclick="document.location='{{route('bills.edit', $bill->id)}}'">            
             <td>{{$bill->name}}</td>
             <td>{{$bill->amount}}</td>
-            <td><a href='{{route('bills.edit', $bill->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>
+<!--            <td><a href='{{route('bills.edit', $bill->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>
             
-<!--                <button class="remove_bill btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
+                <button class="remove_bill btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
                 <form method="POST" action="{{route('bills.destroy', $bill->id)}}">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <input type="hidden" name="_method" value="DELETE">                  
-                </form>-->
-            </td>
+                </form>
+            </td>-->
         </tr>
         @empty
         <tr><td>Нет ни одного счета</td></tr>

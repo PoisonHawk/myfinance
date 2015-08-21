@@ -35,7 +35,7 @@
 </form>
 
 
-<table class='table'>
+<table class='table table-condensed'>
     <thead>
         <th></th>
         <!--<th></th>-->

@@ -75,8 +75,6 @@ class Operation extends Model
                 ->where('operations.type','=','outcome')
                 ->where('operations.created_at', '>', $from)
                 ->get();            
-//          dd($res);       
-       
         
         $result = [];
         
@@ -99,8 +97,13 @@ class Operation extends Model
                 ];
             }
             
-            $result[$cat]['items'][$r->name] = $r->amount; 
+            if (!isset($result[$cat]['items'][$r->name])) {
+                $result[$cat]['items'][$r->name] = 0;
+            }
+            
+            $result[$cat]['items'][$r->name] += $r->amount; 
             $result[$cat]['total'] += $r->amount;
+            
             $total += $r->amount; 
         }
         
@@ -146,12 +149,12 @@ class Operation extends Model
                     b.amount
                 from 
                     operations o
-                join
+                right join
                     bills b
                 on b.id = o.bills_id
-                where o.user_id = ?
+                where b.user_id = ?
                 and o.created_at >= ?
-                group by o.bills_id
+                group by b.id
 SQL;
         
         $res = DB::select($sql, [Auth::user()->id, $from]);

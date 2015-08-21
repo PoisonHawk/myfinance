@@ -14,7 +14,7 @@ class IndexController extends Controller
     public function home(){
         
         $data = [
-            'user_bills'=> Operation::reportBills(),
+            'user_bills'=> Bills::reportBills(),
             'userOucomesToday' => Operation::outcomeToday(),
         ];
         

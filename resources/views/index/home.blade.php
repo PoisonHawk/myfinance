@@ -25,7 +25,7 @@
                     <tr>
                         <td>{{$b->name}}</td>
                         <td>{{$b->in ?: 0}}</td>
-                        <td>{{$b->out}}</td>
+                        <td>{{$b->out ?: 0}}</td>
                         <td>{{$b->amount}}</td>
                     </tr>
                     @endforeach

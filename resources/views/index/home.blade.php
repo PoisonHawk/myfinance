@@ -102,10 +102,7 @@
         <div class='panel-heading'>
             <h4>Траты за сегодня</h4>
         </div>
-        <div class='panel-body'>
-            <div class="diagramm">
-                <p>Тут будет график</p>
-            </div>
+        <div class='panel-body'>            
             <table class='table'>
                 <tbody>
                     @foreach($userOucomesToday as $o)

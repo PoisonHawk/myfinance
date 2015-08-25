@@ -17,11 +17,19 @@ class ReportOutcome extends Controller
         $this->middleware('auth');
     }
     
-    public function index(){
+    public function getIndex(){
         
         $data = Operation::outcomes();
         
         return view('reports.outcomes', $data);
+    }
+    
+    
+    public function getOutcome(){
+        
+        $data = Operation::outcomes();
+        
+        return json_encode($data);
     }
     
 }

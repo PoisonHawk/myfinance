@@ -92,16 +92,17 @@ class Operation extends Model
             
             if (!isset($result[$cat])) {
                 $result[$cat] = [
+                    'name' => $cat,
                     'total' => 0,
                     'items' => [],
                 ];
             }
             
             if (!isset($result[$cat]['items'][$r->name])) {
-                $result[$cat]['items'][$r->name] = 0;
+                $result[$cat]['items'][$r->name] = ['name'=> $r->name, 'total' => 0];
             }
             
-            $result[$cat]['items'][$r->name] += $r->amount; 
+            $result[$cat]['items'][$r->name]['total'] += $r->amount; 
             $result[$cat]['total'] += $r->amount;
             
             $total += $r->amount; 

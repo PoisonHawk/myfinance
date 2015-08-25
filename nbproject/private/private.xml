@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/yevgen/projects/myfinance/app/Http/routes.php</file>
-            <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/TransferController.php</file>
-            <file>file:/home/yevgen/projects/myfinance/app/Category.php</file>
-            <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/CategoryController.php</file>
-            <file>file:/home/yevgen/projects/myfinance/resources/views/layouts/main.blade.php</file>
-            <file>file:/home/yevgen/projects/myfinance/public/js/app.js</file>
-            <file>file:/home/yevgen/projects/myfinance/resources/views/category/create.blade.php</file>
-            <file>file:/home/yevgen/projects/myfinance/resources/views/category/index.blade.php</file>
-            <file>file:/home/yevgen/projects/myfinance/resources/views/category/children.blade.php</file>
-            <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/ReportOutcome.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/layouts/main.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/partials/outcomes.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/index/home.blade.php</file>
         </group>
     </open-files>
 </project-private>

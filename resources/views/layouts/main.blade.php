@@ -11,7 +11,10 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
+<script src="/js/chartjs/Chart.js"></script>
+
 <script src="/js/app.js"></script>
+<script src="/js/app/controllers/ctrlReport.js"></script>
 
 <link rel='stylesheet' href='/js/jquery.datetimepicker.css'>
 <script src='/js/jquery.datetimepicker.js'></script>

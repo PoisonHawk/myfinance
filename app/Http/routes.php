@@ -36,5 +36,5 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('reportoutcome', 'ReportOutcome@index');
+Route::controller('reportoutcome', 'ReportOutcome');
 

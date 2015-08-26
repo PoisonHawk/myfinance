@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Bills;
+use App\Currency;
 use Session;
 use Auth;
 
@@ -25,8 +26,16 @@ class BillsController extends Controller
     public function index()
     {
         $bills = Bills::where('user_id', '=', Auth::user()->id)->get();
+         
+        $cur = new Currency();
+        $currency = $cur->allCurrencies();   
         
-        return view('bills.index')->with('bills', $bills);
+        $data = [
+            'bills' => $bills,
+            'currency' => $currency,
+        ];
+        
+        return view('bills.index', $data);
     }
 
     /**
@@ -36,7 +45,10 @@ class BillsController extends Controller
      */
     public function create()
     {
-        return view('bills.create');
+        $cur = new Currency();
+        $currency = $cur->allCurrencies();        
+        
+        return view('bills.create')->with('currency', $currency);
     }
 
     /**
@@ -61,7 +73,7 @@ class BillsController extends Controller
         Bills::create($input);
         
         Session::flash('flash_message', 'Новый счет успешно добавлен');
-        
+                
         return redirect(route('bills.index'));
         
     }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Currency;
 use Auth;
 use DB;
 
@@ -12,6 +13,7 @@ class Bills extends Model
         'user_id',
         'name',
         'amount',
+        'currency_id',
     ];
     
     public function operations(){
@@ -20,6 +22,10 @@ class Bills extends Model
     
     public function user(){
         return $this->belongsTo('users');
+    }
+    
+    public function currency(){
+        return $this->hasOne('App\Currency', 'id', 'currency_id');
     }
     
     public function scopeUserBills($query){    

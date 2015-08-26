@@ -1,5 +1,5 @@
 
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngMessages']);
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');

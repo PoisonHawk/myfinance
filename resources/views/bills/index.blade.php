@@ -21,13 +21,15 @@
 <table class='table table-striped table-condensed table-hover'>
     <thead>        
         <th>Название</th>
-        <th>Сумма</th>               
+        <th>Сумма</th>
+        <th>Валюта</th>
     </thead>
     <tbody>
         @forelse($bills as $bill)
         <tr onclick="document.location='{{route('bills.edit', $bill->id)}}'">            
             <td>{{$bill->name}}</td>
             <td>{{$bill->amount}}</td>
+            <td>{{$bill->currency->iso4217}}</td>
 <!--            <td><a href='{{route('bills.edit', $bill->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>
             
                 <button class="remove_bill btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
@@ -42,5 +44,8 @@
         @endforelse
     </tbody>
 </table>
-<a href='{{route('bills.create')}}' class='btn btn-primary'>Добавить счет</a>
+<a href='#' data-toggle="modal" data-target='#modal_bill' class='btn btn-primary'>Добавить счет</a>
+
+@include('partials.bills.create')
+
 @stop

@@ -8,7 +8,7 @@ app.controller('ctrlReport', function($scope, $http){
     $scope.block = false;
        
     $scope.drawDiagram = function(){
-        var colors = ['red', 'green', 'yellow', 'blue', 'maroon', 'orange', 'olive', 'aqua', 'pink', 'purple', 'teal', 'gray', 'silver'];
+        var colors = ['Tomato', 'LightGreen', 'SkyBlue', 'Gold', 'maroon', 'orange', 'MediumSeaGreen', 'aqua', 'pink', 'purple', 'teal', 'gray', 'silver'];
         
         var result = $scope.data.result;
         $scope.dataSource = [];

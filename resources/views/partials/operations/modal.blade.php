@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Новый {{$title}}</h4>
       </div>
       <div class="modal-body">        
-        <form method='POST' action='{{route('operations.store')}}'>
+        <form method='POST' action='{{route('operations.store')}}' name='operationForm'>
             <div class='form-group'>
                 <label class='control-label'>Дата:</label>
                 <input type='text' name='created' class='form-control' value='{{$today}}'>
@@ -28,7 +28,10 @@
             </div>
             <div class='form-group'>
                 <label class='control-label'>Сумма:</label>
-                <input type='text' name='amount' class='form-control'>
+                <input type='text' name='amount' class='form-control' ng-model="amount"  required>
+                <div ng-messages='operationForm.amount.$error'>
+                    <div ng-message="required">Поле не может быть пустым</div>                    
+                </div>
             </div>    
             <input type='hidden' name='type' value='{{$type}}'>
             <input type='hidden' name='redirect' value='/'>

@@ -19,15 +19,37 @@ class ReportOutcome extends Controller
     
     public function getIndex(){
         
-        $data = Operation::outcomes();
+        $op = new Operation();
+        
+        $data = $op->outcomes('outcome');
         
         return view('reports.outcomes', $data);
     }
     
-    
+    /**
+     * Расходы за текущий месяц
+     * @todo добавить фильтры по врпемени
+     * @return json
+     */
     public function getOutcome(){
         
-        $data = Operation::outcomes();
+        $op = new Operation();
+        
+        $data = $op->outcomes('outcome');
+        
+        return json_encode($data);
+    }
+    
+    /**
+     * Отчет по доходам за текущий месяц
+     * @todo добавить фильтры по времени
+     * @return json
+     */
+    public function getIncome(){
+        
+        $op = new Operation();
+        
+        $data = $op->outcomes('income');
         
         return json_encode($data);
     }

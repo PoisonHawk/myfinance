@@ -1,17 +1,31 @@
 @section('right-sidebar')
-
+<style>
+    .doughnut-legend{
+        list-style: none;
+    }
+    
+    .doughnut-legend li span{
+        display: inline-block;
+        height: 10px;
+        margin-right: 5px;
+        width: 10px;
+    }
+    
+    .diagramm .chart,
+    .diagramm .legend{
+        float: left;
+    }
+</style>
 <div class='panel panel-default' ng-controller="ctrlReport">
         <div class='panel-heading'>
-            <h4>Расходы</h4>
+            <span ng-click="getReport('outcome')" >Расходы</span>
+            <span ng-click="getReport('income')">Доходы</span>
         </div>
         <div class='panel-body'>
             <div class="diagramm">
-                <canvas id="outcomes" width="300" height="300"></canvas>
-<!--                <div class="discribe col-md-1">
-                    <ul>
-                        <li ng-repeat="i in dataSource">[[i.label]]</li>
-                    </ul>
-                </div>-->
+                <canvas class='chart ' id="outcomes" width="300" height="300"></canvas>
+                <div class='legend ' id="legend"></div>
+                <div class='clearfix'></div>
             </div>
 <table class='table'>   
     <tr class="active" ng-repeat="r in data.result">

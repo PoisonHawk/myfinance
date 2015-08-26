@@ -24,9 +24,9 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('user_ouctomes', Operation::outcomeToday());
         });
         
-        View::composer('layouts.main', function($view){
-            $view->with('data', Operation::outcomes());
-        });
+//        View::composer('layouts.main', function($view){
+//            $view->with('data', Operation::outcomes());
+//        });
     }
 
     /**

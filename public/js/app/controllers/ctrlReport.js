@@ -3,22 +3,18 @@ app.controller('ctrlReport', function($scope, $http){
     $scope.data = {};    
     $scope.dataSource = [];
     $scope.predicate = 'total';
+    $scope.type = 'outcome';
+    $scope.chart = null;
+    $scope.block = false;
        
-    $http.get('/reportoutcome/outcome').success( function(response) {                                                    
-                          $scope.data = response; 
-                          console.log($scope.data); 
-                          $scope.drawDiagram(); 
-                    });
-   
-    
     $scope.drawDiagram = function(){
         var colors = ['red', 'green', 'yellow', 'blue', 'maroon', 'orange', 'olive', 'aqua', 'pink', 'purple', 'teal', 'gray', 'silver'];
         
         var result = $scope.data.result;
-                          
+        $scope.dataSource = [];
+        
         var count = 0;
-        for (var i in result) {
-            
+        for (var i in result) {            
             var obj = {};
             obj.label = result[i].name;
             obj.value = result[i].total;
@@ -29,9 +25,31 @@ app.controller('ctrlReport', function($scope, $http){
         }
         
         var context = document.getElementById('outcomes').getContext('2d');
-        var skillsChart = new Chart(context).Doughnut($scope.dataSource , {
-            animateScale: true
-        });
-    }
+                
+        if ($scope.chart !== null) {            
+            $scope.chart.destroy();           
+        } 
+              console.log($scope.chart);
+        $scope.chart = new Chart(context).Doughnut($scope.dataSource, {
+            legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+        });   
+        document.getElementById('legend').innerHTML = $scope.chart.generateLegend();
+        
+    };
+    
+    $scope.getReport = function(type){  
+       
+        if ($scope.block) {
+            return;
+        }
+        $scope.block = true;
+        $http.get('/reportoutcome/'+type).success( function(response) {                                                    
+                $scope.data = response;                          
+                $scope.drawDiagram(); 
+                 $scope.block = false;
+          });       
+    };   
+    
+    $scope.getReport('outcome');
     
 })

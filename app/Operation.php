@@ -63,7 +63,7 @@ class Operation extends Model
         
     }
     
-    public function scopeOutcomes(){
+    public function outcomes($type){
         $startTimestamp = mktime(0,0,0, date('m', time()), 1 , date('Y', time()));
         
         $from = date('Y-m-d', $startTimestamp);
@@ -72,7 +72,7 @@ class Operation extends Model
                 ->join('categories', 'operations.category_id', '=', 'categories.id')
                 ->select('categories.name', 'categories.parent_id', 'operations.amount')
                 ->where('operations.user_id', '=', Auth::user()->id)
-                ->where('operations.type','=','outcome')
+                ->where('operations.type','=', $type)
                 ->where('operations.created_at', '>', $from)
                 ->get();            
         
@@ -135,13 +135,17 @@ class Operation extends Model
         }
     }
     
+    /**
+     * Отчет по счетам
+     * @param type $query
+     * @return type
+     */
     public function scopeReportBills($query){
         
         $startTimestamp = mktime(0,0,0, date('m', time()), 1 , date('Y', time()));
         
         $from = date('Y-m-d', $startTimestamp);
-        
-        
+                
         $sql = <<<SQL
                 select
                     b.name,

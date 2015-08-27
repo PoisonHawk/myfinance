@@ -53,7 +53,7 @@
                     <li><a href="{{route('category.index')}}">Категории</a></li> 
                     <li><a href="{{route('operations.index')}}">Операции</a></li>                    
                     <li><a href='#'>Отчеты</a></li>
-                    <li><a href='#'>Планирование</a></li>
+                    <!--<li><a href='#'>Планирование</a></li>-->
                 </ul>
             </div>
             <div class="col-sm-6">

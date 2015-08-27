@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Http/Controllers/IndexController.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/layouts/main.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/bills/index.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Currency.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Bills.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Http/Controllers/BillsController.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/partials/outcomes.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/app/User.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/category/index.blade.php</file>
+            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/index/home.blade.php</file>
+        </group>
     </open-files>
 </project-private>

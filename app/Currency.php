@@ -9,7 +9,7 @@ class Currency extends Model
     protected $table = 'currency';
     
     public function bills(){
-        return $this->belongsTo('App\Bills');
+        return $this->hasOn('App\Bills');
     }
     
     public function allCurrencies(){

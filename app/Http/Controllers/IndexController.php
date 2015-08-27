@@ -9,10 +9,16 @@ use App\Http\Controllers\Controller;
 use App\Operation;
 use App\Bills;
 use App\Category;
+use App\Currency;
 use Auth;
 
 class IndexController extends Controller
 {
+    
+    public function __construct(){
+        $this->middleware('auth');
+    }
+    
     public function home(){
                 
         $bills = Bills::userBills(); 

@@ -74,15 +74,17 @@
                     <th>Доход</th>
                     <th>Расход</th>
                     <th>Сумма</th>
+                    <th>Валюта</th>
                 </thead>
                 <tbody>
                     <?php $total = 0;?>
                     @foreach($user_bills as $b)
                     <tr>
                         <td>{{$b->name}}</td>
-                        <td>{{$b->in ?: 0}}</td>
-                        <td>{{$b->out ?: 0}}</td>
+                        <td>{{$b->in or 0}}</td>
+                        <td>{{$b->out or 0}}</td>
                         <td>{{$b->amount}}</td>
+                        <td>{{$b->currency}}</td>
                     </tr>
                     <?php $total += $b->amount?>
                     @endforeach
@@ -90,7 +92,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>{{$total}}</td>
+                        <!--<td>{{$total}}</td>-->
                     </tr>
                 </tbody>
             </table>

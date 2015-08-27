@@ -59,9 +59,13 @@ class Bills extends Model
                     where operations.bills_id = b.id
                     and operations.type in ('outcome', 'transfer_out')                      
                     and operations.created_at >= ?) as `out`,		
-                    b.amount
+                    b.amount,
+                    c.iso4217 as currency
                 from 
                     bills b
+                join
+                    currency c
+                on b.currency_id = c.id
                 where b.user_id = ?
 SQL;
         

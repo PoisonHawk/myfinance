@@ -31,6 +31,11 @@ app.controller('ctrlReport', function($scope, $http){
         } 
               console.log($scope.chart);
         $scope.chart = new Chart(context).Doughnut($scope.dataSource, {
+            animation: true,
+            animationSteps: 30,
+            animationEasing: 'linear',
+            showScale: true,
+            responsive: true,
             legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
         });   
         document.getElementById('legend').innerHTML = $scope.chart.generateLegend();

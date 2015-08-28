@@ -48,4 +48,7 @@ class IndexController extends Controller
         return view('index.home', $data);
     }
     
+    public function token(){
+        return csrf_token();
+    }
 }

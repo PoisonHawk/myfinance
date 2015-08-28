@@ -15,7 +15,11 @@
 <script src="/js/chartjs/Chart.js"></script>
 
 <script src="/js/app.js"></script>
+
+<script src="/js/app/services/reportFactory.js"></script>
+<script src="/js/app/services/billFactory.js"></script>
 <script src="/js/app/controllers/ctrlReport.js"></script>
+<script src="/js/app/controllers/BillCtrl.js"></script>
 
 <link rel='stylesheet' href='/js/jquery.datetimepicker.css'>
 <script src='/js/jquery.datetimepicker.js'></script>
@@ -23,7 +27,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body ng-app='app'>
- 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -49,7 +52,7 @@
         <div class="row">
             <div class="col-sm-2 col-md-2 sidebar">
                 <ul class='nav nav-sidebar'>
-                    <li><a href="{{route('bills.index')}}">Счета</a></li>
+                    <li><a href="/bill">Счета</a></li>
                     <li><a href="{{route('category.index')}}">Категории</a></li> 
                     <li><a href="{{route('operations.index')}}">Операции</a></li>                    
                     <li><a href='#'>Отчеты</a></li>

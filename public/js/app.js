@@ -1,5 +1,11 @@
 
+var xhReq = new XMLHttpRequest();
+      xhReq.open("GET", "http://"+window.location.hostname+"/token", false);
+      xhReq.send(null);
+
 var app = angular.module('app', ['ngMessages']);
+
+app.constant('CSRF_TOKEN', xhReq.responseText);
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');

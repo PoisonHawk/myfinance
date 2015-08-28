@@ -25,7 +25,7 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $bills = Bills::where('user_id', '=', Auth::user()->id)->get();
+        $bills = Bills::userBills();
          
         $cur = new Currency();
         $currency = $cur->allCurrencies();   
@@ -35,12 +35,14 @@ class BillsController extends Controller
             'currency' => $currency,
         ];
         
-        return view('bills.index', $data);
+        return $data;
+        
+        //return view('bills.index', $data);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @todo не используется, проверить и удалть
      * @return Response
      */
     public function create()
@@ -53,7 +55,7 @@ class BillsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * 
      * @return Response
      */
     public function store(Request $request)
@@ -70,22 +72,16 @@ class BillsController extends Controller
         $input = $request->all();
         $input['user_id'] = Auth::user()->id;
         
-        Bills::create($input);
+        $bill = Bills::create($input);
         
-        Session::flash('flash_message', 'Новый счет успешно добавлен');
-                
-        return redirect(route('bills.index'));
         
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
+        //todo возврат ошибки в случае чего
+        
+        return $bill;
+        
+//        Session::flash('flash_message', 'Новый счет успешно добавлен');
+//                
+//        return redirect(route('bills.index'));
         
     }
 
@@ -116,13 +112,20 @@ class BillsController extends Controller
             'name' => 'required',
             'amount' => 'numeric',
         ]);
-           
-               
+                          
         $bill->fill($request->all())->save();
-                       
-        Session::flash('flash_message', 'Cчет отредактирован');
+                    
+        $ans = [
+            'status'=> 'ok',
+            'bill' => $bill,
+            'message' => 'Cчет отредактирован',
+        ];
         
-        return redirect(route('bills.index'));
+        return json_encode($ans);
+        
+//        Session::flash('flash_message', 'Cчет отредактирован');
+//        
+//        return redirect(route('bills.index'));
     }
 
     /**
@@ -136,9 +139,13 @@ class BillsController extends Controller
         $bill = Bills::findOrFail($id);
         
         $bill->delete();
+                
+        $ans = ['status' => 'ok', 'message' => 'Счет успешно удален'];
         
-        Session::flash('flash_message', 'Счет успешно удален');
+        return json_encode($ans);
         
-        return redirect(route('bills.index'));
+//        Session::flash('flash_message', 'Счет успешно удален');
+//        
+//        return redirect(route('bills.index'));
     }
 }

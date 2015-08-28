@@ -23,7 +23,9 @@
         </div>
         <div class='panel-body'>
             <div class="diagramm">
+                <div style="max-width: 300px">
                 <canvas class='chart ' id="outcomes" width="300" height="300"></canvas>
+                </div>
                 <div class='legend ' id="legend"></div>
                 <div class='clearfix'></div>
             </div>

@@ -1,4 +1,4 @@
-app.controller('ctrlReport', function($scope, $http){
+app.controller('ctrlReport', function($scope, reportFactory){
     
     $scope.data = {};    
     $scope.dataSource = [];
@@ -29,7 +29,7 @@ app.controller('ctrlReport', function($scope, $http){
         if ($scope.chart !== null) {            
             $scope.chart.destroy();           
         } 
-              console.log($scope.chart);
+      
         $scope.chart = new Chart(context).Doughnut($scope.dataSource, {
             animation: true,
             animationSteps: 30,
@@ -48,10 +48,10 @@ app.controller('ctrlReport', function($scope, $http){
             return;
         }
         $scope.block = true;
-        $http.get('/reportoutcome/'+type).success( function(response) {                                                    
-                $scope.data = response;                          
+        reportFactory.outcome(type).success( function(data) {                                                    
+                $scope.data = data;                          
                 $scope.drawDiagram(); 
-                 $scope.block = false;
+                $scope.block = false;
           });       
     };   
     

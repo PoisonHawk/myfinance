@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Bills;
 use App\Currency;
+use Illuminate\Support\Facades\Validator;
 use Session;
 use Auth;
 
@@ -60,28 +61,44 @@ class BillsController extends Controller
      */
     public function store(Request $request)
     {
+        $ans = ['status' =>'ok'];
         
-        //todo дописать правила валидации
+        $messages = [
+            'required' => 'Поле должно быть заполнено',
+            'numeric' => 'Значение должно быть числом',
+        ];
         
         $this->validate($request, [
             'name' => 'required',
-            'amount' => 'numeric',
-        ]);
-           
-               
+                'amount' => 'required|numeric',  
+        ], $messages);
+        
+//        $validator = Validator::make($request->all(), [
+//                'name' => 'required',
+//                'amount' => 'required|numeric',                
+//            ], $messages
+//        );
+//        
+//        if ($validator->fails()) {
+//            
+//            $errors = $validator->messages();
+//            
+//            
+//            $ans['status'] = 'fail';
+//            $ans['errors'] = $validator->messages();
+//            $ans['faild'] = $validator->failed();
+//                        
+//            return json_encode($ans);
+//            
+//        }
+      
         $input = $request->all();
         $input['user_id'] = Auth::user()->id;
         
         $bill = Bills::create($input);
         
-        
-        //todo возврат ошибки в случае чего
-        
-        return $bill;
-        
-//        Session::flash('flash_message', 'Новый счет успешно добавлен');
-//                
-//        return redirect(route('bills.index'));
+        $ans['bill'] = $bill;
+        return json_encode($ans);
         
     }
 

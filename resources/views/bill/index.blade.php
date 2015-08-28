@@ -45,21 +45,28 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Новый счет</h4>
       </div>
-      <div class="modal-body">        
-        <form name='operationForm'>
+      <div class="modal-body">          
+        <form name='operationForm'>            
             <div class='form-group'>
                 <label class='control-label'>Название:</label>
-                <input class='form-control' type='text' ng-model='bill.name' required>
+                <input class='form-control' type='text' ng-model='bill.name'>
+                    <p class="text-danger" ng-show="error" ng-repeat="e in errors.name">                
+                        [[e]]
+                    </p>
             </div>
+            
             <div class='form-group'>
                 <label class='control-label'>Валюта:</label>
-                <select class='form-control 'type='text' ng-model='bill.currency' required>                    
+                <select class='form-control 'type='text' ng-model='bill.currency'>                    
                     <option ng-repeat="(key, val) in currencies" value='[[key]]'>[[val]]</option>                    
                 </select>
-            </div>
+            </div>            
             <div class='form-group'>
                 <label class='control-label'>Начальный остаток:</label>
-                <input class='form-control 'type='text' ng-model='bill.amount' required="">
+                <input class='form-control 'type='text' ng-model='bill.amount'>
+                <p class="text-danger" ng-show="error" ng-repeat="e in errors.amount">                
+                    [[e]]
+                </p>
             </div>  
             <input type='hidden' name='_token' value='{{csrf_token()}}'>            
             <button class='btn btn-primary form-control' ng-click='addBill()'ng-hide="sending" >Добавить</button>            

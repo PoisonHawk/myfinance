@@ -10,11 +10,23 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         name: '',
         currency: 1,
         amount: 0,
-    },
+    };
     $scope.index;
+    $scope.error = false;
+    $scope.errors = [];
+        
+    $scope.clearBillData = function(){
+        $scope.bill = {
+            name: '',
+            currency: 1,
+            amount: 0,
+        }
+    };
         
     $scope.closeAlert = function(){
-       
+        
+        $scope.error = false;
+        $scope.errors = [];
         $scope.success = false;
         $scope.fail = false;
     };
@@ -53,11 +65,33 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         
         billFactory.addBill(post)
                 .success(function(data, status, headers, config){
-            $scope.bills.push(data);
-            $scope.sending = false;
-            $('#modal_bill').modal('hide');
-        })        
+                    
+                    console.log(data);
+                    
+                    if (data.status === 'ok') {
+                        $scope.bills.push(data.bill);                        
+                        $('#modal_bill').modal('hide');
+                    } else {
+                        
+                        $scope.error = true;
+                        $scope.errors = data.errors;
+                        console.log($scope.errors);
+                    }
+                    
+                    $scope.sending = false;
+                })
+                .error(function(data){
+                    $scope.sending = false;
+                    $scope.error = true;
+                    $scope.errors = data;
+                    
+                    
+//                    $scope.messageFail('Ошибка операции');
+//                    $scope.sending = false;
+//                    $('#modal_bill').modal('hide');
+                })
         
+        $scope.clearBillData();
     };
     
     $scope.showBill = function(index){

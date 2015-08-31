@@ -31,6 +31,8 @@
         {!! Form::text('to_date', $to_date, array('id'=>'to_date'))!!}
         {!! Form::label('bill', 'Счет')!!}  
         {!! Form::select('bill', $bills, $bill) !!}
+        {!! Form::label('type', 'Тип операции') !!}
+        {!! Form::select('type', $types, $type) !!}
         {!! Form::submit('Поиск', array('class' => 'btn btn-default'))!!}        
 </form>
 

@@ -62,9 +62,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
     $scope.addBill = function(){  
                
         $scope.sending = true;
-        
-        $scope.clearBillData();
-        
+                        
         var post = {
             name: $scope.bill.name,
             currency_id: $scope.bill.currency,
@@ -113,8 +111,10 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         var bill = $scope.bills[index];
         $scope.index = index;
                               
+        console.log(bill);
+                              
         $scope.bill.name = bill.name;
-        $scope.bill.currency = bill.currency_id;
+        $scope.bill.currency = bill.currency.iso4217;
         $scope.bill.amount = bill.amount;
         $scope.bill.id = bill.id;
         $('#modal_bill_update').modal('show');

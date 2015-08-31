@@ -110,10 +110,10 @@
                     <tr ng-repeat="op in operations">
                         <td>[[op.created | date:'dd.MM HH:ii']]</td>
                         <td>[[op.bill.name]]</td>
-                        <td>[[op.category.name]]</td>
+                        <td>[[op.category.name ]]</td>
                         <td>[[op.amount]] [[op.bill.currency.iso4217]]</td>
                     <tr>
-                    
+                    <tr><td></td><td></td><td></td><td>[[total()]]</td></tr>
                 </tbody>
             </table>
         </div>

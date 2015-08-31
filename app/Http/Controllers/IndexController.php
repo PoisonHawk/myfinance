@@ -42,7 +42,7 @@ class IndexController extends Controller
             'bills' => $bills,
             'categories' => $categories,            
             'user_bills'=> Bills::reportBills(),
-            'userOucomesToday' => Operation::outcomeToday(),
+            //'userOucomesToday' => Operation::outcomeToday(),
         ];
         
         return view('index.home', $data);

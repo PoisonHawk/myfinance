@@ -67,13 +67,21 @@ class OperationsController extends Controller
         foreach(Bills::where('user_id','=', Auth::user()->id)->get() as $b) {
             $bills[$b->id] = $b->name;
         }               
-                
+             
+               
         $data = array(
             'operations' => $operations,
             'to_date' => $to_date,
             'from_date' => $from_date,
             'bills' => $bills,
             'bill' => $bill,
+            'types' => [
+                'all' => 'Все',
+                'income' => 'Доходы',
+                'outcomes' => 'Расходы',
+                'transfers' => 'Пермещеня',
+            ],
+            'type' => $req->input('types', 'all')
             
         );        
         

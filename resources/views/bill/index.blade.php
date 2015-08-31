@@ -23,14 +23,14 @@
     </thead>
     <tbody>
         <img src="/img/preload.gif" ng-show="loading" class="center-block">
-        <tr ng-repeat="bill in bills" ng-click="showBill($index)">
+        <tr ng-repeat="bill in bills" >
             <td>[[bill.name]]</td>
             <td>[[bill.amount]]</td>
             <td>[[bill.currency.iso4217]]</td>
-<!--            <td>
+            <td>
                 <button ng-click="showBill($index)"><span class='glyphicon glyphicon-edit'></span></button>
                 <button ng-click="removeBill($index)"><span class='glyphicon glyphicon-trash'></span></button>
-            </td>-->
+            </td>
             <input type='hidden' ng-model="token" value='{{csrf_token()}}'> 
         </tr>
     </tbody>
@@ -93,7 +93,7 @@
             </div>
             <div class='form-group'>
                 <label class='control-label'>Валюта:</label>
-                <input type="text" class='form-control' ng-model='bill.currency.iso4217' disabled>  
+                <input type="text" class='form-control' ng-model='bill.currency' disabled>  
             </div>
             <div class='form-group'>
                 <label class='control-label'>Сумма:</label>

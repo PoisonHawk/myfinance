@@ -69,7 +69,7 @@ class BillsController extends Controller
         ];
         
         $this->validate($request, [
-            'name' => 'required',
+                'name' => 'required',
                 'amount' => 'required|numeric',  
         ], $messages);
         
@@ -95,9 +95,11 @@ class BillsController extends Controller
         $input = $request->all();
         $input['user_id'] = Auth::user()->id;
         
-        $bill = Bills::create($input);
+        $newBill = Bills::create($input);
         
-        $ans['bill'] = $bill;
+        $bill = Bills::with('currency')->find($newBill->id);
+        
+        $ans['bill'] = $bill;   
         return json_encode($ans);
         
     }
@@ -155,8 +157,17 @@ class BillsController extends Controller
     {
         $bill = Bills::findOrFail($id);
         
-        $bill->delete();
-                
+        $bill->active = 0;
+        
+        try{
+            $bill->save();
+        } catch (Exception $e) {
+            abort(500);
+            $ans = ['status' => 'fail', 'message' => 'Ошибка операции'];
+        
+            return json_encode($ans);
+        }
+                        
         $ans = ['status' => 'ok', 'message' => 'Счет успешно удален'];
         
         return json_encode($ans);

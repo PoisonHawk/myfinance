@@ -16,10 +16,11 @@ class Bills extends Model
         'currency_id',
     ];
     
-    protected $visible = [
-        'name',
-        'currency',
-        'amount',
+    protected $hidden = [
+        'user_id',
+        'created_at',
+        'updated_at',
+        'active',        
     ];
     
     public function operations(){
@@ -37,7 +38,10 @@ class Bills extends Model
     public function scopeUserBills($query){    
 
         if (Auth::user()) {       
-         return $query->where('user_id','=', Auth::user()->id)->get();       
+         return $query
+                 ->where('user_id','=', Auth::user()->id)
+                 ->where('active', '=', '1')
+                 ->get();       
         }
     }
    
@@ -73,6 +77,7 @@ class Bills extends Model
                     currency c
                 on b.currency_id = c.id
                 where b.user_id = ?
+                and b.active = 1
 SQL;
         
         $res = DB::select($sql, [$from,$from, $userId]);

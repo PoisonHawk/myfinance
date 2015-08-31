@@ -14,6 +14,10 @@ class Category extends \Baum\Node
         //'parent_id',
     ];
     
+    protected $visible = [
+      'name',  
+    ];
+    
     public function user(){
         $this->belongsTo('user');
     }

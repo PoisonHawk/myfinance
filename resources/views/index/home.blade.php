@@ -100,21 +100,20 @@
    </div>
 
 
-<div class='panel panel-default'>
+<div class='panel panel-default' ng-controller="OperationsCtrl">
         <div class='panel-heading'>
             <h4>Траты за сегодня</h4>
         </div>
         <div class='panel-body'>            
             <table class='table'>
                 <tbody>
-                    @foreach($userOucomesToday as $o)
+                    <tr ng-repeat="op in operations">
+                        <td>[[op.created | date:'dd.MM HH:ii']]</td>
+                        <td>[[op.bill.name]]</td>
+                        <td>[[op.category.name]]</td>
+                        <td>[[op.amount]] [[op.bill.currency.iso4217]]</td>
                     <tr>
-                        <td>{{$o->created_at->format('H:i')}}</td>
-                        <td>{{$o->bill->name}}</td>
-                        <td>{{$o->category->name}}</td>
-                        <td>{{$o->amount}}</td>
-                    </tr>
-                    @endforeach
+                    
                 </tbody>
             </table>
         </div>

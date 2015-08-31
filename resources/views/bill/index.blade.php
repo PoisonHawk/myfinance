@@ -26,7 +26,7 @@
         <tr ng-repeat="bill in bills" ng-click="showBill($index)">
             <td>[[bill.name]]</td>
             <td>[[bill.amount]]</td>
-            <td>[[ currencies[bill.currency_id] ]]</td>
+            <td>[[bill.currency.iso4217]]</td>
 <!--            <td>
                 <button ng-click="showBill($index)"><span class='glyphicon glyphicon-edit'></span></button>
                 <button ng-click="removeBill($index)"><span class='glyphicon glyphicon-trash'></span></button>
@@ -35,7 +35,7 @@
         </tr>
     </tbody>
 </table>
-<a href='#' data-toggle="modal" data-target='#modal_bill' class='btn btn-primary'>Добавить счет</a>
+<a href='#'  ng-click='showBillAdd()' class='btn btn-primary'>Добавить счет</a>
 
 <!--Modal-->
 <div class="modal fade" id="modal_bill" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
@@ -93,7 +93,7 @@
             </div>
             <div class='form-group'>
                 <label class='control-label'>Валюта:</label>
-                <input type="text" class='form-control' ng-model='currencies[bill.currency]' disabled>  
+                <input type="text" class='form-control' ng-model='bill.currency.iso4217' disabled>  
             </div>
             <div class='form-group'>
                 <label class='control-label'>Сумма:</label>

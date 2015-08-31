@@ -325,4 +325,16 @@ class OperationsController extends Controller
         return response(json_encode($ans));
 
     }
+    
+    public function getOutcomes(){
+               
+        $from = Carbon::today();
+        $to = Carbon::tomorrow();        
+        
+       
+//        dd(Carbon::tomorrow());
+        
+        return Operation::with('bill.currency', 'category')->outcomePeriod($from, $to);
+        
+    }
 }

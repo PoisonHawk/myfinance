@@ -16,6 +16,12 @@ class Bills extends Model
         'currency_id',
     ];
     
+    protected $visible = [
+        'name',
+        'currency',
+        'amount',
+    ];
+    
     public function operations(){
         return $this->hasMany('operations', 'bills_id');
     }

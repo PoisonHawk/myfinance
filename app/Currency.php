@@ -8,6 +8,7 @@ class Currency extends Model
 {
     protected $table = 'currency';
     
+    
     public function bills(){
         return $this->hasOn('App\Bills');
     }

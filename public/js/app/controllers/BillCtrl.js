@@ -16,8 +16,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
     $scope.errors = [];
         
     $scope.clearBillData = function(){
-        
-        console.log('1');
+    
         $scope.bill = {
             name: '',
             currency: 1,
@@ -48,11 +47,16 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
     $scope.init = function(){
        
         $scope.loading = true;
-        billFactory.getBills().success(function(data, status, headers, config){
-            $scope.bills = data.bills;
-            $scope.currencies = data.currency;
-            $scope.loading = false;  
-        })
+        billFactory.getBills()
+                .success(function(data, status, headers, config){                    
+                    $scope.bills = data.bills;
+                    $scope.currencies = data.currency;
+                    $scope.loading = false;  
+                })
+                .error(function(){
+                    $scope.messageFail('Ошибка получения данных');
+                    $scope.loading = false; 
+                })
     };
     
     $scope.addBill = function(){  
@@ -98,11 +102,17 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         $scope.clearBillData();
     };
     
+    $scope.showBillAdd = function(index){
+                                      
+        $scope.clearBillData();
+        $('#modal_bill').modal('show');
+    };
+    
     $scope.showBill = function(index){
                        
         var bill = $scope.bills[index];
         $scope.index = index;
-                       
+                              
         $scope.bill.name = bill.name;
         $scope.bill.currency = bill.currency_id;
         $scope.bill.amount = bill.amount;
@@ -166,5 +176,6 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
     };
         
     $scope.init();
+   
 })
 

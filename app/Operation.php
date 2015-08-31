@@ -168,5 +168,27 @@ SQL;
         
     }
     
+    protected $visible = [
+        'created',
+        'amount',
+        'bill',
+        'category',
+    ];
+    
+    public function scopeOutcomePeriod($query, $from, $to){
+                       
+        if (Auth::user()) {
+        
+            
+        return $query                
+                ->where('type','=','outcome')
+                ->where('user_id','=', Auth::user()->id)
+                ->where('created', '>=', $from)
+                ->where('created', '<=', $to)
+                ->orderBy('created', 'desc')->get();
+        
+        }
+    }
+    
     
 }

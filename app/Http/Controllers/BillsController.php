@@ -26,7 +26,7 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $bills = Bills::userBills();
+        $bills = Bills::with('currency')->userBills();
          
         $cur = new Currency();
         $currency = $cur->allCurrencies();   

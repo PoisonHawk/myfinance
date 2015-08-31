@@ -93,7 +93,7 @@
             </div>
             <div class='form-group'>
                 <label class='control-label'>Валюта:</label>
-                <input type="text" class='form-control' ng-model='bill.currency' disabled>  
+                <input type="text" class='form-control' ng-model='currencies[bill.currency]' disabled>  
             </div>
             <div class='form-group'>
                 <label class='control-label'>Сумма:</label>

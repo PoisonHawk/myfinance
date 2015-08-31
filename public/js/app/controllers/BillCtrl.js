@@ -16,6 +16,8 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
     $scope.errors = [];
         
     $scope.clearBillData = function(){
+        
+        console.log('1');
         $scope.bill = {
             name: '',
             currency: 1,
@@ -56,6 +58,8 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
     $scope.addBill = function(){  
                
         $scope.sending = true;
+        
+        $scope.clearBillData();
         
         var post = {
             name: $scope.bill.name,

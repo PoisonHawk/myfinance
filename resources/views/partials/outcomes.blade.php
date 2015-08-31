@@ -21,38 +21,39 @@
             <span ng-click="getReport('outcome')" >Расходы</span>
             <span ng-click="getReport('income')">Доходы</span>
         </div>
+        <!--<img src="/img/preload.gif" ng-show="loading" class="center-block">-->
         <div class='panel-body'>
-            <div class="diagramm">
-                <div style="max-width: 300px">
-                <canvas class='chart ' id="outcomes" width="300" height="300"></canvas>
+            
+            <!--<div ng-hide="loading">-->
+                <div class="diagramm">
+                    <div style="max-width: 300px">
+                        <canvas class='chart ' id="outcomes" width="300" height="300"></canvas>
+                    </div>
+                    <div class='legend' id="legend"></div>
+                    <div class='clearfix'></div>
                 </div>
-                <div class='legend ' id="legend"></div>
-                <div class='clearfix'></div>
-            </div>
-<table class='table'>   
-    <tr class="active" ng-repeat="r in data.result">
-        <td>[[r.name]]</td>
-        <td>&nbsp;</td>
-        <td>[[r.total]]</td>
-        <ul ng-if="r.items">
-        <li ng-repeat="item in r.items">
-            <span></span>
-            <span>[[item.name]]</span>
-            <span>[[item.total]]</span>
-        </li>
-    
-        </ul>
-    </tr>
-    <tr class='info'>
-        <td>Итого</td>
-        <td>&nbsp;</td>
-        <td>[[data.total]]</td>
-    </tr>
-</table>
+                <table class='table'>   
+                    <tr class="active" ng-repeat="r in data.result">
+                        <td>[[r.name]]</td>
+                        <td>&nbsp;</td>
+                        <td>[[r.total]]</td>
+                        <ul ng-if="r.items">
+                            <li ng-repeat="item in r.items">
+                                <span></span>
+                                <span>[[item.name]]</span>
+                                <span>[[item.total]]</span>
+                            </li>
+                        </ul>
+                    </tr>
+                    <tr class='info'>
+                        <td>Итого</td>
+                        <td>&nbsp;</td>
+                        <td>[[data.total]]</td>
+                    </tr>
+                </table>
+            <!--</div>-->
+        </div>
 </div>
-</div>
-<script>
 
-</script>
 @stop
 

@@ -6,6 +6,7 @@ app.controller('ctrlReport', function($scope, reportFactory){
     $scope.type = 'outcome';
     $scope.chart = null;
     $scope.block = false;
+    $scope.loading = false;
        
     $scope.drawDiagram = function(){
         var colors = ['Tomato', 'LightGreen', 'SkyBlue', 'Gold', 'maroon', 'orange', 'MediumSeaGreen', 'aqua', 'pink', 'purple', 'teal', 'gray', 'silver'];
@@ -42,17 +43,25 @@ app.controller('ctrlReport', function($scope, reportFactory){
         
     };
     
-    $scope.getReport = function(type){  
-       
+    $scope.getReport = function(type){
+        
         if ($scope.block) {
             return;
         }
+        
+        $scope.loading = true;
         $scope.block = true;
-        reportFactory.outcome(type).success( function(data) {                                                    
-                $scope.data = data;                          
-                $scope.drawDiagram(); 
-                $scope.block = false;
-          });       
+        reportFactory.outcome(type)
+                .success( function(data) {                                                    
+                        $scope.data = data;                          
+                        $scope.loading = false;
+                        $scope.drawDiagram(); 
+                        $scope.block = false;
+                        
+                })
+                .error(function(){
+                    $scope.loading = false;
+                });       
     };   
     
     $scope.getReport('outcome');

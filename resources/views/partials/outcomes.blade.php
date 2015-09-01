@@ -26,32 +26,38 @@
             
             <!--<div ng-hide="loading">-->
                 <div class="diagramm">
-                    <div style="max-width: 300px">
-                        <canvas class='chart ' id="outcomes" width="300" height="300"></canvas>
+                    <div style="max-width: 250px">
+                        <canvas class='chart ' id="outcomes" width="250" height="250"></canvas>
                     </div>
                     <div class='legend' id="legend"></div>
                     <div class='clearfix'></div>
-                </div>
-                <table class='table'>   
-                    <tr class="active" ng-repeat="r in data.result">
-                        <td>[[r.name]]</td>
-                        <td>&nbsp;</td>
-                        <td>[[r.total]]</td>
-                        <ul ng-if="r.items">
-                            <li ng-repeat="item in r.items">
-                                <span></span>
+                </div> 
+                <div class='table' id='accordion'>                       
+                    <div class="bg-warning" ng-repeat="r in data.result" > 
+                        <div>
+                            <span><a data-toggle="collapse" data-parent="#accordion" href="[[('#collapse_'+r.num)]]" aria-expanded="false" aria-controls="[[('#collapse_'+r.num)]]">[[r.name]]</a></span>
+                            <span>&nbsp;</span>
+                            <span>[[r.total]]</span>
+                        </div>
+                        <div id="[[('collapse_'+r.num)]]" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-if="r.items" >
+                            <div ng-repeat="item in r.items">
+                                <span>&nbsp;</span>
                                 <span>[[item.name]]</span>
                                 <span>[[item.total]]</span>
-                            </li>
-                        </ul>
-                    </tr>
-                    <tr class='info'>
-                        <td>Итого</td>
-                        <td>&nbsp;</td>
-                        <td>[[data.total]]</td>
-                    </tr>
-                </table>
-            <!--</div>-->
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                        
+                    
+                    <div class='info'>
+                        <span>Итого</span>
+                        <span>&nbsp;</span>
+                        <span>[[data.total]]</span>
+                    </div>
+                </div>
+            </div>
         </div>
 </div>
 

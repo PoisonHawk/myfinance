@@ -79,6 +79,7 @@ class Operation extends Model
         $result = [];
         
         $total = 0;
+        $num = 0;        
         
         foreach($res as $r) {
             
@@ -95,6 +96,7 @@ class Operation extends Model
                     'name' => $cat,
                     'total' => 0,
                     'items' => [],
+                    'num' => $num,
                 ];
             }
             
@@ -106,9 +108,20 @@ class Operation extends Model
             $result[$cat]['total'] += $r->amount;
             
             $total += $r->amount; 
+            $num++;
         }
         
-//        dd($result);
+        //сотрировка
+        usort($result , function($a, $b){
+                                
+                if ($a['total'] == $b['total']) {
+                    return 0;
+                }
+
+                return ($a['total'] > $b['total']) ? -1 : 1;
+
+        });
+
         
         $data = [
             'result' => $result,

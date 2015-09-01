@@ -3,20 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/public/js/app/services/reportFactory.js</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/public/js/app/controllers/BillCtrl.js</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Bills.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/bills/edit.blade.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Http/routes.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Http/Controllers/IndexController.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/layouts/main.blade.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/public/js/app/controllers/ctrlReport.js</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/bills/index.blade.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/public/js/app.js</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/app/Http/Controllers/BillsController.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/bill/index.blade.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/resources/views/index/home.blade.php</file>
-            <file>file:/C:/OpenServer/domains/finance/myfinance/public/js/app/services/billFactory.js</file>
+            <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/TransferController.php</file>
+            <file>file:/home/yevgen/projects/myfinance/resources/views/index/home.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/app/Bills.php</file>
+            <file>file:/home/yevgen/projects/myfinance/resources/views/reports/outcomes.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/app/Category.php</file>
+            <file>file:/home/yevgen/projects/myfinance/resources/views/layouts/main.blade.php</file>
+            <file>file:/home/yevgen/projects/myfinance/public/js/app/controllers/OperationsCtrl.js</file>
+            <file>file:/home/yevgen/projects/myfinance/public/js/app.js</file>
+            <file>file:/home/yevgen/projects/myfinance/app/Http/Controllers/ReportOutcome.php</file>
         </group>
     </open-files>
 </project-private>

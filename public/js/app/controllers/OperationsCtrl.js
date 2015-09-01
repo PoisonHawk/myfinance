@@ -22,8 +22,10 @@ app.controller('OperationsCtrl', function($scope, $http, CSRF_TOKEN){
         }
         
         var index;
-        for (index = 0; index<len; index++) {            
-            total += $scope.operations[index].amount;
+        for (index = 0; index<len; index++) {        
+            console.log('amount: '+$scope.operations[index].amount);
+            total += Number($scope.operations[index].amount);
+            console.log('total: '+total);
         }
 
         return total;

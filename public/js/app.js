@@ -1,6 +1,6 @@
 
 var xhReq = new XMLHttpRequest();
-      xhReq.open("GET", "http://"+window.location.hostname+"/token", false);
+      xhReq.open("GET", "/token", false);
       xhReq.send(null);
 
 var app = angular.module('app', ['ngMessages']);

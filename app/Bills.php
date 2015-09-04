@@ -14,6 +14,7 @@ class Bills extends Model
         'name',
         'amount',
         'currency_id',
+        'active',
     ];
     
     protected $hidden = [

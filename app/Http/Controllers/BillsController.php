@@ -94,6 +94,7 @@ class BillsController extends Controller
       
         $input = $request->all();
         $input['user_id'] = Auth::user()->id;
+        $input['active'] = 1;
         
         $newBill = Bills::create($input);
         

@@ -7,8 +7,8 @@
 
         $('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
         
-        $('input[name=fromDate]').datetimepicker({format:'Y-m-d'});
-        $('input[name=toDate]').datetimepicker({format:'Y-m-d'})
+        $('input[name=fromDate]').datetimepicker({timepicker:false, format:'Y-m-d'});
+        $('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
     })
 </script>
 
@@ -68,7 +68,8 @@
 
 <div class='panel panel-default'>
         <div class='panel-heading'>
-            <h4>Счета</h4>
+            <span class="glyphicon glyphicon-credit-card"></span>
+            <span>Счета</span>
         </div>
         <div class='panel-body'>
             <table class='table'>
@@ -105,14 +106,17 @@
 
 <div class='panel panel-default' ng-controller="OperationsCtrl">
         <div class='panel-heading'>
-            <span>Траты за </span>
-            <a href="javascript:void(0);" ng-click="report(1)">1</a>
-            <a href="javascript:void(0);" ng-click="report(7)">7</a>
-            <a href="javascript:void(0);" ng-click="report(31)">31</a>
-            <a href="javascript:void(0);" ng-click="period()">Период</a>
+            <span class="glyphicon glyphicon-stats"></span>
+            <span>Расходы за </span>
+            <div class="btn-group btn-group-xs">
+                <button class="btn btn-default" ng-click="report(1)">день</button>
+                <button class="btn btn-default" ng-click="report(7)">неделю</button>
+                <button class="btn btn-default" ng-click="report(31)">месяц</button>
+                <button class="btn btn-default" ng-click="period()">период</button>
+            </div>
             <div ng-show="isPeriod">
-                C <input name="fromDate" type="text" value="[[date.from]]" ng-model="date.from">
-                по <input name="toDate" type="text" value="[[date.to]]" ng-model="date.to">
+                C <input name="fromDate" type="text" value="[[date.from]]" ng-model="date.from" size="8">
+                по <input name="toDate" type="text" value="[[date.to]]" ng-model="date.to" size="8">
                 <button ng-click="makeRequest()">Показать</button>
             </div>
         </div>

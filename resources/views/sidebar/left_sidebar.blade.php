@@ -8,7 +8,7 @@
         <div ng-repeat='bill in bills'>
             <span>[[bill.name]]</span>
             <span>[[bill.amount]]</span>
-            <span class="glyphicon gliphicon-[[bill.currency.iso4217 ]]"></span>
+            <span class="glyphicon glyphicon-[[bill.currency.iso4217 ]]"></span>
         </div>
     </div>
 </div>

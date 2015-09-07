@@ -64,7 +64,7 @@
 <main>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-2 col-md-2 sidebar">
+            <div class="col-sm-3 col-md-3 sidebar">
 <!--                <ul class='nav nav-sidebar'>
                     <li><a href="/bill">Счета</a></li>
                     <li><a href="{{route('category.index')}}">Категории</a></li> 
@@ -77,7 +77,7 @@
             <div class="col-sm-6">
                 @yield('content')
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-sm-3">
                 @section('right-sidebar')
                     @include('partials.outcomes')
                 @show

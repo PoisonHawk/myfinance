@@ -6,6 +6,9 @@
     $(document).ready(function(){
 
         $('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
+        
+        $('input[name=fromDate]').datetimepicker({format:'Y-m-d'});
+        $('input[name=toDate]').datetimepicker({format:'Y-m-d'})
     })
 </script>
 
@@ -102,10 +105,21 @@
 
 <div class='panel panel-default' ng-controller="OperationsCtrl">
         <div class='panel-heading'>
-            <h4>Траты за сегодня</h4>
+            <span>Траты за </span>
+            <a href="javascript:void(0);" ng-click="report(1)">1</a>
+            <a href="javascript:void(0);" ng-click="report(7)">7</a>
+            <a href="javascript:void(0);" ng-click="report(31)">31</a>
+            <a href="javascript:void(0);" ng-click="period()">Период</a>
+            <div ng-show="isPeriod">
+                C <input name="fromDate" type="text" value="[[date.from]]" ng-model="date.from">
+                по <input name="toDate" type="text" value="[[date.to]]" ng-model="date.to">
+                <button ng-click="makeRequest()">Показать</button>
+            </div>
         </div>
-        <div class='panel-body'>            
-            <table class='table'>
+        <div class='panel-body'>
+            <img src="/img/preload.gif" ng-show="load"></img>
+            <table class='table' ng-hide="load">
+                <p class="text-danger" ng-show="error">[[message]]</p>
                 <tbody>
                     <tr ng-repeat="op in operations">
                         <td>[[op.created | date:'dd.MM HH:ii']]</td>

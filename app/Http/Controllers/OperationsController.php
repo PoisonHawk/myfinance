@@ -334,14 +334,16 @@ class OperationsController extends Controller
 
     }
     
-    public function getOutcomes(){
-               
-        $from = Carbon::today();
-        $to = Carbon::tomorrow();        
-        
-       
-//        dd(Carbon::tomorrow());
-        
+    /**
+     * Cgисок операций
+     * @param Request $req
+     * @return type
+     */
+    public function getOutcomes(Request $req){
+
+        $from = $req->input('from', Carbon::today());
+        $to = $req->input('to', Carbon::tomorrow());        
+   
         return Operation::with('bill.currency', 'category')->outcomePeriod($from, $to);
         
     }

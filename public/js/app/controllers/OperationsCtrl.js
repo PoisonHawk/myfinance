@@ -20,6 +20,7 @@ app.controller('OperationsCtrl', function($scope, $http, CSRF_TOKEN){
         
     };
     
+    
     $scope.report = function(period){
         
         $scope.isPeriod = false;

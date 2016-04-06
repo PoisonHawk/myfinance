@@ -12,14 +12,15 @@ class CreateCategoryTable extends Migration
      */
     public function up()
     {
-//        Schema::create('categories', function(Blueprint $table){
-//            $table->increments('id');
-//            $table->integer('user_id')->index();
-//            $table->string('name');
-//            $table->string('type', 10)->index();
-//            $table->integer('parent_id');
-//            $table->timestamps();
-//        });
+        Schema::create('categories', function(Blueprint $table){
+            $table->increments('id');
+            $table->integer('user_id')->index();
+            $table->string('name');
+            $table->string('type', 10)->index();
+            $table->integer('parent_id');
+            $table->timestamp('created_at', '');
+            $table->timestamp('updated_at', '');
+        });
     }
 
     /**

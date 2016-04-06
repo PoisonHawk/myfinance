@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends \Baum\Node
 {
+    public $table = 'categories';
     //
     protected $fillable = [
       'user_id',

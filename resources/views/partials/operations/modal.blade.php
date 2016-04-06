@@ -23,8 +23,9 @@
             <!--Категория-->
             <div class='form-group'>
                 <label class='control-label'>Категория:</label>
+                @if(isset($categories[$type]))
                 {!! Form::select('category_id', $categories[$type], null , ['class'=>'form-control']) !!}
-
+                @endif
             </div>
             <div class='form-group'>
                 <label class='control-label'>Сумма:</label>

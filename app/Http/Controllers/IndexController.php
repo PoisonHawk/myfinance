@@ -36,7 +36,7 @@ class IndexController extends Controller
                 }
             }
         }       
-        
+        //dd($categories);
         $data = [
             'today' => date('Y-m-d H:i', time()),
             'bills' => $bills,

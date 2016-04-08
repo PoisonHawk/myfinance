@@ -17,7 +17,7 @@ class CreateCategoryTable extends Migration
             $table->integer('user_id')->index();
             $table->string('name');
             $table->string('type', 10)->index();
-            $table->integer('parent_id');
+            $table->integer('parent_id', 0);
             $table->timestamp('created_at', '');
             $table->timestamp('updated_at', '');
         });

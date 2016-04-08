@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnsToCategories1 extends Migration
+class SetDefaultParentidCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,8 @@ class AddColumnsToCategories1 extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function(Blueprint $table) {
-            $table->integer('lft')->nullable()->index();
-            $table->integer('rgt')->nullable()->index();
-            $table->integer('depth')->nullable();
+        Schema::table('categories', function(Blueprint $table){
+            $table->integer('parent_id')->default(0)->change();
         });
     }
 

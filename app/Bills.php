@@ -62,14 +62,14 @@ class Bills extends Model
                             operations
                     where operations.bills_id = b.id
                     and operations.type in ('income','transfer_in')                    
-                    and operations.created_at >= ?) as `in`,
+                    and operations.created_at >= ?) as in,
                     (select 
                             sum(amount)
                     from 
                             operations
                     where operations.bills_id = b.id
                     and operations.type in ('outcome', 'transfer_out')                      
-                    and operations.created_at >= ?) as `out`,		
+                    and operations.created_at >= ?) as out,		
                     b.amount,
                     c.iso4217 as currency
                 from 

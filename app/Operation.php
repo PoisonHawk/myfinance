@@ -162,8 +162,8 @@ class Operation extends Model
         $sql = <<<SQL
                 select
                     b.name,
-                    case when o.type='income' then sum(o.amount) end as `in`,
-                    case when o.type='outcome' then sum(o.amount) end as `out`,
+                    case when o.type='income' then sum(o.amount) end as in,
+                    case when o.type='outcome' then sum(o.amount) end as out,
                     b.amount
                 from 
                     operations o

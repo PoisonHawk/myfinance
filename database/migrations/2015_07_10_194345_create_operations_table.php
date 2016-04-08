@@ -14,7 +14,7 @@ class CreateOperationsTable extends Migration
     {
         Schema::create('operations', function(Blueprint $table){
            $table->increments('id');
-           $table->dateTime('created');
+           $table->timestamp('created');
            $table->integer('user_id')->index();
            $table->integer('bills_id')->index();
            $table->integer('category_id')->index();

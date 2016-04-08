@@ -27,6 +27,6 @@ class CreateTableCurrency extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('currency');
     }
 }

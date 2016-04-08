@@ -29,6 +29,6 @@ class CreateTransferTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('transfers');
     }
 }

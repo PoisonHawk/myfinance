@@ -27,8 +27,6 @@ class CreateBillsTable extends Migration
      */
     public function down()
     {
-        Schema::table('bills', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('bills');
     }
 }

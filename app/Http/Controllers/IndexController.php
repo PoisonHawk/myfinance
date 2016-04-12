@@ -20,7 +20,7 @@ class IndexController extends Controller
     }
     
     public function home(){
-                
+               
         $bills = Bills::userBills(); 
         
         $category = Category::where('user_id','=', Auth::user()->id)

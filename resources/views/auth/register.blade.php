@@ -12,17 +12,28 @@
         </ul>
     </div>
 @endif
-  {!! Form::open(array('url' => 'auth/register', 'method'=>'POST')) !!}
+<div class="col-md-6">
+  {!! Form::open(array('url' => 'auth/register', 'method'=>'POST', )) !!}
+  <div class="form-group">
   {!! Form::label('name', 'Name') !!}
-  {!! Form::text('name') !!}
+  <input type='text' name='name' value="{{old('name')}}" placeholder="John" class="form-control">
+  </div>
+  <div class="form-group">
   {!! Form::label('email', 'E-Mail Address') !!}
-  {!! Form::text('email') !!}
+  <input type='text' name='email' value="{{old('email')}}" placeholder="john.smith@gmail.com" class="form-control">
+</div>
+<div class="form-group">
   {!! Form::label('password', 'Password') !!}
-  {!! Form::password('password') !!}
-  {!! Form::label('password_confirmation', 'Confirm password') !!}
-  {!! Form::password('password_confirmation') !!}
+  <input type='password' name='password'class="form-control">
+</div>
+<div class="form-group">
+  {!! Form::label('password_confirmation', 'Confirm password') !!} 
+  <input type='password' name='password_confirmation'class="form-control">
+</div>
+
   <div class="form-actions">
   {!! Form::submit('Register', array('class' => 'btn btn-primary')) !!}
   </div>
-  {!! Form::close() !!}  
+  {!! Form::close() !!}
+  </div>
 @stop

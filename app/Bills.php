@@ -15,64 +15,65 @@ class Bills extends Model
         'amount',
         'currency_id',
         'active',
+        'default_wallet',
     ];
-    
+
     protected $hidden = [
         'user_id',
         'created_at',
         'updated_at',
-        'active',        
+        'active',
     ];
-    
+
     public function operations(){
         return $this->hasMany('operations', 'bills_id');
     }
-    
+
     public function user(){
         return $this->belongsTo('users');
     }
-    
+
     public function currency(){
         return $this->hasOne('App\Currency', 'id', 'currency_id');
     }
-    
-    public function scopeUserBills($query){    
 
-        if (Auth::user()) {       
+    public function scopeUserBills($query){
+
+        if (Auth::user()) {
          return $query
                  ->where('user_id','=', Auth::user()->id)
                  ->where('active', '=', '1')
-                 ->get();       
+                 ->get();
         }
     }
-   
+
    public function scopeReportBills($query){
-        
+
         $startTimestamp = mktime(0,0,0, date('m', time()), 1 , date('Y', time()));
-        
+
         $from = date('Y-m-d', $startTimestamp);
-        $userId = Auth::user()->id;        
-        
+        $userId = Auth::user()->id;
+
         $sql = <<<SQL
                 select
                     b.name,
-                    (select 
+                    (select
                             sum(amount)
-                    from 
+                    from
                             operations
                     where operations.bills_id = b.id
-                    and operations.type in ('income','transfer_in')                    
+                    and operations.type in ('income','transfer_in')
                     and operations.created_at >= ?) as in,
-                    (select 
+                    (select
                             sum(amount)
-                    from 
+                    from
                             operations
                     where operations.bills_id = b.id
-                    and operations.type in ('outcome', 'transfer_out')                      
-                    and operations.created_at >= ?) as out,		
+                    and operations.type in ('outcome', 'transfer_out')
+                    and operations.created_at >= ?) as out,
                     b.amount,
                     c.iso4217 as currency
-                from 
+                from
                     bills b
                 join
                     currency c
@@ -80,19 +81,19 @@ class Bills extends Model
                 where b.user_id = ?
                 and b.active = 1
 SQL;
-        
+
         $res = DB::select($sql, [$from,$from, $userId]);
 
         return $res;
-        
+
     }
-    
-     
+
+
     public function scopeOperationHistory($query, $type, $from, $to){
-        
-        return $query->operations()                
+
+        return $query->operations()
                 ->where('type', '=', $type)
                 ->where('created_at', '>=', $from);
     }
-    
+
 }

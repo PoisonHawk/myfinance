@@ -1,12 +1,12 @@
 @extends('layouts.main')
- 
+
 @section('content')
 
 <script>
     $(document).ready(function(){
 
         $('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
-        
+
         $('input[name=fromDate]').datetimepicker({timepicker:false, format:'Y-m-d'});
         $('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
     })
@@ -15,7 +15,7 @@
 
 <button class='btn btn-success' data-toggle="modal" data-target="#modal_income">Доход</button>
 <button class='btn btn-danger' data-toggle="modal" data-target="#modal_outcome">Расход</button>
-<button class='btn btn-primary' data-toggle='modal' data-target='#modal_transfer'>Перевод</button> 
+<button class='btn btn-primary' data-toggle='modal' data-target='#modal_transfer'>Перевод</button>
 
 <!-- Modal Income-->
 @include('partials.operations.modal', ['type'=>'income', 'today'=>$today, 'bills'=>$bills, 'categories'=> $categories, 'title' => 'доход'])
@@ -27,36 +27,36 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Новый перевод</h4>
       </div>
-      <div class="modal-body">        
+      <div class="modal-body">
         <form method='POST' action='{{route('transfers.store')}}'>
             <div class='form-group'>
                 <label class='control-label'>Дата:</label>
                 <input type='text' name='created' class='form-control' value='{{$today}}'>
-            </div>    
+            </div>
             <!--Счет-->
             <div class='form-group'>
-                <label class='control-label'>Cчет отправитель:</label>        
+                <label class='control-label'>Cчет отправитель:</label>
                     <select name='bill_from_id' class='form-control'>
                     @foreach($bills as $bill)
-                    <option value="{{$bill->id}}">{{$bill->name}}</option>
+                    <option value="{{$bill->id}}" {{$bill->default_wallet == 1 ? 'selected' : ''}}>{{$bill->name}}</option>
                     @endforeach
-                </select>        
+                </select>
             </div>
             <div class='form-group'>
-                <label class='control-label'>Cчет получатель:</label>                     
+                <label class='control-label'>Cчет получатель:</label>
                     <select name='bill_to_id' class='form-control'>
                     @foreach($bills as $bill)
                     <option value="{{$bill->id}}">{{$bill->name}}</option>
                     @endforeach
-                </select>   
+                </select>
 
-            </div>    
+            </div>
             <div class='form-group'>
                 <label class='control-label'>Сумма:</label>
                 <input type='text' name='amount' class='form-control'>
-            </div>    
-            <input type='hidden' name='type' value='transfer'>    
-            <input type='hidden' name='redirect' value='/'>   
+            </div>
+            <input type='hidden' name='type' value='transfer'>
+            <input type='hidden' name='redirect' value='/'>
             <input type='hidden' name='_token' value='{{csrf_token()}}'>
             <input type='submit' name='submit' value='Сохранить' class='btn btn-primary'>
         </form>

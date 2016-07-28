@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnTableOperations extends Migration
+class AddColumnToBills extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class AddColumnTableOperations extends Migration
      */
     public function up()
     {
-        Schema::table('operations', function (Blueprint $table) {
-          $table->smallinteger('active');
-       });
+        Schema::table('bills', function(Blueprint $table){
+            $table->smallinteger('default_wallet')->default(0);
+        });
     }
 
     /**
@@ -24,6 +24,8 @@ class AddColumnTableOperations extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('bills', function(Blueprint $table){
+            $table->dropColumn('default_wallet');
+        });
     }
 }

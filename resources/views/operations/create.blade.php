@@ -13,7 +13,7 @@
 @endif
 <script>
     $(document).ready(function(){
-        
+
         $('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
     })
 </script>
@@ -21,13 +21,13 @@
     <div class='form-group'>
         <label class='control-label'>Дата:</label>
         <input type='text' name='created' class='form-control' value='{{$today}}'>
-    </div>    
+    </div>
     <!--Счет-->
     <div class='form-group'>
         <label class='control-label'>Cчет:</label>
         <select name='bills_id' class='form-control'>
             @foreach($bills as $bill)
-            <option value="{{$bill->id}}">{{$bill->name}}</option>
+            <option value="{{$bill->id}}" {{ $bill->default_wallet == 1 ? 'selected' : ''}}>{{$bill->name}}</option>
             @endforeach
         </select>
     </div>
@@ -35,12 +35,12 @@
     <div class='form-group'>
         <label class='control-label'>Категория:</label>
         {!! Form::select('category_id', $category, null , ['class'=>'form-control']) !!}
-       
+
     </div>
     <div class='form-group'>
         <label class='control-label'>Сумма:</label>
         <input type='text' name='amount' class='form-control'>
-    </div>    
+    </div>
     <input type='hidden' name='type' value='{{$type}}'>
     <input type='hidden' name='_token' value='{{csrf_token()}}'>
     <input type='submit' name='submit' value='Сохранить' class='btn btn-primary'>

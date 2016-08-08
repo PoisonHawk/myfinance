@@ -47,3 +47,4 @@ Route::controllers([
 
 Route::controller('reportoutcome', 'ReportOutcome');
 
+Route::resource('purchase', 'PurchasesController');

@@ -12,11 +12,11 @@
 <form method='POST' action='{{route('bills.store')}}'>
     <div class='form-group'>
         <label class='control-label'>Название:</label>
-        <input class='form-control' type='text' name='name'>
+        <input class='form-control' type='text' name='name' value="{{ old('name') }}">
     </div>
     <div class='form-group'>
         <label class='control-label'>Начальный остаток:</label>
-        <input class='form-control 'type='text' name='amount'>
+        <input class='form-control 'type='text' name='amount' value="{{ old('amount') }}">
     </div>
     <input type='hidden' name='_token' value='{{csrf_token()}}'>
     <input type='submit' class='btn btn-primary' name='submit' value='Добавить'>

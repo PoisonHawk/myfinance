@@ -1,4 +1,4 @@
-<ul ng-show="show">
+<ul ng-show=" {{$parent}} == parent" >
 @foreach ($categories as $category)
       <li class="list-group-item" >{{ $category->name }}</li>
       @if( isset($category->children) && count($category->children ) >=1 )

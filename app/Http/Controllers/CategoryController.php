@@ -13,15 +13,10 @@ use Baum;
 class CategoryController extends Controller
 {
     
-    public function __construct(){
-        $this->middleware('auth');
-    }
-    
     public function income(){
                 
         
         $categories = Category::where('type', '=', 'income')->where('user_id','=',Auth::user()->id)->get();
-        
         
         $data = [
             'type' => 'income',
@@ -81,7 +76,7 @@ class CategoryController extends Controller
             $categories[$c->id] = $c->name;            
             if( isset($c->children) ) { 
                 foreach($c->children as $cat_ch) {
-                    $categories[$cat_ch->id] = '--'.$cat_ch->name;
+                    $categories[$cat_ch->id] = '  '.$cat_ch->name;
                 }
             }
         }

@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', [
-    'middleware' => 'auth',
+Route::get('/', [   
     'as' => 'home',
     'uses' => 'IndexController@home',
 ]);
@@ -22,7 +21,6 @@ Route::get('/token', [
     'as' => 'token',
     'uses' => 'IndexController@token',
 ]);
-
 
 Route::get('bill', 'BillController@index');
 

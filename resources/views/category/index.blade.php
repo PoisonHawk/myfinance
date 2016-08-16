@@ -24,7 +24,7 @@
 			&nbsp;{{$category->name}}		
 			</span>
 			<a href="#"><span class="glyphicon glyphicon-trash pull-right"></span></a>  
-			<a href="#"><span class="glyphicon glyphicon-edit pull-right"></span></a>  
+			<a href="/category/{{$category->id}}/edit"><span class="glyphicon glyphicon-edit pull-right"></span></a>  
 		</li>
         @if( isset( $category->children ) && count($category->children ) >=1 )
             @include('category.children', ['categories' => $category->children, 'parent' => $category->id])

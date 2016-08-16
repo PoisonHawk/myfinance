@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use Auth;
 use Baum;
+use Validator;
 
 class CategoryController extends Controller
 {
@@ -145,9 +146,37 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id, Request $req)
+    {		
+		
+		$category = Category::find($id);
+		          
+		if (!$category) {
+			abort('500');
+		}
+		
+        $cat = Category::where('type', '=', $category->type)
+                ->where('user_id','=',Auth::user()->id)
+                ->get()
+                ->toHierarchy();
+                                     
+        //todo вынести в рекурсию!!!
+        $categories = ['0' => 'Корневая'];
+        foreach($cat as $c) {
+            $categories[$c->id] = $c->name;            
+            if( isset($c->children) ) { 
+                foreach($c->children as $cat_ch) {
+                    $categories[$cat_ch->id] = "&nbsp;&nbsp;&nbsp;&nbsp;".$cat_ch->name;
+                }
+            }
+        }
+       
+        $data = [
+			'category' => $category,
+            'categories' => $categories,                   
+        ];
+                
+        return view('category.edit', $data);
     }
 
     /**
@@ -156,9 +185,46 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $req)
     {
-        //
+		
+		$category = Category::find($id);
+		          
+		if (!$category) {
+			abort('500');
+		}
+				
+        $valid = Validator::make($req->input(), [
+            'name' => 'required',
+        ]);
+        
+		if($valid->fails()) {
+			return redirect()->back()->withErrors($valid);
+		}
+		        
+		$category->name = $req->input('name');
+			
+        if ($req->input('parent_id') == 0) {
+			
+			$category->save();
+			
+			if ($category->isChild()) {
+				$category->makeRoot();
+			} 
+						
+        } else {
+			$category->save();
+			
+			if ($category->parent_id != $req->input('parent_id')){
+				$root = Category::findOrFail($req->input('parent_id'));			
+				$category->makeChildOf($root);
+			}
+            
+        }
+                
+        $url = 'category/'.$req->input('type');
+        
+        return redirect($url);
     }
 
     /**

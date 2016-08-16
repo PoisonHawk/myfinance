@@ -16,8 +16,14 @@ class CategoryController extends Controller
     public function income(){
                 
         
-        $categories = Category::where('type', '=', 'income')->where('user_id','=',Auth::user()->id)->get();
+//        $categories = Category::where('type', '=', 'income')->where('user_id','=',Auth::user()->id)->get();
         
+		 $categories = Category::select('id', 'name', 'parent_id')
+                ->where('type', '=', 'income')
+                ->where('user_id','=',Auth::user()->id)
+                ->get()
+                ->toHierarchy();
+		
         $data = [
             'type' => 'income',
             'cat_name' => 'Доходы',

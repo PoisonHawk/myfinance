@@ -30,22 +30,18 @@ app.controller('operationCtrl', function($scope, $http){
 app.controller('categoryCtrl', function($scope){
     
     $scope.show = false;
-    $scope.parent = null;
+    $scope.parent = null;    
     
     $scope.showItems = function(id){
-        
-        console.log(id);
-        
+                
         if ($scope.parent == null) {
             $scope.parent = id;
         } else if ($scope.parent == id) {
             $scope.parent = null;
         } else {
             $scope.parent = id;
-        }
-        
-//        $scope.parent = $scope.parent == null ? id : null; 
-      
+        }        
+
     };
         
 })

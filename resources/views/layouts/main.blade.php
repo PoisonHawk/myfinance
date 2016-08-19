@@ -22,6 +22,7 @@
 <script src="/js/app/controllers/ctrlReport.js"></script>
 <script src="/js/app/controllers/BillCtrl.js"></script>
 <script src="/js/app/controllers/OperationsCtrl.js"></script>
+<script src="/js/app/controllers/categoryCtrl.js"></script>
 
 <link rel='stylesheet' href='/js/jquery.datetimepicker.css'>
 <script src='/js/jquery.datetimepicker.js'></script>

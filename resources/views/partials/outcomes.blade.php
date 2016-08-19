@@ -42,7 +42,7 @@
                         <div id="[[('collapse_'+r.num)]]" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-if="r.items" >
                             <div ng-repeat="item in r.items">
                                 <span>&nbsp;</span>
-                                <span>[[item.name]]</span>
+                                <span>[[item.name || 'Без категории']]</span>
                                 <span>[[item.total]]</span>
                             </div>
                         </div>

@@ -57,7 +57,7 @@ class OperationsController extends Controller
         }
         
         $operations = $operations->orderBy('created', 'desc')->get();
-         
+     		
         //получаем список счетов        
         $bills = array('0' => 'Все');
         
@@ -341,7 +341,7 @@ class OperationsController extends Controller
         $from = $req->input('from', Carbon::today());
         $to = $req->input('to', Carbon::tomorrow());        
    
-        return Operation::with('bill.currency', 'category')->outcomePeriod($from, $to);
+		return Operation::with('bill.currency', 'category')->outcomePeriod($from, $to);
         
     }
 }

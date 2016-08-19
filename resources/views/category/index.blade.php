@@ -9,8 +9,8 @@
 		<a href="{{route('category.create', 'type='.$type)}}" class='btn btn-success pull-right'>Добавить</a>
 		
 		<ul class="nav nav-tabs">
-			<li role="presentation" class="{{ $type == 'income' ? 'active' : '' }}"><a href="{{url('category/income')}}">Доходы</a></li> 
-			<li role="presentation" class="{{ $type == 'outcome' ? 'active' : '' }}"><a href="{{url('category/outcome')}}">Расходы</a></li>		   
+			<li role="presentation" class="{{ $type == 'income' ? 'active' : '' }}"><a href="{{url('category?type=income')}}">Доходы</a></li> 
+			<li role="presentation" class="{{ $type == 'outcome' ? 'active' : '' }}"><a href="{{url('category?type=outcome')}}">Расходы</a></li>		   
 		</ul>
 	</div>
 
@@ -23,7 +23,8 @@
 			@endif		
 			&nbsp;{{$category->name}}		
 			</span>
-			<a href="#"><span class="glyphicon glyphicon-trash pull-right"></span></a>  
+			
+			<a href="#" ng-click="remove({{$category->id}})"><span class="glyphicon glyphicon-trash pull-right"></span></a>  
 			<a href="/category/{{$category->id}}/edit"><span class="glyphicon glyphicon-edit pull-right"></span></a>  
 		</li>
         @if( isset( $category->children ) && count($category->children ) >=1 )

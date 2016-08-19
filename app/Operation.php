@@ -24,7 +24,7 @@ class Operation extends Model
     }
     
     public function category(){
-        return $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Category')->withTrashed();
     }
     
     //todo обработка ошибок
@@ -73,24 +73,24 @@ class Operation extends Model
                 ->select('categories.name', 'categories.parent_id', 'operations.amount')
                 ->where('operations.user_id', '=', Auth::user()->id)
                 ->where('operations.type','=', $type)
-                ->where('operations.created_at', '>', $from)
+                ->where('operations.created_at', '>', $from)				
                 ->get();            
-        
+
         $result = [];
         
         $total = 0;
         $num = 0;        
-        
+    		
         foreach($res as $r) {
             
             if ($r->parent_id == 0 ) {
                 
-                $cat = $r->name;                
+                $cat = $r->name ;                
                 
             } else {
-                $cat = Category::find($r->parent_id)->name;
+                $cat = Category::withTrashed()->find($r->parent_id)->name;
             }
-            
+	            
             if (!isset($result[$cat])) {
                 $result[$cat] = [
                     'name' => $cat,

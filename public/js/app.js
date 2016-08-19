@@ -27,16 +27,6 @@ app.controller('operationCtrl', function($scope, $http){
 })
 
 
-app.controller('categoryCtrl', function($scope){
-    
-    $scope.show = false;
-    
-    $scope.showItems = function(){
-        $scope.show = $scope.show == false ? true : false;
-    };
-    
-    
-    
-})
+
 
 

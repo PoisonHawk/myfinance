@@ -8,6 +8,11 @@ use DB;
 
 class Category extends \Baum\Node
 {
+	
+	use \Illuminate\Database\Eloquent\SoftDeletes;
+	
+	protected $dates = ['deleted'];
+	
     public $table = 'categories';
     //
     protected $fillable = [
@@ -25,6 +30,9 @@ class Category extends \Baum\Node
         $this->belongsTo('user');
     }
 	
+	public function operations(){
+		return $this->hasMany('App\Operation', 'category_id');
+	}
 	
 	protected static $defaultCategories = [
 		'income' => [
@@ -59,7 +67,7 @@ class Category extends \Baum\Node
 				'Обучение',
 				'Репетитор',
 			],
-			'Отдых и развлечение' => [
+			'Отдых и развлечения' => [
 				'Кинотеатры',
 				'Театры',
 				'Выставки',

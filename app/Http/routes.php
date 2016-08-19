@@ -26,9 +26,6 @@ Route::get('bill', 'BillController@index');
 
 Route::resource('bills', 'BillsController');
 
-Route::get('category/income', 'CategoryController@income');
-Route::get('category/outcome', 'CategoryController@outcome');
-
 Route::resource('category', 'CategoryController');
 
 Route::get('operations/{id}/cancel' , 'OperationsController@cancel');

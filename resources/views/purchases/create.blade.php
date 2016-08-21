@@ -18,6 +18,15 @@
         <input class='form-control 'type='text' name='amount' value={{ old('amount') }}>
     </div>
     <div class='form-group'>
+        <label class='control-label'>Категория:</label>
+        <!-- <select name='category_id'>
+          @foreach($categories as $id => $name)
+            <option value='{{$id}}'>{{$name}}</option>
+          @endforeach
+        </select> -->
+        {!! Form::select('category_id', $categories, null , ['class'=>'form-control']) !!}
+    </div>
+    <div class='form-group'>
         <label class='control-label'>Важность:</label>
         <label class='radio-inline'>
           <input class=' 'type='radio' name='priority' value='1' checked>1

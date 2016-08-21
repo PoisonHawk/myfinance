@@ -18,6 +18,7 @@ class CreateTablePurchases extends Migration
           $table->string('name', 255);
           $table->integer('amount');
           $table->smallInteger('priority');
+          $table->integer('category_id');
       });
     }
 

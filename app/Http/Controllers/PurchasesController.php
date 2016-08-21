@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Validator;
 use App\Purchase;
 use Auth;
+use App\Category;
 
 class PurchasesController extends Controller
 {
@@ -22,8 +23,11 @@ class PurchasesController extends Controller
 
         $purchases = Purchase::where('user_id', Auth::user()->id)
               ->orderBy('priority', 'desc')
+              ->orderBy('amount', 'desc')
                ->orderBy('name', 'desc')
                ->get();
+
+
 
         return view('purchases.index', ['purchases' => $purchases]);
     }
@@ -35,7 +39,23 @@ class PurchasesController extends Controller
      */
     public function create()
     {
-        return view('purchases.create');
+
+      $category = Category::where('user_id','=', Auth::user()->id)
+              ->where('type' ,'=', 'outcome')
+             ->get()
+             ->toHierarchy();
+
+      $categories = [];
+      foreach($category as $c) {
+          $categories[$c->id] = $c->name;
+          if( isset($c->children) ) {
+              foreach($c->children as $cat_ch) {
+                  $categories[$cat_ch->id] = '&nbsp;&nbsp;&nbsp;&nbsp;'.$cat_ch->name;
+              }
+          }
+      }
+
+      return view('purchases.create', ['categories'=> $categories]);
     }
 
     /**
@@ -51,8 +71,8 @@ class PurchasesController extends Controller
         $validator = Validator::make($request->all(), [
           'name' => 'required|max:255',
           'amount' => 'numeric',
-        ]);
 
+        ]);
 
         if($validator->fails()){
           return redirect()->back()
@@ -65,6 +85,7 @@ class PurchasesController extends Controller
         $purchase->user_id = Auth::user()->id;
         $purchase->name = $request->input('name');
         $purchase->amount = $request->input('amount')?:0;
+        $purchase->category_id = $request->input('category_id');
         $purchase->priority = $request->input('priority');
 
         $purchase->save();

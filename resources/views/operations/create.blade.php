@@ -35,7 +35,6 @@
     <div class='form-group'>
         <label class='control-label'>Категория:</label>
         {!! Form::select('category_id', $category, null , ['class'=>'form-control']) !!}
-
     </div>
     <div class='form-group'>
         <label class='control-label'>Сумма:</label>

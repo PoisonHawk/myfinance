@@ -18,27 +18,10 @@ class PurchasesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
 
-        $purchases = Purchase::where('user_id', Auth::user()->id)
-              ->orderBy('priority', 'desc')
-              ->orderBy('amount', 'desc')
-               ->orderBy('name', 'desc')
-               ->get();
+    protected $categories = [];
 
-
-
-        return view('purchases.index', ['purchases' => $purchases]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    public function __construct(){
 
       $category = Category::where('user_id','=', Auth::user()->id)
               ->where('type' ,'=', 'outcome')
@@ -55,7 +38,31 @@ class PurchasesController extends Controller
           }
       }
 
-      return view('purchases.create', ['categories'=> $categories]);
+      $this->categories = $categories;
+    }
+
+
+    public function index()
+    {
+
+        $purchases = Purchase::where('user_id', Auth::user()->id)
+              ->orderBy('priority', 'desc')
+              ->orderBy('amount', 'desc')
+               ->orderBy('name', 'desc')
+               ->get();
+
+        return view('purchases.index', ['purchases' => $purchases]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+
+      return view('purchases.create', ['categories'=> $this->categories]);
     }
 
     /**
@@ -113,7 +120,17 @@ class PurchasesController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $purchase = Purchase::find($id);
+
+        if (!$purchase) {
+          abort(404);
+        }
+
+        return view('purchases.edit', [
+          'purchase' => $purchase,
+          'categories' => $this->categories,
+        ]);
     }
 
     /**
@@ -125,7 +142,32 @@ class PurchasesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+      $purchase = Purchase::find($id);
+
+      if (!$purchase) {
+        abort(404);
+      }
+
+      $validator = Validator::make($request->all(), [
+        'name' => 'required|max:255',
+        'amount' => 'numeric',
+      ]);
+
+      if($validator->fails()){
+        return redirect()->back()
+          ->withErrors($validator)
+          ->withInput();
+      }
+
+      $purchase->name = $request->input('name');
+      $purchase->amount = $request->input('amount')?:0;
+      $purchase->category_id = $request->input('category_id');
+      $purchase->priority = $request->input('priority');
+
+      $purchase->save();
+
+      return redirect('/purchase');
     }
 
     /**

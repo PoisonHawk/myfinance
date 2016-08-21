@@ -22,6 +22,7 @@
 <script src="/js/app/controllers/ctrlReport.js"></script>
 <script src="/js/app/controllers/BillCtrl.js"></script>
 <script src="/js/app/controllers/OperationsCtrl.js"></script>
+<script src="/js/app/controllers/PurchaseCtrl.js"></script>
 
 <link rel='stylesheet' href='/js/jquery.datetimepicker.css'>
 <script src='/js/jquery.datetimepicker.js'></script>
@@ -34,22 +35,22 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">Myfinance</a>
     </div>
-    <div ">      
-        <?php if (Auth::user()):?>
-            <ul class="nav navbar-nav"> 
-                <li><a href="/bill">Счета</a></li>
-                    <li><a href="{{route('category.index')}}">Категории</a></li> 
-                    <li><a href="{{route('operations.index')}}">Операции</a></li>                    
-                    <li><a href='#'>Отчеты</a></li>
-                    <!--<li><a href='#'>Планирование</a></li>-->
-                
-            </ul>
-        <?php endif;?>
-    </div>  
-    <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">      
+    <div ">
         <?php if (Auth::user()):?>
             <ul class="nav navbar-nav">
-                
+                <li><a href="/bill">Счета</a></li>
+                    <li><a href="{{route('category.index')}}">Категории</a></li>
+                    <li><a href="{{route('operations.index')}}">Операции</a></li>
+                    <li><a href='#'>Отчеты</a></li>
+                    <!--<li><a href='#'>Планирование</a></li>-->
+
+            </ul>
+        <?php endif;?>
+    </div>
+    <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+        <?php if (Auth::user()):?>
+            <ul class="nav navbar-nav">
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -61,15 +62,15 @@
     </div>
   </div>
 </nav>
- 
+
 <main>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-3 sidebar">
 <!--                <ul class='nav nav-sidebar'>
                     <li><a href="/bill">Счета</a></li>
-                    <li><a href="{{route('category.index')}}">Категории</a></li> 
-                    <li><a href="{{route('operations.index')}}">Операции</a></li>                    
+                    <li><a href="{{route('category.index')}}">Категории</a></li>
+                    <li><a href="{{route('operations.index')}}">Операции</a></li>
                     <li><a href='#'>Отчеты</a></li>
                     <li><a href='#'>Планирование</a></li>
                 </ul>-->
@@ -86,6 +87,6 @@
         </div>
     </div>
 </main>
- 
+
 </body>
 </html>

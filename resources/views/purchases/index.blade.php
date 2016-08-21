@@ -1,6 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
+<div ng-controller="PurchaseCtrl">
+@include('partials.alerts.error')
 
 @if(isset($purchases) and count($purchases) > 0)
   <table class="table">
@@ -18,9 +20,9 @@
           <td style="color:green">{{$purchase->amount}}</td>
           <td>
             <a href='/purchase/{{$purchase->id}}/edit'><span class="glyphicon glyphicon-edit"></span></a>
-            <span class="glyphicon glyphicon-trash"></span>
+            <a href="#" ng-click="removePurchase({{ $purchase->id }})"><span class="glyphicon glyphicon-trash"></span></a>
           </td>
-        <tr>
+        </tr>
       @endforeach
     </tbody>
   </table>
@@ -29,5 +31,5 @@
 @endif
 
 <a href="{{route('purchase.create')}}">Добавить</a>
-
+</div>
 @endsection

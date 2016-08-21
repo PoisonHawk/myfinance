@@ -10,6 +10,7 @@ use Validator;
 use App\Purchase;
 use Auth;
 use App\Category;
+use Response;
 
 class PurchasesController extends Controller
 {
@@ -124,7 +125,9 @@ class PurchasesController extends Controller
         $purchase = Purchase::find($id);
 
         if (!$purchase) {
-          abort(404);
+          return redirect()
+            ->back()
+            ->withErrors(['Операция не найдена']);
         }
 
         return view('purchases.edit', [
@@ -143,10 +146,12 @@ class PurchasesController extends Controller
     public function update(Request $request, $id)
     {
 
-      $purchase = Purchase::find($id);
+      $purchase = Purchase::find($id.'111');
 
       if (!$purchase) {
-        abort(404);
+        return redirect()
+          ->back()
+          ->withErrors(['Невозможно внести изменения. Попробуйте позже.']);
       }
 
       $validator = Validator::make($request->all(), [
@@ -178,6 +183,19 @@ class PurchasesController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $purchase = Purchase::find($id);
+
+      $success = true;
+
+      if (!$purchase) {
+
+        return Response::json(['status'=>false, 'error' => 'Невозможно удалить запись. Попробуйте позже']);
+
+      }
+
+      $purchase->delete();
+
+      return Response::json(['status'=>true]);
+
     }
 }

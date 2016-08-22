@@ -37,7 +37,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">Myfinance</a>
+      <a class="navbar-brand" href="/">Myfinance &beta;</a>
     </div>
     <div ">
         <?php if (Auth::user()):?>

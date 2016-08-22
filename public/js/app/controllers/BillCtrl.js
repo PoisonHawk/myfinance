@@ -172,9 +172,16 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
 
     $scope.removeBill = function(index){
 
+        var confirmRemoving = confirm('Вы действительно хотите удалить счет?');
+        
+        if (!confirmRemoving) {
+            return;
+        }
+
         $scope.loading = true;
 
-        var bill = $scope.bills[index];
+        var bill = $scope.bills[index];        
+        
 
         billFactory.removeBill(bill.id)
                 .success(function(data, status, headers, config){

@@ -61,7 +61,7 @@ class OperationsController extends Controller
         //получаем список счетов        
         $bills = array('0' => 'Все');
         
-        foreach(Bills::where('user_id','=', Auth::user()->id)->get() as $b) {
+        foreach(Bills::userBills() as $b) {
             $bills[$b->id] = $b->name;
         }               
              

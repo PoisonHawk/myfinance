@@ -19,8 +19,9 @@
           <td>{{$purchase->category->name}}</td>
           <td style="color:green">{{$purchase->amount}}</td>
           <td>
-            <a href='/purchase/{{$purchase->id}}/edit'><span class="glyphicon glyphicon-edit"></span></a>
-            <a href="#" ng-click="removePurchase({{ $purchase->id }})"><span class="glyphicon glyphicon-trash"></span></a>
+			<a href='/purchase/process/{{$purchase->id}}'><span class="glyphicon glyphicon-ok" title='Провести'></span></a>  
+            <a href='/purchase/{{$purchase->id}}/edit'><span class="glyphicon glyphicon-edit" title='Редактировать'></span></a>
+            <a href="#" ng-click="removePurchase({{ $purchase->id }})"><span class="glyphicon glyphicon-trash" title='Удалить'></span></a>
           </td>
         </tr>
       @endforeach

@@ -47,4 +47,12 @@ Route::controllers([
 
 Route::controller('reportoutcome', 'ReportOutcome');
 
+Route::match(['get', 'post'], 'purchase/process/{id}', [
+	'uses' => 'PurchasesController@process',
+	'as' => 'purchase.process',
+		]
+	);
+
 Route::resource('purchase', 'PurchasesController');
+
+

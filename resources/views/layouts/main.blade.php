@@ -41,7 +41,8 @@
                 <li><a href="/bill">Счета</a></li>
                     <li><a href="{{route('category.index')}}">Категории</a></li>
                     <li><a href="{{route('operations.index')}}">Операции</a></li>
-                    <li><a href='#'>Отчеты</a></li>
+					<li><a href="{{route('purchase.index')}}">Запланированные покупки</a></li>
+                    <!--<li><a href='#'>Отчеты</a></li>-->
                     <!--<li><a href='#'>Планирование</a></li>-->
 
             </ul>

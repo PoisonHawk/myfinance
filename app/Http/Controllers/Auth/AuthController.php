@@ -7,6 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use Auth; 
+use App\Http\Requests;
 
 class AuthController extends Controller
 {
@@ -24,7 +27,7 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
     
     public $redirectPath = '/';
-    public $loginPath = '/';
+    public $loginPath = '/auth/login';
 
     /**
      * Create a new authentication controller instance.
@@ -43,7 +46,7 @@ class AuthController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
+    {		
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',

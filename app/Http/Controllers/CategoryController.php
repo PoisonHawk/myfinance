@@ -25,6 +25,7 @@ class CategoryController extends Controller {
 		$categories = Category::select('id', 'name', 'parent_id')
 				->where('type', '=', $type)
 				->where('user_id', '=', Auth::user()->id)
+				->orderBy('id', 'ASC')
 				->get()
 				->toHierarchy();
 

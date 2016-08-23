@@ -7,7 +7,7 @@
 
         $('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
 
-        $('input[name=fromDate]').datetimepicker({timepicker:false, format:'Y-m-d'});
+        $('input[name=fromDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
         $('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
     })
 </script>

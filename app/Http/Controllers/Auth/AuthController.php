@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Auth; 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -66,6 +68,55 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+			'status' => 0,
+			'token' => str_random(),
         ]);
     }
+	
+	public function postRegister(Request $request)
+    {
+		
+        $validator = $this->validator($request->all());
+
+//        if ($validator->fails()) {
+//            $this->throwValidationException(
+//                $request, $validator
+//            );
+//        }
+
+//        $this->create($request->all());
+						
+		
+		$token = str_random();
+		
+		$message ='Вы получили это письмо, так как регистрировались на сайте myfinance.com. ';
+		$message ='Для завершения регистрации перейдите по ссылке http://'. $_SERVER['HTTP_HOST'].'/auth/confirmregister/'.$token .' . ';	
+		$message .= 'Если Вы не регистрировались на сайте, проигнорируйте это письмо!';
+		
+		try{
+			mail($request->input('mail'), 'Confirm Registration', $message);
+		} catch (Exception $e){
+			return redirect()->back()->withErrors(['Извините. Произошла ошибка. Попробуйте позже']);
+		}
+		//todo mail
+//		 Mail::send('emails.confirm', ['token' => $token], function ($m) use ($request){
+//            $m->from('hello@app.com');
+//            $m->to('savochkin2010@yandex.ru');		
+//			$m->subject('Confirm Registration');
+//        });		
+		
+		return view('auth.confirmregister', ['email'=> $request->input('email')]);
+      
+    }
+	
+	
+	public function confirmRegister(Request $request){
+		
+		return view('auth.confirmregister', ['email'=> $request>input('email')]);
+		
+	}
+		
+	public function postConfirmRegister(Request $request){
+		
+	}
 }

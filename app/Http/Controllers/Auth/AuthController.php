@@ -69,7 +69,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
 			'status' => 0,
-			'token' => str_random(),
+			'token' => str_random(32),
         ]);
     }
 	
@@ -78,24 +78,22 @@ class AuthController extends Controller
 		
         $validator = $this->validator($request->all());
 
-//        if ($validator->fails()) {
-//            $this->throwValidationException(
-//                $request, $validator
-//            );
-//        }
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+		
+		try{	
+			$user = $this->create($request->input());
+		
+			$message ='Вы получили это письмо, так как регистрировались на сайте myfinance.com. ';
+			$message ='Для завершения регистрации перейдите по ссылке http://'. $_SERVER['HTTP_HOST'].'/auth/confirmregister?token='.$user->token .' . ';	
+			$message .= 'Если Вы не регистрировались на сайте, проигнорируйте это письмо!';
 
-//        $this->create($request->all());
-						
 		
-		$token = str_random();
-		
-		$message ='Вы получили это письмо, так как регистрировались на сайте myfinance.com. ';
-		$message ='Для завершения регистрации перейдите по ссылке http://'. $_SERVER['HTTP_HOST'].'/auth/confirmregister/'.$token .' . ';	
-		$message .= 'Если Вы не регистрировались на сайте, проигнорируйте это письмо!';
-		
-		try{
-			mail($request->input('mail'), 'Confirm Registration', $message);
-		} catch (Exception $e){
+			mail($request->input('email'), 'Confirm Registration', $message, 'From: MyFinance <info@myfinance.com> \r\n Content-type: text\plain');
+		} catch (\Exception $e){
 			return redirect()->back()->withErrors(['Извините. Произошла ошибка. Попробуйте позже']);
 		}
 		//todo mail
@@ -110,9 +108,11 @@ class AuthController extends Controller
     }
 	
 	
-	public function confirmRegister(Request $request){
+	public function getConfirmregister(Request $request){
+			
+		dd($request->input());
 		
-		return view('auth.confirmregister', ['email'=> $request>input('email')]);
+//		return view('auth.confirmregister', ['email'=> $request>input('email')]);
 		
 	}
 		

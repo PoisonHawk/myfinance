@@ -23,7 +23,7 @@
 			<input type='submit' value='Login' class='btn btn-primary form-control' placeholder='Password'> 
 		</div>  
 
-		<p>Not a member?  <a href="/auth/register">Register here</a>.</p>
+		<!--<p>Not a member?  <a href="/auth/register">Register here</a>.</p>-->
 		{!! Form::close() !!}
     </div>
 </div>

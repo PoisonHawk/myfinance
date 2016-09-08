@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Auth;
 
 class Authenticate
 {
@@ -21,7 +22,7 @@ class Authenticate
      * @return void
      */
     public function __construct(Guard $auth)
-    {
+    {		
         $this->auth = $auth;
     }
 
@@ -41,7 +42,20 @@ class Authenticate
                 return redirect()->guest('auth/login');
             }
         }
-
+		
+		$user = $this->auth->getUser();
+		
+		if (!is_null($user) and $user->status !== 1) {		
+			
+			Auth::logout();
+			
+            if ($request->ajax()) {
+                return response('Unauthorized.', 401);
+            } else {				
+                return redirect()->guest('auth/login');
+            }
+        }
+		
         return $next($request);
     }
 }

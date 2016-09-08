@@ -37,8 +37,8 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('guest', ['except' => 'getLogout']);
+    {	
+        $this->middleware('guest', ['except' => 'getLogout']);		
     }
 
     /**
@@ -110,13 +110,21 @@ class AuthController extends Controller
 	
 	public function getConfirmregister(Request $request){
 			
-		dd($request->input());
+		$token = $request->input('token');
 		
-//		return view('auth.confirmregister', ['email'=> $request>input('email')]);
+		$user = User::where('token', '=', $token)->first();
+			
+		if (is_null($user)) {
+			return 'Не верный токен!';
+		}
 		
-	}
+		$user->status = 1;
+		$user->token = null;
+		$user->save();
 		
-	public function postConfirmRegister(Request $request){
+		Auth::login($user);
+		
+		return redirect($this->redirectPath());
 		
 	}
 }

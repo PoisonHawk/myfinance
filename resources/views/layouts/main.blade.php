@@ -39,15 +39,15 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">Myfinance &beta;</a>
     </div>
-    <div ">
+    <div>
         <?php if (Auth::user()):?>
             <ul class="nav navbar-nav">
-                <li><a href="/bill">Счета</a></li>
+<!--                <li><a href="/bill">Счета</a></li>
                     <li><a href="{{route('category.index')}}">Категории</a></li>
                     <li><a href="{{route('operations.index')}}">Операции</a></li>
 					<li><a href="{{route('purchase.index')}}">Запланированные покупки</a></li>
-                    <!--<li><a href='#'>Отчеты</a></li>-->
-                    <!--<li><a href='#'>Планирование</a></li>-->
+                    <li><a href='#'>Отчеты</a></li>
+                    <li><a href='#'>Планирование</a></li>-->
 
             </ul>
         <?php endif;?>
@@ -68,30 +68,34 @@
   </div>
 </nav>
 
-<main>
+<!--<main>-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-3 sidebar">
-<!--                <ul class='nav nav-sidebar'>
+            <div class="col-sm-3 col-md-2 sidebar">
+				<?php if (Auth::user()):?>
+                <ul class='nav nav-sidebar'>
+					<li><a href="/">Главная</a></li>
                     <li><a href="/bill">Счета</a></li>
                     <li><a href="{{route('category.index')}}">Категории</a></li>
                     <li><a href="{{route('operations.index')}}">Операции</a></li>
+					<li><a href="{{route('purchase.index')}}">Запланированные покупки</a></li>
                     <li><a href='#'>Отчеты</a></li>
                     <li><a href='#'>Планирование</a></li>
-                </ul>-->
-                @include('sidebar.left_sidebar');
+                </ul>
+				<?php endif; ?>
+                <!--@include('sidebar.left_sidebar');-->
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-2 main">
                 @yield('content')
             </div>
-            <div class="col-sm-4 col-sm-3">
+            <div class="col-md-4 col-sm-4">
                 @section('right-sidebar')
                     @include('partials.outcomes')
                 @show
             </div>
         </div>
     </div>
-</main>
+<!--</main>-->
 
 </body>
 </html>

@@ -74,13 +74,13 @@
             <div class="col-sm-3 col-md-2 sidebar">
 				<?php if (Auth::user()):?>
                 <ul class='nav nav-sidebar'>
-					<li><a href="/">Главная</a></li>
-                    <li><a href="/bill">Счета</a></li>
-                    <li><a href="{{route('category.index')}}">Категории</a></li>
-                    <li><a href="{{route('operations.index')}}">Операции</a></li>
-					<li><a href="{{route('purchase.index')}}">Запланированные покупки</a></li>
-                    <li><a href='#'>Отчеты</a></li>
-                    <li><a href='#'>Планирование</a></li>
+					<li></span><a href="/"><span class="glyphicon glyphicon-home"> Главная</a></li>
+                    <li><a href="/bill"><span class="glyphicon glyphicon-credit-card"> Счета</a></li>
+                    <li><a href="{{route('category.index')}}"><span class="glyphicon glyphicon-list"> Категории</a></li>
+                    <li><a href="{{route('operations.index')}}"><span class="glyphicon glyphicon-transfer"> Операции</a></li>
+					<li><a href="{{route('purchase.index')}}"><span class="glyphicon glyphicon-shopping-cart"> Запланированные покупки</a></li>
+                    <!--<li><a href='#'><span class="glyphicon glyphicon-stats"> Отчеты</a></li>-->
+                    <!--<li><a href='#'>Планирование</a></li>-->
                 </ul>
 				<?php endif; ?>
                 <!--@include('sidebar.left_sidebar');-->

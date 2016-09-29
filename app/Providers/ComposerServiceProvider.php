@@ -16,7 +16,8 @@ class ComposerServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {	
+		
         View::composer('layouts.main', function($view){
             $view->with('user_ouctomes', Operation::outcomeToday());
         });

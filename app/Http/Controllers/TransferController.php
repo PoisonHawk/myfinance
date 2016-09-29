@@ -135,26 +135,28 @@ class TransferController extends Controller
             $billTo->amount += $amount;
             $billTo->save();
             
+			//todo нужны ли записи в operations?
+			//
             //запись в operations
-            $op = new Operation();
-            $op->created = $transfer->created_at;
-            $op->user_id = Auth::user()->id;
-            $op->bills_id = $bill_from_id;
-            $op->type = 'transfer_out';
-            $op->amount = $amount;
-            $op->transfer_id = $transfer->id;
-            $op->active = 1;
-            $op->save();
-            
-            $op = new Operation();
-            $op->created = $transfer->created_at;
-            $op->user_id = Auth::user()->id;
-            $op->bills_id = $bill_to_id;
-            $op->type = 'transfer_in';
-            $op->amount = $amount;
-            $op->transfer_id = $transfer->id;
-            $op->active = 1;
-            $op->save();
+//            $op = new Operation();
+//            $op->created = $transfer->created_at;
+//            $op->user_id = Auth::user()->id;
+//            $op->bills_id = $bill_from_id;
+//            $op->type = 'transfer_out';
+//            $op->amount = $amount;
+//            $op->transfer_id = $transfer->id;
+//            $op->active = 1;
+//            $op->save();
+//            
+//            $op = new Operation();
+//            $op->created = $transfer->created_at;
+//            $op->user_id = Auth::user()->id;
+//            $op->bills_id = $bill_to_id;
+//            $op->type = 'transfer_in';
+//            $op->amount = $amount;
+//            $op->transfer_id = $transfer->id;
+//            $op->active = 1;
+//            $op->save();
 
         } catch (Exception $e) {
             

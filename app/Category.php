@@ -181,5 +181,28 @@ class Category extends \Baum\Node
 		DB::commit();		
 		
 	}
+	
+	public static function getCategories(){
+		
+		$categories = [];
+		
+		if (Auth::user()) {
+			$category = Category::where('user_id','=', Auth::user()->id)
+				   ->get()
+				   ->toHierarchy();
+
+			
+			foreach($category as $c) {
+				$categories[$c->type][$c->id] = $c->name;            
+				if( isset($c->children) ) { 
+					foreach($c->children as $cat_ch) {
+						$categories[$c->type][$cat_ch->id] = '--'.$cat_ch->name;
+					}
+				}
+			} 
+		}
+		
+		return $categories;
+	} 
 
 }

@@ -32,13 +32,11 @@ class IndexController extends Controller
                 }
             }
         }       
-        //dd($categories);
         $data = [
             'today' => date('Y-m-d H:i', time()),
             'bills' => $bills,
             'categories' => $categories,            
             'user_bills'=> Bills::reportBills(),
-            //'userOucomesToday' => Operation::outcomeToday(),
         ];
         
         return view('index.home', $data);

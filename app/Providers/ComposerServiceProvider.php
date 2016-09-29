@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use View;
 use App\Bills;
 use App\Operation;
+use App\Category;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -17,16 +18,20 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('layouts.main', function($view){
-            $view->with('user_bills', Bills::userBills());
-        });
-        
-        View::composer('layouts.main', function($view){
             $view->with('user_ouctomes', Operation::outcomeToday());
         });
-        
-//        View::composer('layouts.main', function($view){
-//            $view->with('data', Operation::outcomes());
-//        });
+		
+		View::composer('layouts.main', function($view){
+            $view->with('today',date('Y-m-d H:i', time()));
+        });
+		
+		View::composer('layouts.main', function($view){
+            $view->with('bills',Bills::userBills());
+        });
+		
+		View::composer('layouts.main', function($view){
+            $view->with('categories', Category::getCategories());
+        });
     }
 
     /**

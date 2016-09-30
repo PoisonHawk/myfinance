@@ -105,7 +105,7 @@ app.controller('OperationsCtrl', function($scope, $http, CSRF_TOKEN){
             total += Number($scope.operations[index].amount);
         }
 
-        return total;
+        return total.toFixed(2);
     }
     
     $scope.init();

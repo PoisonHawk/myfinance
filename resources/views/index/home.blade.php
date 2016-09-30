@@ -1,6 +1,27 @@
 @extends('layouts.main')
 
 @section('content')
+<div class="col-md-12">
+<div class="row">
+	
+		@foreach($user_bills as $b)
+		<div class="col-md-4 col-sm-6">
+		<div class="panel panel-default ">			
+			<div class="panel-heading">{{$b->name}}</div>
+			<div class="panel-body">
+				<div class="text-center" style="font-size: 28px; margin: 20px 0;"><span class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span> {{ number_format($b->amount, 2, '.', ' ')}} {{ $b->currency }}</div>
+				<div class="row">
+					<span class="text-success col-md-4"><span class="glyphicon glyphicon-plus"></span> {{ number_format($b->in, 2, '.', ' ')}}</span>
+					<span class="text-danger col-md-4"><span class="glyphicon glyphicon-minus"></span> {{ number_format( $b->out, 2, '.', ' ')}}</span>
+					<span class="col-md-4"><span class="glyphicon glyphicon-arrow-{{ ($b->in - $b->out)>= 0 ? 'up text-success'  : 'down text-danger'  }}"></span> {{ number_format( ($b->in - $b->out), 2, '.', ' ' ) }}</span>
+				</div>
+			</div>		
+		</div>
+		</div>
+
+		@endforeach
+</div>
+</div>
 <div class="col-md-8">
 <script>
     $(document).ready(function(){
@@ -10,42 +31,8 @@
         $('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
     })
 </script>
-<div class='panel panel-default'>
-        <div class='panel-heading'>
-            <span class="glyphicon glyphicon-credit-card"></span>
-            <span>Счета</span>
-        </div>
-        <div class='panel-body'>
-            <table class='table'>
-                <thead>
-                    <th>Счет</th>
-                    <th>Доход</th>
-                    <th>Расход</th>
-                    <th>Сумма</th>
-                    <th>Валюта</th>
-                </thead>
-                <tbody>
-                    <?php $total = 0;?>
-                    @foreach($user_bills as $b)
-                    <tr>
-                        <td>{{$b->name}}</td>
-                        <td>{{$b->in or 0}}</td>
-                        <td>{{$b->out or 0}}</td>
-                        <td>{{$b->amount}}</td>
-                        <td>{{$b->currency}}</td>
-                    </tr>
-                    <?php $total += $b->amount?>
-                    @endforeach
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <!--<td>{{$total}}</td>-->
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-   </div>
+
+
 
 
 <div class='panel panel-default' ng-controller="OperationsCtrl">

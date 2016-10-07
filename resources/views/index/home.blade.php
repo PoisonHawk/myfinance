@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+    <div class="col-md-6">
+        @include('partials.outcomes')
+    </div>
 <div class="col-md-12">
 <div class="row">
 	
@@ -31,9 +34,6 @@
         $('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
     })
 </script>
-
-
-
 
 <div class='panel panel-default' ng-controller="OperationsCtrl">
         <div class='panel-heading'>
@@ -68,8 +68,32 @@
         </div>
    </div>
 </div>
+
 <div class="col-md-4">
-	@include('partials.outcomes')
+
+    <div class="panel panel-default">
+        <div class='panel-heading'>
+            <span class="glyphicon glyphicon-stats"></span>
+            <span>Запланированные расходы</span>
+        </div>
+        <div class="panel-body">
+            <table class='table' >
+                <tbody>
+                    @foreach($purchases as $purchase)
+                       <tr>
+                           <td>{{$purchase->name}}</td>
+                           <td>{{$purchase->amount}}</td>
+                       </tr>
+                    @endforeach
+                <tr>
+                    <td><a href="/purchase">Посмотреть все</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
+
 @stop
 

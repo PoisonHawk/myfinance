@@ -31,8 +31,8 @@
 			<div class='legend' id="legend"></div>
 			<div class='clearfix'></div>
 		</div> 
-		<div class='table' id='accordion'>                       
-			<div class="bg-warning" ng-repeat="r in data.result" > 
+		<div class='table' id='accordion'>
+			<div class="bg-warning" ng-repeat="r in data.result" >
 				<div>
 					<span><a data-toggle="collapse" data-parent="#accordion" href="[[('#collapse_'+r.num)]]" aria-expanded="false" aria-controls="[[('#collapse_'+r.num)]]">[[r.name]]</a></span>
 					<span>&nbsp;</span>

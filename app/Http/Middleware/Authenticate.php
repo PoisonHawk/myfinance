@@ -35,6 +35,8 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
+
+//        dd(bcrypt('123123'));
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
@@ -44,7 +46,7 @@ class Authenticate
         }
 		
 		$user = $this->auth->getUser();
-		
+
 		if (!is_null($user) and $user->status !== 1) {		
 			
 			Auth::logout();

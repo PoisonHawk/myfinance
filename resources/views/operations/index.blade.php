@@ -41,10 +41,12 @@
     <thead>
         <th></th>
         <!--<th></th>-->
+        <th>Сумма</th>
+        <th>Категория</th>
         <th>Дата и время</th>
         <th>Счет</th>
-        <th>Категория</th>
-        <th>Сумма</th>
+
+
         <th></th>
     </thead>
     <tbody>
@@ -52,10 +54,12 @@
         <tr>
             <td><span class="text-{{$op->type=='income' ? 'success' : 'danger'}} glyphicon glyphicon-{{$op->type=='income' ? 'plus' : 'minus'}}"></td>
             <!--<td>@if($op->active == 1)<span class="text-success glyphicon glyphicon-ok">@endif</td>-->
+            <td>{{$op->amount}}</td>
+            <td>{{$op->category->name}}</td>
             <td>{{$op->created}}</td>
             <td>{{$op->bill->name}}</td>
-            <td>{{$op->category->name}}</td>
-            <td>{{$op->amount}}</td>
+
+
             <td>
                 <!--<a href='{{route('operations.edit', $op->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>-->
                 <button class="remove_operation btn btn-danger"><span class="glyphicon glyphicon-trash"></button>

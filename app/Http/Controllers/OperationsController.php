@@ -44,11 +44,19 @@ class OperationsController extends Controller
         
         $operations = Operation::where('created', '>=', $from)
                 ->where('created', '<=', $to)
-                ->where('user_id', '=', Auth::user()->id)
-                ->where(function($query){
-                    $query->where('type', '=', 'outcome')
-                        ->orWhere('type', '=', 'income');
-                });
+                ->where('user_id', '=', Auth::user()->id);
+
+        $type = $req->input('type');
+
+        if($type != 'all') {
+            $operations = $operations->where('type', '=', $type);
+        }
+
+
+//                ->where(function($query){
+//                    $query->where('type', '=', 'outcome')
+//                        ->orWhere('type', '=', 'income');
+//                });
         
         $bill = $req->input('bill');   
         
@@ -75,7 +83,7 @@ class OperationsController extends Controller
             'types' => [
                 'all' => 'Все',
                 'income' => 'Доходы',
-                'outcomes' => 'Расходы',
+                'outcome' => 'Расходы',
                 'transfers' => 'Пермещеня',
             ],
             'type' => $req->input('types', 'all')

@@ -3,7 +3,7 @@
 @section ('content')
 <div ng-controller="categoryCtrl" class="panel panel-default">
 
-	<div class="panel-heading">
+	<div class="panel-heading ">
 		<h2>Категории</h2>
 		
 		<a href="{{route('category.create', 'type='.$type)}}" class='btn btn-success pull-right'>Добавить</a>

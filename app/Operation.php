@@ -203,5 +203,21 @@ SQL;
         }
     }
     
+	public function scopeYearOperationReport(){
+		
+		$sql = <<<SQL
+				SELECT extract(YEAR from created_at) as year, extract(MONTH from created_at) as month,  sum(case when type='outcome' then amount end) as outcome,
+sum(case when type='income' then amount end) as income
+FROM "public"."operations"
+WHERE user_id = ?
+group by year, month
+order by month desc
+limit 12
+SQL;
+		
+		return DB::select($sql, [Auth::user()->id]);
+		
+	}
+	
     
 }

@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+	<div class="col-md-6">
+        @include('partials.outcomesmonth')
+    </div>
     <div class="col-md-6">
         @include('partials.outcomes')
     </div>

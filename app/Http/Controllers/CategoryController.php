@@ -22,12 +22,19 @@ class CategoryController extends Controller {
 
 		$type = $req->input('type', 'income');
 
-		$categories = Category::select('id', 'name', 'parent_id')
-				->where('type', '=', $type)
-				->where('user_id', '=', Auth::user()->id)
-				->orderBy('id', 'ASC')
-				->get()
-				->toHierarchy();
+		$income = Category::select('id', 'name', 'parent_id')
+			->where('type', '=', 'income')
+			->where('user_id', '=', Auth::user()->id)
+			->orderBy('id', 'ASC')
+			->get()
+			->toHierarchy();
+
+		$outcome = Category::select('id', 'name', 'parent_id')
+			->where('type', '=', 'outcome')
+			->where('user_id', '=', Auth::user()->id)
+			->orderBy('id', 'ASC')
+			->get()
+			->toHierarchy();
 
 		$catName = [
 			'income' => 'Доходы',
@@ -36,8 +43,9 @@ class CategoryController extends Controller {
 
 		$data = [
 			'type' => $type,
-			'cat_name' => $catName[$type],
-			'categories' => $categories,
+			'cat_name' => $catName,
+			'income' => $income,
+			'outcome' => $outcome,
 		];
 
 		return view('category.index', $data);

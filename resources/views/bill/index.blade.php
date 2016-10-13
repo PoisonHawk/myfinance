@@ -16,7 +16,8 @@
 
 <table class='table table-striped table-condensed table-hover' >
     <thead>
-        <th></th>
+        <th></th>	
+		<th></th>
         <th>Название</th>
         <th>Сумма</th>
         <th>Валюта</th>
@@ -26,6 +27,7 @@
         <img src="/img/preload.gif" ng-show="loading" class="center-block">
         <tr ng-repeat="bill in bills" >
             <td><span ng-if="bill.default_wallet == 1" class='glyphicon glyphicon-ok'></span></td>
+			<td><span ng-if="bill.show == 1" class='glyphicon glyphicon-star'></span></td>
             <td>[[bill.name]]</td>
             <td>[[bill.amount]]</td>
             <td>[[bill.currency.iso4217]]</td>
@@ -74,6 +76,10 @@
                 <input class=' 'type='checkbox' id="default_wallet" name="default_wallet" ng-model="bill.default_wallet" value='1'>
                 <label class='' for="default_wallet">Основной</label>
             </div>
+			<div class='form-group'>
+                <input class=' 'type='checkbox' id="show_wallet" name="show" ng-model='bill.show' ng-true-value=1 ng-false-value=0>
+                <label class='' for="show_wallet">Отображать на главной</label>
+            </div>
             <input type='hidden' name='_token' value='{{csrf_token()}}'>
             <button class='btn btn-primary form-control' ng-click='addBill()'ng-hide="sending" >Добавить</button>
             <img src="/img/horizont_preload.gif" ng-show="sending" class="center-block">
@@ -108,6 +114,10 @@
             <div class='form-group'>
                 <input class=' 'type='checkbox' id="default_wallet" name="default_wallet" ng-model='bill.default_wallet' ng-true-value=1 ng-false-value=0>
                 <label class='' for="default_wallet">Основной</label>
+            </div>
+			<div class='form-group'>
+                <input class=' 'type='checkbox' id="show_wallet" name="show" ng-model='bill.show' ng-true-value=1 ng-false-value=0>
+                <label class='' for="show_wallet">Отображать на главной</label>
             </div>
             <input type="hidden" name="_method" value="PUT">
             <input type='hidden' name='_token' value='{{csrf_token()}}'>

@@ -203,6 +203,9 @@ SQL;
         }
     }
     
+	/*
+	 * Отчет по доходам и расходам по месяцам за 12 месяцев
+	 */
 	public function scopeYearOperationReport(){
 		
 		$sql = <<<SQL
@@ -218,6 +221,12 @@ SQL;
 		return DB::select($sql, [Auth::user()->id]);
 		
 	}
+	
+	/*
+	 * Отчет по расходам по категориям по месяцам за 12 месяцев
+	 */
+	
+	
 	
     
 }

@@ -16,6 +16,7 @@ class Bills extends Model
         'currency_id',
         'active',
         'default_wallet',
+		'show',
     ];
 
     protected $hidden = [
@@ -80,6 +81,7 @@ class Bills extends Model
                 on b.currency_id = c.id
                 where b.user_id = ?
                 and b.active = 1
+				and b.show = 1
 SQL;
 
         $res = DB::select($sql, [$from,$from, $userId]);

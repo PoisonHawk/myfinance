@@ -11,11 +11,15 @@
 <div class="row">
 	
 		@foreach($user_bills as $b)
-		<div class="col-md-4 col-sm-6">
+		<div class="col-lg-3 col-md-4 col-sm-6">
 		<div class="panel panel-default ">			
 			<div class="panel-heading">{{$b->name}}</div>
 			<div class="panel-body">
-				<div class="text-center" style="font-size: 28px; margin: 20px 0;"><span class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span> {{ number_format($b->amount, 2, '.', ' ')}} {{ $b->currency }}</div>
+				<div class="text-center" style="font-size: 28px; margin: 20px 0;">
+					<span class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span> 
+					{{ number_format($b->amount, 2, '.', ' ')}} 
+					<!--{{ $b->currency }}-->
+				</div>
 				<div class="row">
 					<span class="text-success col-md-4"><span class="glyphicon glyphicon-plus"></span> {{ number_format($b->in, 2, '.', ' ')}}</span>
 					<span class="text-danger col-md-4"><span class="glyphicon glyphicon-minus"></span> {{ number_format( $b->out, 2, '.', ' ')}}</span>

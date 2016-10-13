@@ -11,6 +11,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         currency: 1,
         amount: 0,
         default_wallet: 0,
+        show: 0,
     };
     $scope.index;
     $scope.error = false;
@@ -58,6 +59,9 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         $scope.loading = true;
         billFactory.getBills()
                 .success(function(data, status, headers, config){
+                    
+                    
+                    console.log(data.bills);
                     $scope.bills = data.bills;
                     $scope.currencies = data.currency;
                     $scope.loading = false;
@@ -77,6 +81,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
             currency_id: $scope.bill.currency,
             amount: $scope.bill.amount,
             default_wallet: $scope.bill.default_wallet,
+            show: $scope.bill.show,
         }
 
         billFactory.addBill(post)
@@ -128,6 +133,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         $scope.bill.currency = bill.currency.iso4217;
         $scope.bill.amount = bill.amount;
         $scope.bill.default_wallet = bill.default_wallet;
+        $scope.bill.show = bill.show;
         $scope.bill.id = bill.id;
         $('#modal_bill_update').modal('show');
     };
@@ -139,6 +145,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         var post = {
             name: $scope.bill.name,
             default_wallet: $scope.bill.default_wallet,
+            show: $scope.bill.show,
         }
 
         billFactory.updateBill(id, post)

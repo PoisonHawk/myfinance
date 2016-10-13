@@ -89,8 +89,6 @@ app.controller('OperationsCtrl', function($scope, $http, CSRF_TOKEN){
         
     }
     
-    
-    
     $scope.total = function(){
                 
         var total = 0;        

@@ -12,8 +12,6 @@ $(document).ready(function(){
 	
 	for (var i in repData) {
 		
-		console.log(repData[i].month-1);
-		
 		labels.unshift(months[repData[i].month-1]);
 		income.unshift(repData[i].income);
 		outcome.unshift(repData[i].outcome);
@@ -25,26 +23,21 @@ $(document).ready(function(){
 		datasets: [
 			{
 				label: "Income",
-				fillColor: [
-					'LightGreen',				
-				],
+				backgroundColor: 'LightGreen',
 				data: income,
 			},
 			{
 				label: "Outcome",
-				fillColor: [
-					'Tomato',				
-				],
+				backgroundColor: 'Tomato',
 				data: outcome,
 			}
 		],		
 	};
 	
-	var myChart = new Chart(ctx).Bar(data, {
-		
-		responsive: true,
-		
-	});	
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: data,
+	});
 	
 })
 </script>

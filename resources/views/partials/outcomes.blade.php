@@ -25,8 +25,8 @@
 
 		<!--<div ng-hide="loading">-->
 		<div class="diagramm">
-			<div style="max-width: 250px">
-				<canvas class='chart ' id="outcomes" width="250" height="250"></canvas>
+			<div >
+				<canvas class='chart' id="outcomes" width="300" height="200"></canvas>
 			</div>
 			<div class='legend' id="legend"></div>
 			<div class='clearfix'></div>

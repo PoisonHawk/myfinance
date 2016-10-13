@@ -41,11 +41,13 @@ class CategoryController extends Controller {
 			'outcome' => 'Расходы'
 		];
 
+		
 		$data = [
 			'type' => $type,
 			'cat_name' => $catName,
 			'income' => $income,
 			'outcome' => $outcome,
+			'categoryReport' => json_encode(Category::CategoryReport(),true),
 		];
 
 		return view('category.index', $data);

@@ -14,7 +14,8 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
 		<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular-messages.js'></script>
-		<script src="/js/chartjs/Chart.js"></script>
+		<!--<script src="/js/chartjs/Chart.js"></script>-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 		<script src="/js/app.js"></script>
 		<script src="/js/app/services/reportFactory.js"></script>
 		<script src="/js/app/services/billFactory.js"></script>

@@ -205,4 +205,59 @@ class Category extends \Baum\Node
 		return $categories;
 	} 
 
+		/*
+	 * Отчет по расходам по категориям по месяцам за 12 месяцев
+	 */
+	public function scopeCategoryReport(){
+		
+		$sql = <<<SQL
+				SELECT 
+					extract('MONTH' from o.created_at) as month, 
+					c.name, 
+					sum(o.amount) 
+				FROM 
+					operations o
+				JOIN 
+					categories c on o.category_id = c.id
+				WHERE 
+					o.type = 'outcome'
+				AND 
+					o.user_id = ?
+				AND 
+					c.parent_id = 0
+				GROUP BY 
+					month, c.name
+				ORDER BY 
+					month, sum desc
+				
+SQL;
+		
+		$res =  DB::select($sql, [Auth::user()->id]);
+		
+		$arr = [
+			'months' => [],
+			'data' => [],
+		];
+	
+		foreach($res as $r) {
+			
+			if (!in_array($r->month, $arr['months'])) {
+				array_push($arr['months'], $r->month);
+			}
+			
+			if (!isset($arr['data'][$r->name])) {
+				$arr['data'][$r->name] = ['name' => $r->name, 'months' => []];
+			}
+			
+			if (!isset($arr['data'][$r->name]['months'][$r->month])) {
+				$arr['data'][$r->name]['months'][$r->month] = $r->sum;
+			} else {
+				$arr['data'][$r->name]['months'][$r->month] += $r->sum;
+			}
+		}
+		
+//		dd($arr);
+		
+		return $arr;
+	}
 }

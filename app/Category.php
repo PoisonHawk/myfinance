@@ -212,7 +212,7 @@ class Category extends \Baum\Node
 		
 		$sql = <<<SQL
 				SELECT 
-					extract('MONTH' from o.created_at) as month, 
+					extract('MONTH' from o.created) as month, 
 					c.name, 
 					sum(o.amount) 
 				FROM 

@@ -73,7 +73,7 @@ class Operation extends Model
                 ->select('categories.name', 'categories.parent_id', 'operations.amount')
                 ->where('operations.user_id', '=', Auth::user()->id)
                 ->where('operations.type','=', $type)
-                ->where('operations.created_at', '>', $from)				
+                ->where('operations.created', '>', $from)				
                 ->get();            
 
         $result = [];
@@ -171,7 +171,7 @@ class Operation extends Model
                     bills b
                 on b.id = o.bills_id
                 where b.user_id = ?
-                and o.created_at >= ?
+                and o.created >= ?
                 group by b.id
 SQL;
         
@@ -209,7 +209,7 @@ SQL;
 	public function scopeYearOperationReport(){
 		
 		$sql = <<<SQL
-				SELECT extract(YEAR from created_at) as year, extract(MONTH from created_at) as month,  sum(case when type='outcome' then amount end) as outcome,
+				SELECT extract(YEAR from created) as year, extract(MONTH from created_at) as month,  sum(case when type='outcome' then amount end) as outcome,
 sum(case when type='income' then amount end) as income
 FROM "public"."operations"
 WHERE user_id = ?

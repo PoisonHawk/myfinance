@@ -42,7 +42,7 @@
 							<div ng-repeat="item in r.items">
 								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								<span>[[item.name || 'Без категории']]</span>
-								<span class="pull-right"><small>[[item.total]]<small></span>
+								<span class="pull-right"><small>[[item.total]]</small></span>
 							</div>
 						</div>
 					</div>

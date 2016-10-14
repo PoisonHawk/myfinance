@@ -23,12 +23,12 @@ $(document).ready(function(){
 		datasets: [
 			{
 				label: "Income",
-				backgroundColor: 'LightGreen',
+				backgroundColor: 'rgb(144,238,144)',
 				data: income,
 			},
 			{
 				label: "Outcome",
-				backgroundColor: 'Tomato',
+				backgroundColor: 'rgb(255,99,71)',
 				data: outcome,
 			}
 		],		

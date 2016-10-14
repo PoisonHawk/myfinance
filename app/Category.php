@@ -222,7 +222,7 @@ class Category extends \Baum\Node
 				WHERE 
 					o.type = 'outcome'
 				AND 
-					o.user_id = ?				
+					o.user_id = ?
 				GROUP BY 
 					month, c.name
 				ORDER BY 
@@ -253,7 +253,9 @@ SQL;
 				$arr['data'][$r->name]['months'][$r->month] += $r->sum;
 			}
 		}
-
+		
+//		dd($arr);
+		
 		return $arr;
 	}
 }

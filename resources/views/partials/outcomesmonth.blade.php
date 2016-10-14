@@ -4,7 +4,7 @@ var repData = <?php echo $operationReports?>;
 	
 $(document).ready(function(){
 	
-	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "Oktober", "November", "December"];
+	var months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 
 	var labels = [];
 	var income = [];
@@ -22,21 +22,30 @@ $(document).ready(function(){
 		labels: labels,
 		datasets: [
 			{
-				label: "Income",
+				label: "Доход",
 				backgroundColor: 'rgb(144,238,144)',
+				borderColor:'rgb(144,238,144)',				
 				data: income,
+				fill:false,
 			},
 			{
-				label: "Outcome",
+				label: "Расход",
 				backgroundColor: 'rgb(255,99,71)',
+				borderColor: 'rgb(255,99,71)',
 				data: outcome,
+				fill:false,
 			}
 		],		
 	};
 	
 	var myChart = new Chart(ctx, {
-		type: 'bar',
+		type: 'line',
 		data: data,
+		options: {
+			legend: {
+				position: 'bottom'
+			}
+		}
 	});
 	
 })

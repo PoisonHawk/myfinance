@@ -20,38 +20,40 @@
 		<span ng-click="getReport('outcome')" >Расходы</span>
 		<span ng-click="getReport('income')">Доходы</span>
 	</div>
-	<!--<img src="/img/preload.gif" ng-show="loading" class="center-block">-->
 	<div class='panel-body'>
-
-		<!--<div ng-hide="loading">-->
-		<div class="diagramm">
-			<div >
-				<canvas class='chart' id="outcomes" width="300" height="200"></canvas>
-			</div>
-			<div class='legend' id="legend"></div>
-			<div class='clearfix'></div>
-		</div> 
-<!--		<div class='table' id='accordion'>
-			<div class="bg-warning" ng-repeat="r in data.result" >
-				<div>
-					<span><a data-toggle="collapse" data-parent="#accordion" href="[[('#collapse_'+r.num)]]" aria-expanded="false" aria-controls="[[('#collapse_'+r.num)]]">[[r.name]]</a></span>
-					<span>&nbsp;</span>
-					<span>[[r.total]]</span>
+		<div class="row">
+			<div class="diagramm col-md-6 col-sm-6 col-xs-6">
+				<div >
+					<canvas class='chart' id="outcomes" width="300" height="300"></canvas>
 				</div>
-				<div id="[[('collapse_'+r.num)]]" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-if="r.items" >
-					<div ng-repeat="item in r.items">
-						<span>&nbsp;</span>
-						<span>[[item.name || 'Без категории']]</span>
-						<span>[[item.total]]</span>
+				<div class='legend' id="legend"></div>
+				<div class='clearfix'></div>
+			</div> 
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<div class='table' id='accordion'>
+					<div class="bg-warning" ng-repeat="r in data.result" >
+						<div>
+							<span style="padding: 0 10px ; margin-right: 5px; background: [[r.color]]"></span>
+							<span><a data-toggle="collapse" data-parent="#accordion" href="[[('#collapse_'+r.num)]]" aria-expanded="false" aria-controls="[[('#collapse_'+r.num)]]">[[r.name]]</a></span>
+							<span>&nbsp;</span>
+							<span>[[r.total]]</span>
+						</div>
+						<div id="[[('collapse_'+r.num)]]" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-if="r.items" >
+							<div ng-repeat="item in r.items">
+								<span>&nbsp;</span>
+								<span>[[item.name || 'Без категории']]</span>
+								<span>[[item.total]]</span>
+							</div>
+						</div>
 					</div>
 				</div>
+				<div class='info'>
+					<span>Итого</span>
+					<span>&nbsp;</span>
+					<span>[[data.total]]</span>
+				</div>
 			</div>
-		</div>-->
-<!--		<div class='info'>
-			<span>Итого</span>
-			<span>&nbsp;</span>
-			<span>[[data.total]]</span>
-		</div>-->
+		</div>
 	</div>
 </div>
 

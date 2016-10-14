@@ -9,7 +9,6 @@ app.controller('ctrlReport', function($scope, reportFactory){
     $scope.loading = false;
        
     $scope.drawDiagram = function(){
-        var colors1 = ['Tomato', 'LightGreen', 'SkyBlue', 'Gold', 'maroon', 'orange', 'MediumSeaGreen', 'aqua', 'pink', 'purple', 'teal', 'gray', 'silver'];
         
         var colors = ['rgb(255,99,71)', 'rgb(144,238,144)', 'rgb(135,206,235)', 'rgb(255,215,0)', 'rgb(128,0,0)', 'rgb(255,165,0)', 'rgb(60,179,113)', 'rgb(0,255,255)', 'rgb(255,192,203)', 'rgb(128,0,128)', 'rgb(0,128,128)', 'rgb(128,128,128)', 'rgb(192,192,192)'];
                 
@@ -25,15 +24,27 @@ app.controller('ctrlReport', function($scope, reportFactory){
             labels.push(result[i].name);
             data.push(result[i].total);
             bcolors.push(colors[colorCount]);
+            
+            result[i].color = colors[colorCount];
+            
             colorCount++; 
-        }
-        
-        var context = document.getElementById('outcomes').getContext('2d');
-                
-        if ($scope.chart !== null) {            
-            $scope.chart.destroy();           
+        }        
+       
+        if ($scope.chart !== null) { 
+            
+            var datasets = {
+                data: data,
+                backgroundColor:bcolors,
+                hoverBackgroundColor:bcolors,
+            }
+            
+            $scope.chart.data.labels = labels;
+            $scope.chart.data.datasets[0] = datasets;            
+            $scope.chart.update();
+            return;
         } 
 
+        var context = document.getElementById('outcomes').getContext('2d');
         $scope.chart = new Chart(context,{
             type: 'doughnut',          
             data:{
@@ -55,7 +66,6 @@ app.controller('ctrlReport', function($scope, reportFactory){
             },
         })
       
-
 //        document.getElementById('legend').innerHTML = $scope.chart.generateLegend();
         
     };

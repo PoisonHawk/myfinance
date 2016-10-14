@@ -7,13 +7,12 @@ var repData = <?php echo $categoryReport?>;
 	
 $(document).ready(function(){
 	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "Oktober", "November", "December"];
-
-	var labels = [];
-	var datasets = [];
-	
+	var colors = ['rgb(255,99,71)', 'rgb(144,238,144)', 'rgb(135,206,235)', 'rgb(255,215,0)', 'rgb(128,0,0)', 'rgb(255,165,0)', 'rgb(60,179,113)', 'rgb(0,255,255)', 'rgb(255,192,203)', 'rgb(128,0,128)', 'rgb(0,128,128)', 'rgb(128,128,128)', 'rgb(192,192,192)'];
+	var datasets = [];	
 	var labels = repData.months;	
 	var data = repData.data;
 	
+	var countColor = 0;
 	for (var i in data) {
 		
 		var el = data[i];
@@ -33,12 +32,10 @@ $(document).ready(function(){
 			}
 		}
 		
-		
-		var color = 'rgba('+(Math.floor(Math.random()*255))+','+(Math.floor(Math.random()*255))+','+(Math.floor(Math.random()*255))+','+' 0.5)';
-		
 		obj.data = values;
-		obj.borderColor = color;
-        obj.backgroundColor = color;
+		obj.borderColor = colors[countColor];
+        obj.backgroundColor = colors[countColor];
+		countColor++;
 		
 		datasets.push(obj);
 	

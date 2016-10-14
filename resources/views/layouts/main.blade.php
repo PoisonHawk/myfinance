@@ -30,7 +30,7 @@
 	<body ng-app='app'>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
-				<div class="navbar-header col-md-2 ">
+				<div class="navbar-header col-md-2 col-sm-2 col-xs-2">
 					<a class="navbar-brand" href="/">Myfinance &beta;</a>
 				</div>
 				<div>
@@ -60,7 +60,7 @@
 		<main>
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-3 col-md-2 sidebar">						
+					<div class="col-sm-3 col-md-2 col-xs-2 sidebar">						
 						<ul class='nav nav-sidebar'>
 							<li></span><a href="/"><span class="glyphicon glyphicon-home"> Главная</a></li>
 							<li><a href="/bill"><span class="glyphicon glyphicon-credit-card"> Счета</a></li>
@@ -71,7 +71,7 @@
 							<!--<li><a href='#'>Планирование</a></li>-->
 						</ul>										
 					</div>
-					<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-xs-10 col-xs-offset-2 main">
 						@yield('content')
 					</div>
 				</div>

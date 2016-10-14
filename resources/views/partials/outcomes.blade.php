@@ -17,7 +17,7 @@
 </style>
 <div class='panel panel-default' ng-controller="ctrlReport">
 	<div class='panel-heading'>
-		<span ng-click="getReport('outcome')" >Расходы</span>
+		<span ng-click="getReport('outcome')">Расходы</span>
 		<span ng-click="getReport('income')">Доходы</span>
 	</div>
 	<div class='panel-body'>
@@ -31,26 +31,26 @@
 			</div> 
 			<div class="col-md-6 col-sm-6 col-xs-6">
 				<div class='table' id='accordion'>
-					<div class="bg-warning" ng-repeat="r in data.result" >
+					<div ng-repeat="r in data.result" >
 						<div>
 							<span style="padding: 0 10px ; margin-right: 5px; background: [[r.color]]"></span>
 							<span><a data-toggle="collapse" data-parent="#accordion" href="[[('#collapse_'+r.num)]]" aria-expanded="false" aria-controls="[[('#collapse_'+r.num)]]">[[r.name]]</a></span>
 							<span>&nbsp;</span>
-							<span>[[r.total]]</span>
+							<span class="pull-right "><strong>[[r.total]]</strong></span>
 						</div>
 						<div id="[[('collapse_'+r.num)]]" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-if="r.items" >
 							<div ng-repeat="item in r.items">
-								<span>&nbsp;</span>
+								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								<span>[[item.name || 'Без категории']]</span>
-								<span>[[item.total]]</span>
+								<span class="pull-right"><small>[[item.total]]<small></span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class='info'>
+				<div class='info pull-right'>
 					<span>Итого</span>
 					<span>&nbsp;</span>
-					<span>[[data.total]]</span>
+					<span><strong>[[data.total]]</strong></span>
 				</div>
 			</div>
 		</div>

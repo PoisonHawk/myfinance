@@ -231,7 +231,7 @@ class Category extends \Baum\Node
 SQL;
 		
 		$res =  DB::select($sql, [Auth::user()->id]);
-		
+				
 		$arr = [
 			'months' => [],
 			'data' => [],
@@ -254,8 +254,66 @@ SQL;
 			}
 		}
 		
+		return $arr;
+	}
+	
+	//todo оптимизировать!
+	
+		/*
+	 * Отчет по расходам по категориям по месяцам за 12 месяцев
+	 */
+	public function scopeTopCategoryReport(){
+		
+		
+		$months = ['Январь', 'февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', ' Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+		
+		$sql = <<<SQL
+				SELECT 
+					extract('MONTH' from o.created) as month, 
+					c.name, 
+					sum(o.amount) 
+				FROM 
+					operations o
+				JOIN 
+					categories c on o.category_id = c.id
+				WHERE 
+					o.type = 'outcome'
+				AND 
+					o.user_id = :uid
+				AND
+					o.created >= now() - interval '5 month'			
+				GROUP BY 
+					month, c.name
+				ORDER BY 
+					month, sum desc
+				
+SQL;
+		
+		$res =  DB::select($sql, [
+			'uid' =>Auth::user()->id,
+		]);
+		
+		$arr = [];
+		
+		foreach($res as $r) {
+			
+			$month = $months[$r->month-1];
+			
+			if(!isset($arr[$month])) {
+				$arr[$month] = [];
+			}
+			
+			if(count($arr[$month]) == 5) {
+				continue;
+			}
+			
+			$arr[$month][$r->name] = $r->sum;
+			
+		}
+		
 //		dd($arr);
 		
 		return $arr;
 	}
+	
 }

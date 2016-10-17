@@ -1,15 +1,40 @@
 @extends('layouts.main')
 
 @section('content')
+<div class="row">
+	<div class="panel panel-default">
+		<div class="panel-heading"><h4>Топ расходов</h4></div>
+		<table class="table">
+			<thead>
+				@foreach($topCategories as $month => $data)
+					<th colspan="2" class="text-center">{{ $month}}</th>
+				@endforeach
+			</thead>
+			<tbody>
+				@for($i=0; $i<5; $i++)
+				<tr>
+					<?php foreach($topCategories as $month): ?>			
+						<?php $keys = array_keys($month); ?>									
+						<?php echo isset($keys[$i]) ? '<td>'.$keys[$i] .'</td><td><strong>'.$month[$keys[$i]] .'</strong></td>': '<td colspan=2></td>' ?>
+					<?php endforeach ?>
+				</tr>
+				@endfor
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<div class="row">
 	<div class="col-md-6">
         @include('partials.outcomesmonth')
     </div>
     <div class="col-md-6">
         @include('partials.outcomes')
     </div>
+</div>
 <div class="col-md-12">
-<div class="row">
-	
+<div class="row">	
 		@foreach($user_bills as $b)
 		<div class="col-lg-3 col-md-4 col-sm-6">
 		<div class="panel panel-default ">			

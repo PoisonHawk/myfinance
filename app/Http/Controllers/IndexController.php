@@ -10,6 +10,7 @@ use App\Bills;
 use Auth;
 use App\Purchase;
 use App\Operation;
+use App\Category;
 
 class IndexController extends Controller
 {
@@ -25,6 +26,7 @@ class IndexController extends Controller
 			'user_bills'=> Bills::reportBills(), 
 			'purchases' => $purchases,
 			'operationReports' => json_encode(Operation::YearOperationReport(), true),
+			'topCategories' => Category::topCategoryReport(),
 			]);
     }
     

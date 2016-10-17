@@ -46,6 +46,7 @@ class Bills extends Model
          return $query
                  ->where('user_id','=', Auth::user()->id)
                  ->where('active', '=', '1')
+//				 ->where('saving_account', '=', 0)
                  ->get();
         }
     }
@@ -60,6 +61,9 @@ class Bills extends Model
         $sql = <<<SQL
                 select
                     b.name,
+					b.saving_account,
+					b.saving_amount,
+					case when(b.saving_account = 1) then b.amount/b.saving_amount*100 else 0 end as percent,
                     (select
                             sum(amount)
                     from

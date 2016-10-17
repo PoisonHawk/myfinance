@@ -20,11 +20,21 @@
 					{{ number_format($b->amount, 2, '.', ' ')}} 
 					<!--{{ $b->currency }}-->
 				</div>
+				@if($b->saving_account == 0) 
 				<div class="row">
 					<span class="text-success col-md-4"><span class="glyphicon glyphicon-plus"></span> {{ number_format($b->in, 2, '.', ' ')}}</span>
 					<span class="text-danger col-md-4"><span class="glyphicon glyphicon-minus"></span> {{ number_format( $b->out, 2, '.', ' ')}}</span>
 					<span class="col-md-4"><span class="glyphicon glyphicon-arrow-{{ ($b->in - $b->out)>= 0 ? 'up text-success'  : 'down text-danger'  }}"></span> {{ number_format( ($b->in - $b->out), 2, '.', ' ' ) }}</span>
 				</div>
+				@else				
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$b->percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$b->percent.'%'}};">
+						
+						<span class="sr-only">{{$b->percent}}% Complete</span>
+					</div>
+					<span style="color: #000" class="pull-right">{{ number_format($b->saving_amount , 0, '.', ' ')}}</span>
+				</div>
+				@endif
 			</div>		
 		</div>
 		</div>

@@ -27,12 +27,12 @@
 					<span class="col-md-4"><span class="glyphicon glyphicon-arrow-{{ ($b->in - $b->out)>= 0 ? 'up text-success'  : 'down text-danger'  }}"></span> {{ number_format( ($b->in - $b->out), 2, '.', ' ' ) }}</span>
 				</div>
 				@else				
-				<div class="progress">
+				<div class="progress" style="position:relative">
 					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$b->percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$b->percent.'%'}};">
 						
 						<span class="sr-only">{{$b->percent}}% Complete</span>
 					</div>
-					<span style="color: #000" class="pull-right">{{ number_format($b->saving_amount , 0, '.', ' ')}}</span>
+					<span style="color: #000; position: absolute; right: 5px" class="pull-right"><span class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span> <strong>{{ number_format($b->saving_amount , 0, '.', ' ')}}</strong></span>
 				</div>
 				@endif
 			</div>		

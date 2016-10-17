@@ -102,7 +102,6 @@ class TransferController extends Controller
         $billTo = Bills::find($bill_to_id);
                 
         
-        
         if ($bill_from_id == $bill_to_id) {            
             return redirect()->back()->with('flash_error', 'Нельзя сделать перемещение на тот же счет' );
         }

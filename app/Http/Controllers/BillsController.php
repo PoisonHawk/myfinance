@@ -53,13 +53,16 @@ class BillsController extends Controller
         $this->validate($request, [
                 'name' => 'required',
                 'amount' => 'required|numeric',
+				'saving_amount' => 'numeric',
         ], $messages);
-
+		
         $input = $request->all();
         $input['user_id'] = Auth::user()->id;
         $input['active'] = 1;
-
-        Bills::where('default_wallet',1)->update(['default_wallet'=>0]);
+		
+        if ($request->input('default_wallet')==1){
+			Bills::where('default_wallet',1)->update(['default_wallet'=>0]);
+		}
 
         $newBill = Bills::create($input);
 
@@ -85,7 +88,9 @@ class BillsController extends Controller
             'amount' => 'numeric',
         ]);
 
-        Bills::where('default_wallet',1)->update(['default_wallet'=>0]);
+		if ($request->input('default_wallet')==1){
+			Bills::where('default_wallet',1)->update(['default_wallet'=>0]);
+		}
 
         $bill->fill($request->all())->save();
         $bill = Bills::with('currency')->find($id);

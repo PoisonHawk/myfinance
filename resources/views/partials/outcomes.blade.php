@@ -32,8 +32,8 @@
 			<div class="col-md-6 col-sm-6 col-xs-6">
 				<div class='table' id='accordion'>
 					<div ng-repeat="r in data.result" >
-						<div>
-							<span style="padding: 0 10px ; margin-right: 5px; background: [[r.color]]"></span>
+						<div> 
+							<span style="padding: 0 10px ; margin-right: 5px; background: [[r.color]] "></span>
 							<span><a data-toggle="collapse" data-parent="#accordion" href="[[('#collapse_'+r.num)]]" aria-expanded="false" aria-controls="[[('#collapse_'+r.num)]]">[[r.name]]</a></span>
 							<span>&nbsp;</span>
 							<span class="pull-right "><strong>[[r.total]]</strong></span>

@@ -12,6 +12,8 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         amount: 0,
         default_wallet: 0,
         show: 0,
+        saving_account: 0,
+        saving_amount: 0,
     };
     $scope.index;
     $scope.error = false;
@@ -25,12 +27,14 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
     };
 
     $scope.clearBillData = function(){
-
-
         $scope.bill = {
             name: '',
             currency: 1,
             amount: 0,
+            default_wallet: 0,
+            show: 0,
+            saving_account: 0,
+            saving_amount: 0,
         }
     };
 
@@ -59,8 +63,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         $scope.loading = true;
         billFactory.getBills()
                 .success(function(data, status, headers, config){
-                    
-                    
+                                       
                     console.log(data.bills);
                     $scope.bills = data.bills;
                     $scope.currencies = data.currency;
@@ -82,6 +85,8 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
             amount: $scope.bill.amount,
             default_wallet: $scope.bill.default_wallet,
             show: $scope.bill.show,
+            saving_account: $scope.bill.saving_account,
+            saving_amount: $scope.bill.saving_amount,
         }
 
         billFactory.addBill(post)
@@ -95,6 +100,9 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
 
                         $scope.bills.push(data.bill);
                         $('#modal_bill').modal('hide');
+                        
+                        $scope.clearBillData();
+                        
                     } else {
 
                         $scope.error = true;
@@ -104,18 +112,11 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
 
                     $scope.sending = false;
                 })
-                .error(function(data){
+                .error(function(data){                  
                     $scope.sending = false;
-                    $scope.error = true;
-                    $scope.errors = data;
-
-
-//                    $scope.messageFail('Ошибка операции');
-//                    $scope.sending = false;
-//                    $('#modal_bill').modal('hide');
+                    $scope.showErrors(data);
                 })
 
-        $scope.clearBillData();
     };
 
     $scope.showBillAdd = function(index){
@@ -135,6 +136,8 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         $scope.bill.default_wallet = bill.default_wallet;
         $scope.bill.show = bill.show;
         $scope.bill.id = bill.id;
+        $scope.bill.saving_account = bill.saving_account;
+        $scope.bill.saving_amount = bill.saving_amount;
         $('#modal_bill_update').modal('show');
     };
 
@@ -206,6 +209,12 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
                     $scope.loading = false;
                 })
     };
+
+    $scope.showErrors = function(errors) {
+        
+        $scope.error = true;                
+        $scope.errors = errors;
+    }
 
     $scope.init();
 

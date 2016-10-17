@@ -16,20 +16,24 @@
 
 <table class='table table-striped table-condensed table-hover' >
     <thead>
-        <th></th>	
-		<th></th>
-        <th>Название</th>
+		<th>Название</th>
+        <th>Основной</th>	
+		<th>Избранный</th>
+		<th>Накопительный</th>
         <th>Сумма</th>
+		<th>Сумма накопления</th>
         <th>Валюта</th>
         <th></th>
     </thead>
     <tbody>
         <img src="/img/preload.gif" ng-show="loading" class="center-block">
         <tr ng-repeat="bill in bills" >
+			<td>[[bill.name]]</td>
             <td><span ng-if="bill.default_wallet == 1" class='glyphicon glyphicon-ok'></span></td>
 			<td><span ng-if="bill.show == 1" class='glyphicon glyphicon-star'></span></td>
-            <td>[[bill.name]]</td>
+            <td><span ng-if="bill.saving_account == 1" class='glyphicon glyphicon-ok'></span></td>
             <td>[[bill.amount]]</td>
+			<td>[[bill.saving_amount]]</td>
             <td>[[bill.currency.iso4217]]</td>
             <td>
                 <button ng-click="showBill($index)"><span class='glyphicon glyphicon-edit'></span></button>
@@ -49,6 +53,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Новый счет</h4>
       </div>
+		
       <div class="modal-body">
         <form name='operationForm'>
             <div class='form-group'>
@@ -67,7 +72,7 @@
             </div>
             <div class='form-group'>
                 <label class='control-label'>Начальный остаток:</label>
-                <input class='form-control 'type='text' ng-model='bill.amount'>
+                <input class='form-control' type='text' ng-model='bill.amount'>
                 <p class="text-danger" ng-show="error" ng-repeat="e in errors.amount">
                     [[e]]
                 </p>
@@ -76,9 +81,20 @@
                 <input class=' 'type='checkbox' id="default_wallet" name="default_wallet" ng-model="bill.default_wallet" value='1'>
                 <label class='' for="default_wallet">Основной</label>
             </div>
-			<div class='form-group'>
-                <input class=' 'type='checkbox' id="show_wallet" name="show" ng-model='bill.show' ng-true-value=1 ng-false-value=0>
+			<div class='form-group' >
+                <input class=' 'type='checkbox' id="show_wallet" name="show" ng-model='bill.show' ng-true-value=1 ng-false-value=0>				
                 <label class='' for="show_wallet">Отображать на главной</label>
+            </div>
+			<div class='form-group'>
+                <input class=' 'type='checkbox' id="saving_account" name="saving_account" ng-model='bill.saving_account' ng-true-value=1 ng-false-value=0 >
+                <label class='' for="saving_account">Накопительный счет</label>
+            </div>
+			<div class='form-group' ng-show="bill.saving_account" ng-class="errors.saving_amount ? 'has-error' : '' ">
+                <label class='control-label'>Сумма накопления:</label>
+                <input class='form-control 'type='text' ng-model='bill.saving_amount'>
+                <p class="text-danger" ng-show="error" ng-repeat="e in errors.saving_amount">
+					[[e]]
+				</p>
             </div>
             <input type='hidden' name='_token' value='{{csrf_token()}}'>
             <button class='btn btn-primary form-control' ng-click='addBill()'ng-hide="sending" >Добавить</button>
@@ -118,6 +134,14 @@
 			<div class='form-group'>
                 <input class=' 'type='checkbox' id="show_wallet" name="show" ng-model='bill.show' ng-true-value=1 ng-false-value=0>
                 <label class='' for="show_wallet">Отображать на главной</label>
+            </div>
+			<div class='form-group' ng-show="bill.saving_account">
+                <input class=' 'type='checkbox' id="saving_account" name="saving_account" ng-model='bill.saving_account' ng-true-value=1 ng-false-value=0 disabled>
+                <label class='' for="saving_account">Накопительный счет</label>
+            </div>
+			<div class='form-group' ng-show="bill.saving_account" ng-class="errors.saving_amount ? 'has-error' : '' ">
+                <label class='control-label'>Сумма накопления:</label>
+                <input class='form-control 'type='text' ng-model='bill.saving_amount' disabled>                
             </div>
             <input type="hidden" name="_method" value="PUT">
             <input type='hidden' name='_token' value='{{csrf_token()}}'>

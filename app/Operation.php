@@ -240,6 +240,7 @@ SQL;
 		
 		
 		$month = DB::select($sql, ['id'=>Auth::user()->id]);
+	
 		
 				$sql = <<<SQL
 				SELECT 
@@ -254,9 +255,7 @@ SQL;
 SQL;
 		
 		$week = DB::select($sql, ['id'=>Auth::user()->id]);
-		
-				$month = DB::select($sql, ['id'=>Auth::user()->id]);
-		
+
 				$sql = <<<SQL
 				SELECT 
 					coalesce(sum( case when type='income' then amount end ),0) as income,
@@ -271,11 +270,16 @@ SQL;
 		
 		$day = DB::select($sql, ['id'=>Auth::user()->id]);
 		
-		return [
+		
+		$arr = [
 			'day' => $day[0],
 			'week' => $week[0],
 			'month' =>$month[0],			
 		];
+		
+		dd($arr);
+		
+		return $arr;
 		
 	}
     

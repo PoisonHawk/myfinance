@@ -221,5 +221,62 @@ SQL;
 		return DB::select($sql, [Auth::user()->id]);
 		
 	}
+	
+	
+	//todo оптимизировать
+	public static function dayWeekMonthStat(){
+		
+		$sql = <<<SQL
+				SELECT 
+					coalesce(sum( case when type='income' then amount end ),0) as income,
+					coalesce(sum( case when type='outcome' then amount end ),0) as outcome				
+				FROM 
+					operations
+				WHERE 
+					created > date_trunc('month', now()) 
+				AND 
+					user_id = :id
+SQL;
+		
+		
+		$month = DB::select($sql, ['id'=>Auth::user()->id]);
+		
+				$sql = <<<SQL
+				SELECT 
+					coalesce(sum( case when type='income' then amount end ),0) as income,
+					coalesce(sum( case when type='outcome' then amount end ),0) as outcome
+				FROM 
+					operations
+				WHERE 
+					created > date_trunc('week', now()) 
+				AND 
+					user_id = :id
+SQL;
+		
+		$week = DB::select($sql, ['id'=>Auth::user()->id]);
+		
+				$month = DB::select($sql, ['id'=>Auth::user()->id]);
+		
+				$sql = <<<SQL
+				SELECT 
+					coalesce(sum( case when type='income' then amount end ),0) as income,
+					coalesce(sum( case when type='outcome' then amount end ),0) as outcome						
+				FROM 
+					operations
+				WHERE 
+					created > date_trunc('day', now()) 
+				AND 
+					user_id = :id
+SQL;
+		
+		$day = DB::select($sql, ['id'=>Auth::user()->id]);
+		
+		return [
+			'day' => $day[0],
+			'week' => $week[0],
+			'month' =>$month[0],			
+		];
+		
+	}
     
 }

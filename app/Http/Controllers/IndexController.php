@@ -21,12 +21,13 @@ class IndexController extends Controller
             ->where('user_id', '=', Auth::user()->id)
             ->limit(10)
             ->get();
-         
+//         dd(Operation::dayWeekMonthStat());
         return view('index.home', [
 			'user_bills'=> Bills::reportBills(), 
 			'purchases' => $purchases,
 			'operationReports' => json_encode(Operation::YearOperationReport(), true),
 			'topCategories' => Category::topCategoryReport(),
+			'dayWeekMonthStat' => Operation::dayWeekMonthStat(),
 			]);
     }
     

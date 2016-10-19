@@ -2,6 +2,38 @@
 
 @section('content')
 
+<div class="row">
+	<table class="table table-borderless">
+			<thead>
+				<th colspan="3" class="text-center">День</th>
+				<th colspan="3" class="text-center">Неделя</th>
+				<th colspan="3" class="text-center">Месяц</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="text-success text-center"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{ $dayWeekMonthStat['day']->income }}</td>
+					<td class="text-danger text-center"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{ $dayWeekMonthStat['day']->outcome }}</td>
+					<td class="text-center {{ $dayWeekMonthStat['day']->income - $dayWeekMonthStat['day']->outcome > 0 ? 'text-success' : 'text-danger' }}">
+						<span class="glyphicon glyphicon-arrow-{{ $dayWeekMonthStat['day']->income - $dayWeekMonthStat['day']->outcome > 0 ? 'up' : 'down' }}"></span>&nbsp;
+						{{ $dayWeekMonthStat['day']->income - $dayWeekMonthStat['day']->outcome }}
+					</td>
+					<td class="text-success text-center"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{ $dayWeekMonthStat['week']->income }}</td>
+					<td class="text-danger text-center"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{ $dayWeekMonthStat['week']->outcome }}</td>
+					<td class="text-center {{ $dayWeekMonthStat['week']->income - $dayWeekMonthStat['week']->outcome > 0 ? 'text-success' : 'text-danger' }}">
+						<span class="glyphicon glyphicon-arrow-{{ $dayWeekMonthStat['week']->income - $dayWeekMonthStat['week']->outcome > 0 ? 'up' : 'down' }}"></span>&nbsp;
+						{{ $dayWeekMonthStat['week']->income - $dayWeekMonthStat['week']->outcome }}
+					</td>
+					<td class="text-success text-center"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{ $dayWeekMonthStat['month']->income }}</td>
+					<td class="text-danger text-center"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{ $dayWeekMonthStat['month']->outcome }}</td>
+					<td class="text-center {{ $dayWeekMonthStat['month']->income - $dayWeekMonthStat['month']->outcome > 0 ? 'text-success' : 'text-danger' }}">
+						<span class="glyphicon glyphicon-arrow-{{ $dayWeekMonthStat['month']->income - $dayWeekMonthStat['month']->outcome > 0 ? 'up' : 'down' }}"></span>&nbsp;
+						{{ $dayWeekMonthStat['month']->income - $dayWeekMonthStat['month']->outcome }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+</div>
+
 <!--Top Outcomes-->
 	<div class="panel panel-default">
 		<div class="panel-heading"><h4>Топ расходов</h4></div>

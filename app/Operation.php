@@ -271,15 +271,12 @@ SQL;
 		$day = DB::select($sql, ['id'=>Auth::user()->id]);
 		
 		
-		$arr = [
+		return [
 			'day' => $day[0],
 			'week' => $week[0],
 			'month' =>$month[0],			
 		];
-		
-		dd($arr);
-		
-		return $arr;
+
 		
 	}
     

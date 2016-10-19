@@ -1,7 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="row">
+
+<!--Top Outcomes-->
 	<div class="panel panel-default">
 		<div class="panel-heading"><h4>Топ расходов</h4></div>
 		<table class="table">
@@ -22,9 +23,10 @@
 			</tbody>
 		</table>
 	</div>
-</div>
+<!-- END TOP Outcomes -->
 
 
+<!-- Charts-->
 <div class="row">
 	<div class="col-md-6">
         @include('partials.outcomesmonth')
@@ -33,12 +35,15 @@
         @include('partials.outcomes')
     </div>
 </div>
-<div class="col-md-12">
+
+<!-- End Charts -->
+
+<!-- Bills -->
 <div class="row">	
-		@foreach($user_bills as $b)
-		<div class="col-lg-3 col-md-4 col-sm-6">
+	@foreach($user_bills as $b)
+	<div class="col-lg-3 col-md-4 col-sm-6">
 		<div class="panel panel-default ">			
-			<div class="panel-heading">{{$b->name}}</div>
+			<div class="panel-heading"><h4>{{$b->name}}</h4></div>
 			<div class="panel-body">
 				<div class="text-center" style="font-size: 28px; margin: 20px 0;">
 					<span class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span> 
@@ -62,20 +67,23 @@
 				@endif
 			</div>		
 		</div>
-		</div>
-
-		@endforeach
+	</div>
+	@endforeach
 </div>
-</div>
-<div class="col-md-8">
-<script>
-    $(document).ready(function(){
+<!-- END BILLS -->
 
-        $('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
-        $('input[name=fromDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
-        $('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
-    })
-</script>
+
+<!-- Outcomes -->
+<div class="row">
+	<div class="col-md-8">
+	<script>
+		$(document).ready(function(){
+
+			$('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
+			$('input[name=fromDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
+			$('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
+		})
+	</script>
 
 <div class='panel panel-default' ng-controller="OperationsCtrl">
         <div class='panel-heading'>
@@ -136,6 +144,9 @@
     </div>
 
 </div>
+	</div>
+
+<!-- End outbcomes -->
 
 @stop
 

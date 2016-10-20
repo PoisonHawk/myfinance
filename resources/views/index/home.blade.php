@@ -157,24 +157,22 @@
 
     <div class="panel panel-default">
         <div class='panel-heading'>
-            <span class="glyphicon glyphicon-stats">&nbsp;</span>
-            <span>Запланированные расходы</span>
-        </div>
-        <div class="panel-body">
-            <table class='table' >
-                <tbody>
-                    @foreach($purchases as $purchase)
-                       <tr>
-                           <td>{{$purchase->name}}</td>
-                           <td>{{$purchase->amount}}</td>
-                       </tr>
-                    @endforeach
-                <tr>
-                    <td><a href="/purchase">Посмотреть все</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+            
+            <h4><span class="glyphicon glyphicon-stats">&nbsp;</span>Запланированные расходы</h4>
+        </div>        
+		<table class='table' >
+			<tbody>
+				@foreach($purchases as $purchase)
+				   <tr>
+					   <td>{{$purchase->name}}</td>
+					   <td>{{$purchase->amount}}</td>
+				   </tr>
+				@endforeach
+			<tr>
+				<td colspan="2"><a href="/purchase">Посмотреть все</a></td>
+			</tr>
+			</tbody>
+		</table>       
     </div>
 
 </div>

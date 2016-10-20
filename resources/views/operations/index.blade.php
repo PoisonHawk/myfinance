@@ -87,6 +87,7 @@
     </tbody>
 </table>
 
-<a href='{{route('operations.create', 'type=income')}}' class='btn btn-success'>Доход</a>
-<a href='{{route('operations.create', 'type=outcome')}}' class='btn btn-danger'>Расход</a>
+<a href='#' class='btn btn-success' data-toggle="modal" data-target="#modal_income">Доход</a>
+<a href='#' class='btn btn-danger' data-toggle="modal" data-target="#modal_outcome">Расход</a>
+
 @stop

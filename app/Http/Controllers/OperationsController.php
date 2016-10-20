@@ -135,10 +135,6 @@ class OperationsController extends Controller
      */
     public function store(Request $req)
     {
-        
-        //todo добавить правила валидации
-		
-//		dd($req->input('amount'));
 		
         $this->validate($req,[
             'amount' => 'required',
@@ -147,9 +143,7 @@ class OperationsController extends Controller
         $bill_id    = $req->input('bills_id');
         $amount     = $req->input('amount');
         $type       = $req->input('type');
-        
-        $bill = Bills::find($bill_id);
-
+                
         $amount = str_replace(',','.',$amount);
 		
 		if (!is_numeric($amount) ) {  
@@ -159,7 +153,8 @@ class OperationsController extends Controller
 		if ( $amount <= 0 ) {  
             return redirect()->back()->with('flash_error', 'Сумма должны быть поло жительныйм числом' );
         }
-		        
+		    
+		$bill = Bills::find($bill_id);
         if ($type == 'outcome' and floatval($bill->amount) < floatval($amount)) {  
             return redirect()->back()->with('flash_error', 'Недостаточно средств на счете' );
         }
@@ -169,7 +164,11 @@ class OperationsController extends Controller
         }
         
         $op = new Operation();
-        $op->operationTransact($req->input());
+		try{
+			$op->operationTransact($req->input());
+		} catch (\Exception $e) {			
+			return redirect()->back()->with('flash_error', 'Невозможно провести операцию. Обратитесь в тех. поддержку.');
+		}
         
         $redirectRoute = $req->input('redirect', 'operations.index');
                
@@ -177,16 +176,6 @@ class OperationsController extends Controller
          
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -277,8 +266,7 @@ class OperationsController extends Controller
         $bill = Bills::findOrFail($op->bills_id);       
         
         $amount  = $op->type == 'income' ? -$op->amount : $op->amount;
-        
-        
+                
         DB::beginTransaction();
         
         try{
@@ -287,10 +275,11 @@ class OperationsController extends Controller
             $bill->save();
             
             $op->delete();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            throw new Exception($e->getMessage());
-            
+			Session::flash('flash_error', 'Неворзможно удалить операцию. Обратитесь в техюподдержку.');
+//            throw new Exception($e->getMessage());            
+			 return redirect()->back();
         }
         
         DB::commit();    

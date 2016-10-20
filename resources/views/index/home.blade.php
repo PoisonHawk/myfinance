@@ -108,25 +108,36 @@
 <!-- Outcomes -->
 <div class="row">
 	<div class="col-md-8">
-<div class='panel panel-default' ng-controller="OperationsCtrl">
+	<div class='panel panel-default' ng-controller="OperationsCtrl">
         <div class='panel-heading'>
-            <span class="glyphicon glyphicon-stats"></span>
-            <span>Расходы за </span>
-            <div class="btn-group btn-group-xs">
-                <button class="btn btn-default" ng-click="report(1)">день</button>
-                <button class="btn btn-default" ng-click="report(7)">неделю</button>
-                <button class="btn btn-default" ng-click="report(31)">месяц</button>
-                <button class="btn btn-default" ng-click="period()">период</button>
+			<div class="col-md-4">
+				<span class="glyphicon glyphicon-stats">&nbsp;</span>
+				<span>Расходы за</span>&nbsp;
+				<div class="btn-group">
+					<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  день <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+					  <li><a href="javascript: void(0)" ng-click="report(1)" >день</a></li>
+					  <li><a href="javascript: void(0)" ng-click="report(7)">неделю</a></li>
+					  <li><a href="javascript: void(0)" ng-click="report(31)">месяц</a></li>				 
+					  <li><a href="javascript: void(0)" ng-click="period()">период</a></li>
+					</ul>
+				</div>
+			</div>
+            <div ng-show="isPeriod" class="col-md-8">
+				<form class="form form-inline">
+					<label>C&nbsp;</label>	
+					<input name="fromDate" type="text" value="[[date.from]]" ng-model="date.from" size="8" class="form-control input-sm">
+					<label>&nbsp;по &nbsp;</label>
+					<input name="toDate" type="text" value="[[date.to]]" ng-model="date.to" size="8" class="form-control input-sm">
+					<button ng-click="makeRequest()" class="btn btn-default btn-sm">Показать</button>
+				</form>
             </div>
-            <div ng-show="isPeriod">
-                C <input name="fromDate" type="text" value="[[date.from]]" ng-model="date.from" size="8">
-                по <input name="toDate" type="text" value="[[date.to]]" ng-model="date.to" size="8">
-                <button ng-click="makeRequest()">Показать</button>
-            </div>
-        </div>
-        <div class='panel-body'>
+			<div class="clearfix"></div>
+        </div> 
             <img src="/img/preload.gif" ng-show="load"></img>
-            <table class='table' ng-hide="load">
+            <table class='table table-striped' ng-hide="load">
                 <p class="text-danger" ng-show="error">[[message]]</p>
                 <tbody>
                     <tr ng-repeat="op in operations">
@@ -138,8 +149,7 @@
                     <tr><td></td><td></td><td></td><td>Итого: [[total()]]</td></tr>
 					<tr><td colspan="4"><a href="/operations?type=outcome">Посмотреть все</td></a></tr>
                 </tbody>
-            </table>
-        </div>
+            </table>        
    </div>
 </div>
 
@@ -147,7 +157,7 @@
 
     <div class="panel panel-default">
         <div class='panel-heading'>
-            <span class="glyphicon glyphicon-stats"></span>
+            <span class="glyphicon glyphicon-stats">&nbsp;</span>
             <span>Запланированные расходы</span>
         </div>
         <div class="panel-body">

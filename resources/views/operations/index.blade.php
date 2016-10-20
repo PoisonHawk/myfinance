@@ -50,30 +50,25 @@
 <br>
 <br>
 
-<table class='table table-condensed'>
+<table class='table table-striped'>
     <thead>
-        <!--<th width="5"></th>-->       
-        <th>Сумма</th>
-        <th>Категория</th>
-        <th>Дата и время</th>
-        <th>Счет</th>
-
+        <th class='text-center'>Сумма</th>
+        <th class='text-center'>Категория</th>
+        <th class='text-center'>Дата и время</th>
+        <th class='text-center'>Счет</th>
         <th></th>
     </thead>
     <tbody>
         @forelse($operations as $op)
-        <tr style='font-size:20px'>
-            <!--<td><span class="text-{{$op->type=='income' ? 'success' : 'danger'}} glyphicon glyphicon-{{$op->type=='income' ? 'plus' : 'minus'}}"></td>-->
-            <!--<td>@if($op->active == 1)<span class="text-success glyphicon glyphicon-ok">@endif</td>-->
-            <td><span class="text-{{$op->type=='income' ? 'success' : 'danger'}} glyphicon glyphicon-{{$op->type=='income' ? 'plus' : 'minus'}}"></span>&nbsp;
+        <tr style='font-size:18px'>     
+            <td style="vertical-align:middle" class='text-center'><span class="text-{{$op->type=='income' ? 'success' : 'danger'}} glyphicon glyphicon-{{$op->type=='income' ? 'plus' : 'minus'}}"></span>&nbsp;
 					{{$op->amount}} {{ $op->bill->currency->iso4217 }}
 			</td>
-            <td>{{$op->category->name}}</td>
-            <td>{{$op->created}}</td>
-            <td>{{$op->bill->name}}</td>
+            <td style="vertical-align:middle" class='text-center'>{{$op->category->name}}</td>
+            <td style="vertical-align:middle" class='text-center'>{{$op->created->format('d.m.Y')}}<br><small>{{$op->created->format('H:i:s')}}</small></td>
+            <td style="vertical-align:middle" class='text-center'>{{$op->bill->name}}</td>
 
-
-            <td>
+            <td class='text-center'>
                 <!--<a href='{{route('operations.edit', $op->id)}}' class='btn btn-primary'><span class="glyphicon glyphicon-edit"></span></a>-->
                 <button class="remove_operation btn btn-danger"><span class="glyphicon glyphicon-trash"></button>
                 <form method="POST" action="{{route('operations.destroy', $op->id)}}">

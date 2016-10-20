@@ -57,8 +57,7 @@ class OperationsController extends Controller
 		 if ($category !=0) {           
             $operations = $operations->where('category_id', '=', $category);
         }
-		
-        
+		        
         $operations = $operations->orderBy('created', 'desc')->get();
      		
         //получаем список счетов        
@@ -67,10 +66,7 @@ class OperationsController extends Controller
         foreach(Bills::userBills() as $b) {
             $bills[$b->id] = $b->name;
         }        
-		
-		
-        
-
+	
         $data = array(
             'operations' => $operations,
             'to_date' => $to_date,

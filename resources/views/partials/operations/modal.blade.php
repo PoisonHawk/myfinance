@@ -35,7 +35,7 @@
                 </div>
             </div>
             <input type='hidden' name='type' value='{{$type}}'>
-            <input type='hidden' name='redirect' value='/'>
+            <input type='hidden' name='redirect' value='{{ Request::route()->getName() }}'>
             <input type='hidden' name='_token' value='{{csrf_token()}}'>
             <input type='submit' name='submit' value='Сохранить' class='btn btn-primary form-control'>
         </form>

@@ -22,7 +22,10 @@ Route::get('/token', [
     'uses' => 'IndexController@token',
 ]);
 
-Route::get('bill', 'BillController@index');
+Route::get('bill', [
+	'as' => 'bill',
+	'uses' => 'BillController@index',
+]);
 
 Route::resource('bills', 'BillsController');
 

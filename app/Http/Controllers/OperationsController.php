@@ -141,8 +141,7 @@ class OperationsController extends Controller
         $this->validate($req,[
             'amount' => 'required|numeric',
         ]);
-        
-        
+                
         $bill_id    = $req->input('bills_id');
         $amount     = $req->input('amount');
         $type       = $req->input('type');
@@ -164,12 +163,9 @@ class OperationsController extends Controller
         $op = new Operation();
         $op->operationTransact($req->input());
         
-        $url = $req->input('redirect');
-        if ($url) {
-            return redirect($url);
-        }
-        
-        return redirect(route('operations.index'));
+        $redirectRoute = $req->input('redirect', 'operations.index');
+               
+        return redirect(route($redirectRoute));
          
     }
 

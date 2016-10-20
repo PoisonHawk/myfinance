@@ -130,7 +130,7 @@
                 <p class="text-danger" ng-show="error">[[message]]</p>
                 <tbody>
                     <tr ng-repeat="op in operations">
-                        <td>[[op.created | date:'dd.MM HH:ii']]</td>
+                        <td>[[ op.created | date: 'dd.MM HH:ii' ]]</td>
                         <td>[[op.bill.name]]</td>
                         <td>[[op.category.name ]]</td>
                         <td>[[op.amount]] [[op.bill.currency.iso4217]]</td>

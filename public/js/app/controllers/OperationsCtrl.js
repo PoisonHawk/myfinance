@@ -37,10 +37,8 @@ app.controller('OperationsCtrl', function($scope, $http, CSRF_TOKEN){
         $scope.load = true;
         $scope.error = false;
         $http.get('/operations/getoutcomes?from='+$scope.date.from+'&to='+$scope.date.to)
-                .success(function(data){
-                  
-                    $scope.operations = data; 
-                    
+                .success(function(data){                  
+                    $scope.operations = data;                     
                 })
                 .error(function(){
                     $scope.error = true;

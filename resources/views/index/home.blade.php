@@ -115,7 +115,7 @@
 				<span>Расходы за</span>&nbsp;
 				<div class="btn-group">
 					<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  день <span class="caret"></span>
+					  [[ periodName ]] <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
 					  <li><a href="javascript: void(0)" ng-click="report(1)" >день</a></li>

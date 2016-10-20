@@ -11,16 +11,26 @@ app.controller('OperationsCtrl', function($scope, $http, CSRF_TOKEN){
     $scope.isPeriod = false;
     $scope.toDate = null;
     $scope.fromDate = null;
+    $scope.periodName = null;
     
     $scope.init = function(){
         
         $scope.error = false;
         $scope.makePeriod();               
-        $scope.makeRequest();  
+        $scope.makeRequest();
+        $scope.periodName = 'день';
         
     };
     
     $scope.report = function(period){
+        
+        var periods = {
+            '1' : 'день',
+            '7' : 'неделю',
+            '31' : 'месяц',
+        }
+        
+        $scope.periodName = periods[period];
         
         $scope.isPeriod = false;
         $scope.makePeriod(period);
@@ -29,6 +39,7 @@ app.controller('OperationsCtrl', function($scope, $http, CSRF_TOKEN){
     }
     
     $scope.period = function(){
+        $scope.periodName = 'период';
         $scope.isPeriod = true;
         
     }

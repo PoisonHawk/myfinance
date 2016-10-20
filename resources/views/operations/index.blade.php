@@ -23,38 +23,51 @@
          
      })  
 </script>
+<div class='row'>
+	<form action='{{route('operations.index')}}' class="form-inline">  
+		
 
-<form action='{{route('operations.index')}}' class="form-inline">  
-        {!! Form::label('from_date', 'Дата с ')!!}
-        {!! Form::text('from_date', $from_date, array('id'=>'from_date', 'class'=>'input-small'))!!}
-        {!! Form::label('to_date', 'по ')!!}       
-        {!! Form::text('to_date', $to_date, array('id'=>'to_date'))!!}
-        {!! Form::label('bill', 'Счет')!!}  
-        {!! Form::select('bill', $bills, $bill) !!}
-        {!! Form::label('type', 'Тип операции') !!}
-        {!! Form::select('type', $types, $type) !!}
-        {!! Form::submit('Поиск', array('class' => 'btn btn-default'))!!}        
-</form>
+			{!! Form::label('from_date', 'Дата с ', array('class'=>'control-label'))!!}
+			{!! Form::text('from_date', $from_date, array('id'=>'from_date', 'class'=>'form-control input-sm'))!!}	
+			
+			{!! Form::label('to_date', 'по ')!!}       
+			{!! Form::text('to_date', $to_date, array('id'=>'to_date', 'class'=>'form-control input-sm'))!!}
 
+			{!! Form::label('bill', 'Счет')!!}  
+			{!! Form::select('bill', $bills, $bill, array('class'=>'form-control input-sm')) !!}
+			
+			{!! Form::label('type', 'Тип операции') !!}
+			{!! Form::select('type', $types, $type, array('class'=>'form-control input-sm')) !!}
+			
+			{!! Form::label('category', 'Категория') !!}
+			{!! Form::select('category', $categories, $category, array('class'=>'form-control input-sm')) !!}
+
+			{!! Form::submit('Поиск', array('class' => 'btn btn-default'))!!}        
+	
+	</form>
+</div>
+
+<br>
+<br>
 
 <table class='table table-condensed'>
     <thead>
-        <th></th>
-        <!--<th></th>-->
+        <!--<th width="5"></th>-->       
         <th>Сумма</th>
         <th>Категория</th>
         <th>Дата и время</th>
         <th>Счет</th>
 
-
         <th></th>
     </thead>
     <tbody>
         @forelse($operations as $op)
-        <tr>
-            <td><span class="text-{{$op->type=='income' ? 'success' : 'danger'}} glyphicon glyphicon-{{$op->type=='income' ? 'plus' : 'minus'}}"></td>
+        <tr style='font-size:20px'>
+            <!--<td><span class="text-{{$op->type=='income' ? 'success' : 'danger'}} glyphicon glyphicon-{{$op->type=='income' ? 'plus' : 'minus'}}"></td>-->
             <!--<td>@if($op->active == 1)<span class="text-success glyphicon glyphicon-ok">@endif</td>-->
-            <td>{{$op->amount}}</td>
+            <td><span class="text-{{$op->type=='income' ? 'success' : 'danger'}} glyphicon glyphicon-{{$op->type=='income' ? 'plus' : 'minus'}}"></span>&nbsp;
+					{{$op->amount}} {{ $op->bill->currency->iso4217 }}
+			</td>
             <td>{{$op->category->name}}</td>
             <td>{{$op->created}}</td>
             <td>{{$op->bill->name}}</td>

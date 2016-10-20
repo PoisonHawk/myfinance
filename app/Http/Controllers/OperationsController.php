@@ -17,14 +17,6 @@ use Baum;
 
 class OperationsController extends Controller
 {
-
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */      
-    
     public function index(Request $req)
     {          
               
@@ -46,23 +38,26 @@ class OperationsController extends Controller
                 ->where('created', '<=', $to)
                 ->where('user_id', '=', Auth::user()->id);
 
-        $type = $req->input('type');
-
+		//тип операции		
+        $type = $req->input('type', 'all');
         if($type != 'all') {
             $operations = $operations->where('type', '=', $type);
         }
-
-
-//                ->where(function($query){
-//                    $query->where('type', '=', 'outcome')
-//                        ->orWhere('type', '=', 'income');
-//                });
         
-        $bill = $req->input('bill');   
-        
+		//счет
+        $bill = $req->input('bill');           
         if ($bill !=0) {           
             $operations = $operations->where('bills_id', '=', $bill);
         }
+		
+		$categories = array_merge(['0'=>'Все'], Category::getCategories());
+		
+		//categiory
+		$category = $req->input('category', 0);
+		 if ($category !=0) {           
+            $operations = $operations->where('category_id', '=', $category);
+        }
+		
         
         $operations = $operations->orderBy('created', 'desc')->get();
      		
@@ -71,9 +66,11 @@ class OperationsController extends Controller
         
         foreach(Bills::userBills() as $b) {
             $bills[$b->id] = $b->name;
-        }               
-             
-               
+        }        
+		
+		
+        
+
         $data = array(
             'operations' => $operations,
             'to_date' => $to_date,
@@ -84,9 +81,11 @@ class OperationsController extends Controller
                 'all' => 'Все',
                 'income' => 'Доходы',
                 'outcome' => 'Расходы',
-                'transfers' => 'Пермещеня',
+//                'transfers' => 'Перемещеня',
             ],
-            'type' => $req->input('types', 'all')
+            'type' => $req->input('types', 'all'),
+			'categories' => $categories,
+			'category' => $category,
             
         );        
         

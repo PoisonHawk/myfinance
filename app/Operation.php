@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Auth;
 use DB;
+use Session;
 
 class Operation extends Model
 {
@@ -18,9 +19,7 @@ class Operation extends Model
         'type',
         'amount',
     ];
-    
-	protected $dates = ['created_at', 'updated_at', 'disabled_at','created'];
-	
+
     public function bill(){
         return $this->belongsTo('App\Bills', 'bills_id');
     }
@@ -29,7 +28,7 @@ class Operation extends Model
         return $this->belongsTo('App\Category')->withTrashed();
     }
     
-    //todo обработка ошибок
+   
     public function operationTransact($data){
                 
         $amount = str_replace(',','.',$data['amount']);
@@ -52,12 +51,11 @@ class Operation extends Model
             $this->bill->amount = floatval($this->bill->amount) + floatval($amount);
             $this->bill->save();
             
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+			
+			DB::rollBack();
+            throw new \Exception($e->getMessage());
             
-            // todo обработка ошибки
-            session::flash('flash_message', 'Невозможно провести операцию');
-            //throw new Exception($e->getMessage());
-            DB:rollback();
         }
                         
         DB::commit();

@@ -108,15 +108,6 @@
 <!-- Outcomes -->
 <div class="row">
 	<div class="col-md-8">
-	<script>
-		$(document).ready(function(){
-
-			$('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
-			$('input[name=fromDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
-			$('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
-		})
-	</script>
-
 <div class='panel panel-default' ng-controller="OperationsCtrl">
         <div class='panel-heading'>
             <span class="glyphicon glyphicon-stats"></span>

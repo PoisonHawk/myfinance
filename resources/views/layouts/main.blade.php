@@ -26,6 +26,14 @@
 		<script src="/js/app/controllers/PurchaseCtrl.js"></script>
 		<script src='/js/jquery.datetimepicker.js'></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script>
+		$(document).ready(function(){
+
+				$('input[name=created]').datetimepicker({format:'Y-m-d H:i'})
+				$('input[name=fromDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
+				$('input[name=toDate]').datetimepicker({timepicker:false, format:'Y-m-d'})
+			})
+		</script>
 	</head>
 	<body ng-app='app'>
 		<nav class="navbar navbar-default">

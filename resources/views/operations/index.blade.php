@@ -65,7 +65,9 @@
 					{{$op->amount}} {{ $op->bill->currency->iso4217 }}
 			</td>
             <td style="vertical-align:middle" class='text-center'>{{$op->category->name}}</td>
-            <td style="vertical-align:middle" class='text-center'>{{$op->created->format('d.m.Y')}}<br><small>{{$op->created->format('H:i:s')}}</small></td>
+            <td style="vertical-align:middle" class='text-center'>{{ date('d.m.Y', strtotime($op->created)) }}<br>
+				<small>{{ date('H:i', strtotime($op->created)) }}</small>
+			</td>
             <td style="vertical-align:middle" class='text-center'>{{$op->bill->name}}</td>
 
             <td class='text-center'>

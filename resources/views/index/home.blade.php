@@ -134,8 +134,9 @@
                         <td>[[op.bill.name]]</td>
                         <td>[[op.category.name ]]</td>
                         <td>[[op.amount]] [[op.bill.currency.iso4217]]</td>
-                    <tr>
-                    <tr><td></td><td></td><td></td><td>[[total()]]</td></tr>
+                    </tr>
+                    <tr><td></td><td></td><td></td><td>Итого: [[total()]]</td></tr>
+					<tr><td colspan="4"><a href="/operations?type=outcome">Посмотреть все</td></a></tr>
                 </tbody>
             </table>
         </div>

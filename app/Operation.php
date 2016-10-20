@@ -42,7 +42,7 @@ class Operation extends Model
             $this->bills_id = $data['bills_id'];
             $this->category_id = $data['category_id'];
             $this->type = $data['type'];
-            $this->amount = $amount;
+            $this->amount = round($amount, 2);
             $this->active = 1;
             $this->save();
                    

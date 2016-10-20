@@ -137,9 +137,11 @@ class OperationsController extends Controller
     {
         
         //todo добавить правила валидации
-        
+		
+//		dd($req->input('amount'));
+		
         $this->validate($req,[
-            'amount' => 'required|numeric',
+            'amount' => 'required',
         ]);
                 
         $bill_id    = $req->input('bills_id');
@@ -147,17 +149,23 @@ class OperationsController extends Controller
         $type       = $req->input('type');
         
         $bill = Bills::find($bill_id);
-        
-        //todo проверка на существование
-        
+
         $amount = str_replace(',','.',$amount);
-        
-        if ($type == 'outcome' and floatval($bill->amount) < floatval($amount)) {            
+		
+		if (!is_numeric($amount) ) {  
+            return redirect()->back()->with('flash_error', 'Неверный формат суммы' );
+        }
+		
+		if ( $amount <= 0 ) {  
+            return redirect()->back()->with('flash_error', 'Сумма должны быть поло жительныйм числом' );
+        }
+		        
+        if ($type == 'outcome' and floatval($bill->amount) < floatval($amount)) {  
             return redirect()->back()->with('flash_error', 'Недостаточно средств на счете' );
         }
        
-        if ($req->input('created') > Carbon::now()) {            
-            return redirect()->back()->with('flash_error', 'Время операции больше текущей');
+        if ($req->input('created') > Carbon::now()) {       
+            return redirect()->back()->with('flash_error', 'Время операции больше текущей даты');
         }
         
         $op = new Operation();

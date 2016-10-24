@@ -7,6 +7,7 @@ app.controller('ctrlReport', function($scope, reportFactory){
     $scope.chart = null;
     $scope.block = false;
     $scope.loading = false;
+    $scope.ctx = null;
        
     $scope.drawDiagram = function(){
         
@@ -30,22 +31,24 @@ app.controller('ctrlReport', function($scope, reportFactory){
             colorCount++; 
         }        
        
-        if ($scope.chart !== null) { 
-            
-            var datasets = {
-                data: data,
-                backgroundColor:bcolors,
-                hoverBackgroundColor:bcolors,
-            }
-            
+        if ($scope.ctx == null) {        
+            $scope.ctx = document.getElementById('outcomes').getContext('2d');
+        }  
+        
+        if($scope.chart != null) {
+           
             $scope.chart.data.labels = labels;
-            $scope.chart.data.datasets[0] = datasets;            
+            $scope.chart.data.datasets[0] = {
+                        data: data,
+                        backgroundColor: bcolors,
+                        hoverBackgroundColor: bcolors
+                    };
+                    
             $scope.chart.update();
             return;
-        } 
+        }
 
-        var context = document.getElementById('outcomes').getContext('2d');
-        $scope.chart = new Chart(context,{
+        $scope.chart = new Chart($scope.ctx,{
             type: 'doughnut',          
             data:{
                 labels: labels,     
@@ -59,14 +62,13 @@ app.controller('ctrlReport', function($scope, reportFactory){
                 animateScale:true
             },
             options: {
+                cutoutPercentage: 70,
                 legend: {
                     display: false,
                   
                 }
             },
-        })
-      
-//        document.getElementById('legend').innerHTML = $scope.chart.generateLegend();
+        })     
         
     };
     

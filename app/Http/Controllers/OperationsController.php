@@ -42,7 +42,7 @@ class OperationsController extends Controller
         $type = $req->input('type', 'all');
         if($type != 'all') {
             $operations = $operations->where('type', '=', $type);
-        }
+		}		
         
 		//счет
         $bill = $req->input('bill');           
@@ -58,7 +58,7 @@ class OperationsController extends Controller
             $operations = $operations->where('category_id', '=', $category);
         }
 		        
-        $operations = $operations->orderBy('created', 'desc')->get();
+        $operations = $operations->orderBy('created', 'desc')->paginate(10);
      		
         //получаем список счетов        
         $bills = array('0' => 'Все');

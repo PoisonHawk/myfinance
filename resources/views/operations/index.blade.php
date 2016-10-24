@@ -86,7 +86,9 @@
         @endforelse
     </tbody>
 </table>
-
+<div class="text-center">
+{!! $operations->render() !!}
+</div>
 <a href='#' class='btn btn-success' data-toggle="modal" data-target="#modal_income">Доход</a>
 <a href='#' class='btn btn-danger' data-toggle="modal" data-target="#modal_outcome">Расход</a>
 

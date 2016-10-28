@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Response;
 use App\Http\Controllers\Controller;
 use App\Bills;
 use App\Currency;
@@ -46,26 +47,70 @@ class BillsController extends Controller
         $ans = ['status' =>'ok'];
 
         $messages = [
-            'required' => 'Поле должно быть заполнено',
-            'numeric' => 'Значение должно быть числом',
+            'required' => 'Поле должно быть заполнено',         
         ];
 
         $this->validate($request, [
                 'name' => 'required',
-                'amount' => 'required|numeric',
-				'saving_amount' => 'numeric',
+                'amount' => 'required',				
         ], $messages);
 		
-        $input = $request->all();
-        $input['user_id'] = Auth::user()->id;
-        $input['active'] = 1;
+		$amount = $request->input('amount');
+		$saving_amount = $request->input('saving_amount');
 		
+		$amount = str_replace(',','.',$amount);		
+		$saving_amount = str_replace(',','.',$saving_amount);
+		
+		if (!is_numeric($amount) ) {  
+			return Response::json(['amount' => ['Неверный формат суммы']
+				], 422);
+        }
+		
+		if ( $amount <= 0 ) {  
+			return Response::json(
+					['amount'   =>  ['Сумма должна быть положительным числом']
+				], 422);
+        }		
+		
+		if (!is_numeric($saving_amount) ) {  
+			return Response::json([                
+                    'saving_amount'   =>  ['Неверный формат суммы'],
+                ], 422);
+        }
+		
+		if ( $saving_amount < 0 ) {  
+			return Response::json([                    
+                    'saving_amount'   =>  ['Сумма должна быть положительным числом'] ,
+                ], 422);
+        }	
+		
+        $input = $request->all();       
+		
+		//если выбираем счет по умолчанию, то обнуляем прежний
         if ($request->input('default_wallet')==1){
 			Bills::where('default_wallet',1)->update(['default_wallet'=>0]);
 		}
-
-        $newBill = Bills::create($input);
-
+		
+		try{
+			$newBill = new Bills;
+			$newBill->user_id = Auth::user()->id;
+			$newBill->name = $input['name'];
+			$newBill->amount = round($amount,2);
+			$newBill->currency_id = $input['currency_id'];			
+			$newBill->active = 1;
+			$newBill->default_wallet = $input['default_wallet'];	
+			$newBill->show = $input['show'];
+			$newBill->saving_account = $input['saving_account'];
+			$newBill->saving_amount = round($input['saving_amount'],2);
+			
+			$newBill->save();
+			
+		} catch( \Exception $e) {			
+			return Response::json([                    
+                    'main'   =>  ['Извините, произошла ошибка. Обратитесь в тех поддержку.'] ,
+                ], 422);
+		}
+		
         $bill = Bills::with('currency')->find($newBill->id);
 
         $ans['bill'] = $bill;
@@ -117,15 +162,12 @@ class BillsController extends Controller
         $bill->active = 0;
 
         try{
-            $bill->save();
-        } catch (Exception $e) {
-            abort(500);
-            $ans = ['status' => 'fail', 'message' => 'Ошибка операции'];
-
-            return json_encode($ans);
+            $bill->saves();
+        } catch (\Exception $e) {
+            abort(500);            
         }
 
-        $ans = ['status' => 'ok', 'message' => 'Счет успешно удален'];
+        $ans = ['status' => 'ok', 'message' => 'Счет успешно удален.'];
 
         return json_encode($ans);
 

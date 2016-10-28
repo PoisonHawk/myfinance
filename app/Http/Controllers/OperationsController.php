@@ -151,7 +151,7 @@ class OperationsController extends Controller
         }
 		
 		if ( $amount <= 0 ) {  
-            return redirect()->back()->with('flash_error', 'Сумма должны быть поло жительныйм числом' );
+            return redirect()->back()->with('flash_error', 'Сумма должна быть положительныйм числом' );
         }
 		    
 		$bill = Bills::find($bill_id);

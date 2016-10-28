@@ -112,7 +112,8 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
 
                     $scope.sending = false;
                 })
-                .error(function(data){                  
+                .error(function(data){   
+                    console.log(data);
                     $scope.sending = false;
                     $scope.showErrors(data);
                 })

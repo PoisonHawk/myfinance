@@ -52,6 +52,9 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Новый счет</h4>
+		<p class="text-danger" ng-show="error" ng-repeat="e in errors.main">
+			[[e]]
+		</p>
       </div>
 		
       <div class="modal-body">

@@ -88,6 +88,7 @@ class Bills extends Model
                 where b.user_id = ?
                 and b.active = 1
 				and b.show = 1
+				ORDER BY b.saving_account, b.default_wallet desc, amount desc
 SQL;
 
         $res = DB::select($sql, [$from,$from, $userId]);

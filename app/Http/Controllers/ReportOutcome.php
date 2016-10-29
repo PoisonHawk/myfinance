@@ -29,11 +29,11 @@ class ReportOutcome extends Controller
      * @todo добавить фильтры по врпемени
      * @return json
      */
-    public function getOutcome(){
+    public function getOutcome(Request $req){
         
         $op = new Operation();
-        
-        $data = $op->outcomes('outcome');
+
+        $data = $op->outcomes('outcome', $req->get('from'), $req->get('to'));
         
         return json_encode($data);
     }
@@ -43,11 +43,11 @@ class ReportOutcome extends Controller
      * @todo добавить фильтры по времени
      * @return json
      */
-    public function getIncome(){
+    public function getIncome(Request $req){
         
         $op = new Operation();
-        
-        $data = $op->outcomes('income');
+
+        $data = $op->outcomes('income', $req->get('from'), $req->get('to'));
         
         return json_encode($data);
     }

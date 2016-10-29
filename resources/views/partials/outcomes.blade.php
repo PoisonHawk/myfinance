@@ -19,13 +19,23 @@
 	<div class='panel-heading'>
 		<span ng-click="getReport('outcome')">Расходы</span>
 		<span ng-click="getReport('income')">Доходы</span>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				[[ activePeriod.name ]] <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="javascript: void(0)" ng-click="changePeriod(r)"  ng-repeat="r in periods | orderBy : '-from'">[[r.name]]</a></li>
+
+			</ul>
+		</div>
 	</div>
 	<div class='panel-body'>
 		<div class="row">
 			<div class="diagramm col-md-6 col-sm-6 col-xs-6">
-				<div >
+				<div ng-show="data.result.length>0">
 					<canvas class='chart' id="outcomes" width="300" height="300"></canvas>
 				</div>
+				<div ng-hide="data.result.length>0">Нет данных за указанный период.</div>
 				<div class='legend' id="legend"></div>
 				<div class='clearfix'></div>
 			</div> 

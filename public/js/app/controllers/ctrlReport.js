@@ -8,7 +8,45 @@ app.controller('ctrlReport', function($scope, reportFactory){
     $scope.block = false;
     $scope.loading = false;
     $scope.ctx = null;
-       
+    $scope.activePeriod = null;
+    $scope.periods = [];
+
+    $scope.makePeriod = function(period){
+
+        var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+        var  date = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
+       for (var i=1; i<=12; i++) {
+
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            var month =  (m+1) < 10 ? '0'+(m+1) : m+1;
+
+            var fromDate = y +'-'+ month + '-01';
+
+            var toDate = y + '-' + month + '-' +date.getDaysInMonth();
+
+            $scope.periods.push({
+                name: months[m] + ' ' + y,
+                from: fromDate,
+                to: toDate,
+            });
+
+            date.setMonth(m-1);
+        }
+
+        $scope.activePeriod = $scope.periods[0];
+
+    };
+
+    $scope.changePeriod = function(period){
+        $scope.activePeriod = period;
+        $scope.getReport($scope.type);
+
+    };
+
     $scope.drawDiagram = function(){
         
         var colors = ['rgb(255,99,71)', 'rgb(144,238,144)', 'rgb(135,206,235)', 'rgb(255,215,0)', 'rgb(128,0,0)', 'rgb(255,165,0)', 'rgb(60,179,113)', 'rgb(0,255,255)', 'rgb(255,192,203)', 'rgb(128,0,128)', 'rgb(0,128,128)', 'rgb(128,128,128)', 'rgb(192,192,192)'];
@@ -68,7 +106,9 @@ app.controller('ctrlReport', function($scope, reportFactory){
                   
                 }
             },
-        })     
+        })
+
+
         
     };
     
@@ -77,11 +117,11 @@ app.controller('ctrlReport', function($scope, reportFactory){
         if ($scope.block) {
             return;
         }
-        
+
         $scope.loading = true;
         $scope.block = true;
-        reportFactory.outcome(type)
-                .success( function(data) {                                                    
+        reportFactory.outcome(type, $scope.activePeriod.from, $scope.activePeriod.to)
+                .success( function(data) {
                         $scope.data = data;                          
                         $scope.loading = false;
                         $scope.drawDiagram(); 
@@ -91,8 +131,10 @@ app.controller('ctrlReport', function($scope, reportFactory){
                 .error(function(){
                     $scope.loading = false;
                 });       
-    };   
-    
+    };
+
+    $scope.makePeriod();
+
     $scope.getReport('outcome');
     
 })

@@ -63,17 +63,20 @@ class Operation extends Model
         
     }
     
-    public function outcomes($type){
+    public function outcomes($type, $dateFrom = NULL, $dateTo = NULL){
+
         $startTimestamp = mktime(0,0,0, date('m', time()), 1 , date('Y', time()));
         
         $from = date('Y-m-d', $startTimestamp);
+        $to = date('Y-m-d', time());
         
         $res = DB::table('operations')
                 ->join('categories', 'operations.category_id', '=', 'categories.id')
                 ->select('categories.name', 'categories.parent_id', 'operations.amount')
                 ->where('operations.user_id', '=', Auth::user()->id)
                 ->where('operations.type','=', $type)
-                ->where('operations.created', '>', $from)				
+                ->where('operations.created', '>=', $dateFrom)
+                ->where('operations.created', '<=', $dateTo)
                 ->get();            
 
         $result = [];

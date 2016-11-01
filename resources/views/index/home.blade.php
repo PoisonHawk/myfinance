@@ -11,20 +11,20 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td class="text-success text-center"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{ $dayWeekMonthStat['day']->income }}</td>
-					<td class="text-danger text-center"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{ $dayWeekMonthStat['day']->outcome }}</td>
+					<td class="text-success text-center">+&nbsp;{{ $dayWeekMonthStat['day']->income }}</td>
+					<td class="text-danger text-center">-&nbsp;{{ $dayWeekMonthStat['day']->outcome }}</td>
 					<td class="text-center {{ $dayWeekMonthStat['day']->income - $dayWeekMonthStat['day']->outcome > 0 ? 'text-success' : 'text-danger' }}">
 						<span class="glyphicon glyphicon-arrow-{{ $dayWeekMonthStat['day']->income - $dayWeekMonthStat['day']->outcome > 0 ? 'up' : 'down' }}"></span>&nbsp;
 						{{ $dayWeekMonthStat['day']->income - $dayWeekMonthStat['day']->outcome }}
 					</td>
-					<td class="text-success text-center"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{ $dayWeekMonthStat['week']->income }}</td>
-					<td class="text-danger text-center"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{ $dayWeekMonthStat['week']->outcome }}</td>
+					<td class="text-success text-center">+&nbsp;{{ $dayWeekMonthStat['week']->income }}</td>
+					<td class="text-danger text-center">-&nbsp;{{ $dayWeekMonthStat['week']->outcome }}</td>
 					<td class="text-center {{ $dayWeekMonthStat['week']->income - $dayWeekMonthStat['week']->outcome > 0 ? 'text-success' : 'text-danger' }}">
 						<span class="glyphicon glyphicon-arrow-{{ $dayWeekMonthStat['week']->income - $dayWeekMonthStat['week']->outcome > 0 ? 'up' : 'down' }}"></span>&nbsp;
 						{{ $dayWeekMonthStat['week']->income - $dayWeekMonthStat['week']->outcome }}
 					</td>
-					<td class="text-success text-center"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{ $dayWeekMonthStat['month']->income }}</td>
-					<td class="text-danger text-center"><span class="glyphicon glyphicon-minus"></span>&nbsp;{{ $dayWeekMonthStat['month']->outcome }}</td>
+					<td class="text-success text-center">+&nbsp;{{ $dayWeekMonthStat['month']->income }}</td>
+					<td class="text-danger text-center">-&nbsp;{{ $dayWeekMonthStat['month']->outcome }}</td>
 					<td class="text-center {{ $dayWeekMonthStat['month']->income - $dayWeekMonthStat['month']->outcome > 0 ? 'text-success' : 'text-danger' }}">
 						<span class="glyphicon glyphicon-arrow-{{ $dayWeekMonthStat['month']->income - $dayWeekMonthStat['month']->outcome > 0 ? 'up' : 'down' }}"></span>&nbsp;
 						{{ $dayWeekMonthStat['month']->income - $dayWeekMonthStat['month']->outcome }}
@@ -78,14 +78,14 @@
 			<div class="panel-heading"><h4>{{$b->name}}</h4></div>
 			<div class="panel-body">
 				<div class="text-center" style="font-size: 28px; margin: 20px 0;">
-					<span class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span> 
-					{{ number_format($b->amount, 2, '.', ' ')}} 
-					<!--{{ $b->currency }}-->
+					{{ number_format($b->amount, 2, '.', ' ')}}
+					<span style="font-size: 16px;" class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span>
 				</div>
 				@if($b->saving_account == 0) 
 				<div class="row">
-					<span class="text-success col-md-4"><span class="glyphicon glyphicon-plus"></span> {{ number_format($b->in, 2, '.', ' ')}}</span>
-					<span class="text-danger col-md-4"><span class="glyphicon glyphicon-minus"></span> {{ number_format( $b->out, 2, '.', ' ')}}</span>
+					<span class="text-success col-md-4">
+						+{{ number_format($b->in, 2, '.', ' ')}}</span>
+					<span class="text-danger col-md-4">-{{ number_format( $b->out, 2, '.', ' ')}}</span>
 					<span class="col-md-4"><span class="glyphicon glyphicon-arrow-{{ ($b->in - $b->out)>= 0 ? 'up text-success'  : 'down text-danger'  }}"></span> {{ number_format( ($b->in - $b->out), 2, '.', ' ' ) }}</span>
 				</div>
 				@else				

@@ -43,7 +43,7 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
-Route::controller('reportoutcome', 'ReportOutcome');
+Route::get('reportoutcome/{type}', 'ReportOutcome@getReport');
 
 Route::match(['get', 'post'], 'purchase/process/{id}', [
 	'uses' => 'PurchasesController@process',

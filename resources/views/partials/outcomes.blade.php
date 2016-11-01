@@ -17,8 +17,8 @@
 </style>
 <div class='panel panel-default' ng-controller="ctrlReport">
 	<div class='panel-heading'>
-		<span ng-click="getReport('outcome')">Расходы</span>
-		<span ng-click="getReport('income')">Доходы</span>
+		<span ng-click="getReport('outcome')" class="btn btn-danger btn-sm">Расходы</span>
+		<span ng-click="getReport('income')" class="btn btn-success btn-sm">Доходы</span>
 		<div class="btn-group">
 			<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				[[ activePeriod.name ]] <span class="caret"></span>

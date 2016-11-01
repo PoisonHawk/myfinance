@@ -66,9 +66,9 @@ class Operation extends Model
     public function outcomes($type, $dateFrom = NULL, $dateTo = NULL){
 
         $startTimestamp = mktime(0,0,0, date('m', time()), 1 , date('Y', time()));
-        
-        $from = date('Y-m-d', $startTimestamp);
-        $to = date('Y-m-d', time());
+        		
+        $dateFrom = !is_null($dateFrom) ? $dateFrom : date('Y-m-d', $startTimestamp);
+        $dateTo = !is_null($dateTo) ? $dateTo : date('Y-m-d', time());
         
         $res = DB::table('operations')
                 ->join('categories', 'operations.category_id', '=', 'categories.id')
@@ -77,9 +77,9 @@ class Operation extends Model
                 ->where('operations.type','=', $type)
                 ->where('operations.created', '>=', $dateFrom)
                 ->where('operations.created', '<=', $dateTo)
-                ->get();            
+                ->get(); 
 
-        $result = [];
+		$result = [];
         
         $total = 0;
         $num = 0;        
@@ -124,7 +124,6 @@ class Operation extends Model
                 return ($a['total'] > $b['total']) ? -1 : 1;
 
         });
-
         
         $data = [
             'result' => $result,

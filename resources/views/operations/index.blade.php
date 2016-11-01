@@ -87,7 +87,7 @@
     </tbody>
 </table>
 <div class="text-center">
-{!! $operations->render() !!}
+{!! $operations->appends(array('from_date' => $from_date, 'to_date' => $to_date, 'bill'=>$bill, 'type' => $type, 'category' => $category))->render() !!}
 </div>
 <a href='#' class='btn btn-success' data-toggle="modal" data-target="#modal_income">Доход</a>
 <a href='#' class='btn btn-danger' data-toggle="modal" data-target="#modal_outcome">Расход</a>

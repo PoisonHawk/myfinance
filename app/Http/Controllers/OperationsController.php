@@ -61,13 +61,13 @@ class OperationsController extends Controller
         $operations = $operations->orderBy('created', 'desc')->paginate(10);
      		
         //получаем список счетов        
-        $bills = array('0' => 'Все');
+        $bills = ['0' => 'Все'];
         
         foreach(Bills::userBills() as $b) {
             $bills[$b->id] = $b->name;
         }        
 	
-        $data = array(
+        $data = [
             'operations' => $operations,
             'to_date' => $to_date,
             'from_date' => $from_date,
@@ -79,12 +79,12 @@ class OperationsController extends Controller
                 'outcome' => 'Расходы',
 //                'transfers' => 'Перемещеня',
             ],
-            'type' => $req->input('types', 'all'),
+            'type' => $req->input('type', 'all'),
 			'categories' => $categories,
 			'category' => $category,
             
-        );        
-        
+        ];        
+		
         return view('operations.index', $data);
     }
 

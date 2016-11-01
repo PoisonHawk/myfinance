@@ -16,7 +16,7 @@ class IndexController extends Controller
 {
     
     public function home(){
-
+		
         $purchases = Purchase::where('priority', '=', 4)
             ->where('user_id', '=', Auth::user()->id)
             ->limit(10)

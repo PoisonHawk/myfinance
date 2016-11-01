@@ -207,7 +207,7 @@ SQL;
 	public function scopeYearOperationReport(){
 		
 		$sql = <<<SQL
-				SELECT extract(YEAR from created) as year, extract(MONTH from created_at) as month,  sum(case when type='outcome' then amount end) as outcome,
+				SELECT extract(YEAR from created) as year, extract(MONTH from created) as month,  sum(case when type='outcome' then amount end) as outcome,
 sum(case when type='income' then amount end) as income
 FROM "public"."operations"
 WHERE user_id = ?

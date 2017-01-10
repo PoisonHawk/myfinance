@@ -270,6 +270,7 @@ SQL;
 		$sql = <<<SQL
 				SELECT 
 					extract('MONTH' from o.created) as month, 
+					extract('YEAR' from o.created) as year, 
 					c.name, 
 					sum(o.amount) 
 				FROM 
@@ -283,9 +284,9 @@ SQL;
 				AND
 					o.created >= now() - interval '5 month'			
 				GROUP BY 
-					month, c.name
+					year, month, c.name
 				ORDER BY 
-					month, sum desc
+					year, month, sum desc
 				
 SQL;
 		

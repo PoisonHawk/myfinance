@@ -214,7 +214,7 @@ sum(case when type='income' then amount end) as income
 FROM "public"."operations"
 WHERE user_id = ?
 group by year, month
-order by month desc
+order by year desc, month desc
 limit 12
 SQL;
 		

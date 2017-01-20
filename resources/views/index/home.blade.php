@@ -82,12 +82,14 @@
 					<span style="font-size: 16px;" class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span>
 				</div>
 				@if($b->saving_account == 0) 
-				<div class="row">
+				<span class="pull-right"><a href="/operations?bill={{$b->id}}">Посмотреть все операции</a></span>
+<!--				<div class="row">
+					<span class="pull-right"><a href="/operations?bill={{$b->id}}">Операции</a></span>
 					<span class="text-success col-md-4">
 						+{{ number_format($b->in, 2, '.', ' ')}}</span>
 					<span class="text-danger col-md-4">-{{ number_format( $b->out, 2, '.', ' ')}}</span>
 					<span class="col-md-4"><span class="glyphicon glyphicon-arrow-{{ ($b->in - $b->out)>= 0 ? 'up text-success'  : 'down text-danger'  }}"></span> {{ number_format( ($b->in - $b->out), 2, '.', ' ' ) }}</span>
-				</div>
+				</div>-->
 				@else				
 				<div class="progress" style="position:relative">
 					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$b->percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$b->percent.'%'}};">

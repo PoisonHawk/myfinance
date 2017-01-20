@@ -60,6 +60,7 @@ class Bills extends Model
 
         $sql = <<<SQL
                 select
+					b.id,
                     b.name,
 					b.saving_account,
 					b.saving_amount,

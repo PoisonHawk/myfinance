@@ -14,6 +14,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         show: 0,
         saving_account: 0,
         saving_amount: 0,
+        credit: 0,
     };
     $scope.index;
     $scope.error = false;
@@ -35,6 +36,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
             show: 0,
             saving_account: 0,
             saving_amount: 0,
+            credit: 0,
         }
     };
 
@@ -63,8 +65,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         $scope.loading = true;
         billFactory.getBills()
                 .success(function(data, status, headers, config){
-                                       
-                    console.log(data.bills);
+
                     $scope.bills = data.bills;
                     $scope.currencies = data.currency;
                     $scope.loading = false;
@@ -77,6 +78,10 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
 
     $scope.addBill = function(){
 
+        console.log('add bill');
+
+        console.log($scope);
+
         $scope.sending = true;
 
         var post = {
@@ -87,6 +92,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
             show: $scope.bill.show,
             saving_account: $scope.bill.saving_account,
             saving_amount: $scope.bill.saving_amount,
+            credit: $scope.bill.credit,
         }
 
         billFactory.addBill(post)
@@ -139,6 +145,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
         $scope.bill.id = bill.id;
         $scope.bill.saving_account = bill.saving_account;
         $scope.bill.saving_amount = bill.saving_amount;
+        $scope.bill.credit = bill.credit;
         $('#modal_bill_update').modal('show');
     };
 
@@ -150,6 +157,7 @@ app.controller('BillCtrl', function($scope, billFactory, CSRF_TOKEN){
             name: $scope.bill.name,
             default_wallet: $scope.bill.default_wallet,
             show: $scope.bill.show,
+            credit: $scope.bill.credit,
         }
 
         billFactory.updateBill(id, post)

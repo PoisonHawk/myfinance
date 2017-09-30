@@ -44,6 +44,9 @@ class BillsController extends Controller
      */
     public function store(Request $request)
     {
+
+     
+
         $ans = ['status' =>'ok'];
 
         $messages = [
@@ -102,11 +105,13 @@ class BillsController extends Controller
 			$newBill->show = $input['show'];
 			$newBill->saving_account = $input['saving_account'];
 			$newBill->saving_amount = round($input['saving_amount'],2);
+            $newBill->credit = $input['credit'];
 			
 			$newBill->save();
 			
-		} catch( \Exception $e) {			
-			return Response::json([                    
+		} catch( \Exception $e) {
+//            throw new \Exception($e->getMessage());
+			return Response::json([
                     'main'   =>  ['Извините, произошла ошибка. Обратитесь в тех поддержку.'] ,
                 ], 422);
 		}

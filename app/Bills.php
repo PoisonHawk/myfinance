@@ -18,7 +18,8 @@ class Bills extends Model
         'default_wallet',
 		'show',
 		'saving_account',
-		'saving_amount'
+		'saving_amount',
+        'credit'
     ];
 
     protected $hidden = [

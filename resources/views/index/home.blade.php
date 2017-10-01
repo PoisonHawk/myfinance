@@ -76,11 +76,16 @@
 	<div class="col-lg-3 col-md-4 col-sm-6">
 		<div class="panel panel-default ">			
 			<div class="panel-heading"><h4>{{$b->name}}</h4></div>
-			<div class="panel-body">
-				<div class="text-center" style="font-size: 28px; margin: 20px 0;">
+			<div class="panel-body" style="min-height: 130px">
+				<p class="text-right" style="font-size: 28px; /*margin: 20px 0*/; position: relative">
 					{{ number_format($b->amount, 2, '.', ' ')}}
 					<span style="font-size: 16px;" class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span>
-				</div>
+
+				</p>
+				@if($b->credit == 1 and $b->debt_amount > 0)
+					<p class="text-right" style="font-size: 16px; right: 50px; color: red;">{{ number_format($b->debt_amount, 2, '.', ' ')}} <span style="font-size: 14px;" class="glyphicon glyphicon-{{ strtolower($b->currency)}}"></span></p>
+				@endif
+
 				@if($b->saving_account == 0) 
 				<span class="pull-right"><a href="/operations?bill={{$b->id}}">Посмотреть все операции</a></span>
 <!--				<div class="row">

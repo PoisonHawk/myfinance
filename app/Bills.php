@@ -65,6 +65,8 @@ class Bills extends Model
                     b.name,
 					b.saving_account,
 					b.saving_amount,
+					b.credit,
+					b.debt_amount,
 					case when(b.saving_account = 1) then b.amount/b.saving_amount*100 else 0 end as percent,
                     (select
                             sum(amount)
@@ -123,7 +125,7 @@ SQL;
     }
     
     public function increaseDebt($amount){
-      
+
         $this->debt_amount = floatval($this->debt_amount) + abs(floatval($amount));
         $this->save();
     }

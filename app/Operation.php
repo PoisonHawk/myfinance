@@ -56,20 +56,13 @@ class Operation extends Model
 
             //если списываем с кредитного счета, то создаем/обновляем долг
             if($this->bill->credit == 1 and $data['type'] == 'outcome') {
+                $this->bill->increaseDebt(abs(floatval($amount)));
 
-                $this->bill->debt_amount = floatval($this->bill->debt_amount) + abs(floatval($amount));
-
-//                Credit::increase($data['bills_id'], $amount);
             }
 
             //если пополняем крединтый счет, то списываем долг
             if($this->bill->credit == 1 and $data['type'] == 'income') {
-
-                $debtAmount = min(abs($amount), $this->bill->debt_amount);
-                
-                $this->bill->debt_amount = floatval($this->bill->debt_amount) - floatval($debtAmount);
-                
-//                Credit::decrease($data['bills_id'], $amount);
+                $this->bill->decreaseDebt(abs(floatval($amount)));
             }
 
             $this->bill->save();

@@ -115,5 +115,25 @@ SQL;
             ->get();
         
     }
+    
+    public static function isCredit($bill){
+        
+        return $bill->credit === 1;
+        
+    }
+    
+    public function increaseDebt($amount){
+      
+        $this->debt_amount = floatval($this->debt_amount) + abs(floatval($amount));
+        $this->save();
+    }
+
+    public function decreaseDebt($amount){
+        
+        $debtAmount = min(abs($amount), $this->debt_amount);
+
+        $this->debt_amount = floatval($this->debt_amount) - floatval($debtAmount);
+        $this->save();
+    }
 
 }

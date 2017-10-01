@@ -16,6 +16,7 @@ use DB;
 
 class TransferController extends Controller
 {
+
     
     /**
      * Display a listing of the resource.
@@ -130,9 +131,19 @@ class TransferController extends Controller
             
             $billFrom->amount -= $amount;
             $billFrom->save();
+
+            if(Bills::isCredit($billFrom)) {
+           
+                $billFrom->increaseDebt($amount);
+            }
             
             $billTo->amount += $amount;
             $billTo->save();
+
+            if(Bills::isCredit($billTo)) {
+                $billTo->decreaseDebt($amount);
+            }
+
             
 			//todo нужны ли записи в operations?
 			//

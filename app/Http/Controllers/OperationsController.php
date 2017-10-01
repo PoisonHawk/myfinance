@@ -164,9 +164,12 @@ class OperationsController extends Controller
         }
         
         $op = new Operation();
+
+        //todo не выбрасывает исключение
 		try{
 			$op->operationTransact($req->input());
-		} catch (\Exception $e) {			
+		} catch (\Exception $e) {
+//            return redirect()->back()->with('flash_error', $e->getMessage());
 			return redirect()->back()->with('flash_error', 'Невозможно провести операцию. Обратитесь в тех. поддержку.');
 		}
         

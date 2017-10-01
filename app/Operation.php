@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Auth;
 use DB;
 use Session;
+use App\Credit;
 
 class Operation extends Model
 {
@@ -30,36 +31,58 @@ class Operation extends Model
     
    
     public function operationTransact($data){
-                
-        $amount = str_replace(',','.',$data['amount']);
-                
+
+        $amount = round(str_replace(',','.',$data['amount']), 2);
+
         //транзакция
         DB::beginTransaction();
         try{
-                      
+
+            //создаем запись операции
             $this->created = $data['created'];
-            $this->user_id = Auth::user()->id;
+            $this->user_id = Auth::id();
             $this->bills_id = $data['bills_id'];
             $this->category_id = $data['category_id'];
             $this->type = $data['type'];
-            $this->amount = round($amount, 2);
+            $this->amount = $amount;
             $this->active = 1;
             $this->save();
                    
             $amount = $data['type'] == 'income' ? $amount : -$amount;
-            
+
+            //обновляем сумму на счете
             $this->bill->amount = floatval($this->bill->amount) + floatval($amount);
+           
+
+            //если списываем с кредитного счета, то создаем/обновляем долг
+            if($this->bill->credit == 1 and $data['type'] == 'outcome') {
+
+                $this->bill->debt_amount = floatval($this->bill->debt_amount) + abs(floatval($amount));
+
+//                Credit::increase($data['bills_id'], $amount);
+            }
+
+            //если пополняем крединтый счет, то списываем долг
+            if($this->bill->credit == 1 and $data['type'] == 'income') {
+
+                $debtAmount = min(abs($amount), $this->bill->debt_amount);
+                
+                $this->bill->debt_amount = floatval($this->bill->debt_amount) - floatval($debtAmount);
+                
+//                Credit::decrease($data['bills_id'], $amount);
+            }
+
             $this->bill->save();
-            
+
         } catch (\Exception $e) {
-			
+
 			DB::rollBack();
             throw new \Exception($e->getMessage());
             
         }
                         
         DB::commit();
-        //конец транзакции
+
         
     }
     

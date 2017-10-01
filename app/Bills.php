@@ -106,5 +106,14 @@ SQL;
                 ->where('type', '=', $type)
                 ->where('created_at', '>=', $from);
     }
+    
+    public static function getDebts(){
+
+        return Bills::where('user_id', Auth::id())
+            ->where('debt_amount', '>', 0)
+            ->orderBy('debt_amount', 'desc')
+            ->get();
+        
+    }
 
 }
